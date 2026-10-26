@@ -1,0 +1,27 @@
+import SimpleService from "@/components/SimpleService";
+import { pageMeta } from "@/lib/seo";
+
+const path = "/furry-ref-sheet-commissions/";
+const lede = "No reference sheet yet? Our artists draw clear, fursuit-accurate fursona reference sheets so your character can be built exactly as you imagine.";
+
+export const metadata = pageMeta({ title: "Fursona Reference Sheet Commissions", description: lede, path });
+
+export default function Page() {
+  return (
+    <SimpleService
+      path={path}
+      crumb="Reference Sheets"
+      eyebrow="Reference sheets"
+      title="Fursona Reference Sheet Commissions"
+      lede={lede}
+      quoteHref="/get-a-quote/?service=refsheet"
+      points={[
+        { title: "Fursuit accuracy", body: "Drawn with markings, colours and proportions a maker can build from." },
+        { title: "From any starting point", body: "Descriptions, sketches, old art or inspiration photos all work." },
+        { title: "Required for production", body: "A clear ref sheet is needed before any fursuit build begins." },
+        { title: "Use it everywhere", body: "Great for future art commissions, plush and cosplay too." },
+      ]}
+      illustration="/media/gallery/assets-task-01k07cz82zf7zb7scm5rpcy2xj-175259525-ca3c05.webp"
+    />
+  );
+}

@@ -1,0 +1,36 @@
+{
+  "name": "fursuit-commissions",
+  "version": "1.0.0",
+  "private": true,
+  "description": "FursuitCommissions.com — custom fursuit studio site (Next.js, headless WooCommerce for shop + checkout)",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint src",
+    "typecheck": "tsc --noEmit",
+    "sync": "node scripts/sync-woo.mjs",
+    "sync:dry": "node scripts/sync-woo.mjs --dry-run"
+  },
+  "dependencies": {
+    "next": "^16.2.7",
+    "nodemailer": "^8.0.10",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "server-only": "^0.0.1",
+    "sharp": "^0.34.5"
+  },
+  "devDependencies": {
+    "@tailwindcss/forms": "^0.5.9",
+    "@types/node": "^20.14.0",
+    "@types/nodemailer": "^8.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^9.0.0",
+    "eslint-config-next": "^16.2.7",
+    "postcss": "^8.4.47",
+    "tailwindcss": "^3.4.13",
+    "typescript": "^5.5.4"
+  }
+}

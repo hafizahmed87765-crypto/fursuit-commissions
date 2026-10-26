@@ -1,0 +1,181 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 6rem;
+  }
+  body {
+    @apply bg-white font-sans text-ink antialiased;
+  }
+  h1,
+  h2,
+  h3 {
+    @apply font-display text-forest;
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  :focus-visible {
+    @apply outline-none ring-2 ring-mint-deep ring-offset-2 ring-offset-white;
+  }
+  ::selection {
+    @apply bg-mint-light text-forest;
+  }
+}
+
+@layer components {
+  .container-x {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+  .eyebrow {
+    @apply inline-flex items-center gap-2 font-display text-sm font-semibold uppercase tracking-[0.14em] text-mint-deep;
+  }
+  .h-section {
+    @apply text-3xl font-semibold leading-tight sm:text-4xl lg:text-[2.75rem];
+  }
+  .lede {
+    @apply text-lg leading-relaxed text-ink-muted;
+  }
+
+  /* Buttons */
+  .btn {
+    @apply inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full px-6 py-3 font-display text-base font-semibold transition duration-200 ease-out active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60;
+  }
+  .btn-primary {
+    @apply btn bg-forest text-white shadow-card hover:bg-forest-700 hover:shadow-lift motion-safe:hover:-translate-y-0.5;
+  }
+  .btn-secondary {
+    @apply btn border-2 border-forest bg-white text-forest hover:bg-mint-light;
+  }
+  .btn-soft {
+    @apply btn bg-mint-light text-forest hover:bg-mint;
+  }
+  .btn-sm {
+    @apply min-h-[40px] px-4 py-2 text-sm;
+  }
+
+  /* Text links keep an underline so they stay recognisable as links. */
+  .link {
+    @apply font-semibold text-forest underline decoration-mint-deep/50 decoration-2 underline-offset-4 transition hover:decoration-forest;
+  }
+
+  .card {
+    @apply rounded-blob bg-white shadow-card ring-1 ring-forest/5;
+  }
+  .chip {
+    @apply inline-flex items-center rounded-full bg-mint-light px-3 py-1 text-xs font-semibold text-forest;
+  }
+
+  /* Forms */
+  .field-label {
+    @apply mb-1.5 block text-sm font-semibold text-forest;
+  }
+  .field {
+    @apply block w-full rounded-xl border-forest/20 bg-white px-4 py-3 text-base text-ink shadow-sm transition placeholder:text-ink-muted/60 focus:border-mint-deep focus:ring-mint-deep;
+  }
+  .field[aria-invalid="true"] {
+    @apply border-red-600 focus:border-red-600 focus:ring-red-600;
+  }
+  .field-hint {
+    @apply mt-1.5 text-sm text-ink-muted;
+  }
+  .field-error {
+    @apply mt-1.5 flex items-start gap-1 text-sm font-semibold text-red-700;
+  }
+  .choice {
+    @apply relative flex cursor-pointer items-start gap-3 rounded-2xl border-2 border-forest/10 bg-white p-4 transition hover:border-mint-deep/60 has-[:checked]:border-forest has-[:checked]:bg-mint-wash has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-mint-deep;
+  }
+
+  /* Decorative paw-print texture used on mint sections */
+  .bg-paws {
+    background-image: radial-gradient(circle at 1px 1px, rgb(33 70 63 / 0.07) 1.5px, transparent 0);
+    background-size: 22px 22px;
+  }
+}
+
+/* Scroll reveal: elements start visible (no-JS safe) and only animate once
+   JS has marked the document. */
+.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.js [data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* FAQ accordion: animate <details> height where supported. */
+details.faq::details-content {
+  block-size: 0;
+  overflow: hidden;
+  transition:
+    block-size 0.3s ease,
+    content-visibility 0.3s allow-discrete;
+}
+details.faq[open]::details-content {
+  block-size: auto;
+}
+@supports (interpolate-size: allow-keywords) {
+  :root {
+    interpolate-size: allow-keywords;
+  }
+}
+details.faq summary::-webkit-details-marker {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .js [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Imported WooCommerce product copy */
+.prose-content > * + * {
+  margin-top: 0.85em;
+}
+.prose-content h2,
+.prose-content h3,
+.prose-content h4 {
+  @apply font-display text-xl font-semibold text-forest;
+  margin-top: 1.4em;
+}
+.prose-content ul {
+  @apply list-disc pl-6;
+}
+.prose-content ol {
+  @apply list-decimal pl-6;
+}
+.prose-content li + li {
+  margin-top: 0.3em;
+}
+.prose-content a {
+  @apply link;
+}
+.prose-content img {
+  @apply my-4 h-auto max-w-full rounded-2xl;
+}
+.prose-content table {
+  @apply w-full text-left text-sm;
+}
+.prose-content td,
+.prose-content th {
+  @apply border-b border-forest/10 py-2 pr-3;
+}
