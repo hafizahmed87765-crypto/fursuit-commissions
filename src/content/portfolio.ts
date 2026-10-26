@@ -6,7 +6,7 @@
 // CONFIRM: most WIP photos were uploaded with Taobao/Alibaba CDN filenames
 // (O1CN01…). Confirm they show the studio's own work before launch.
 
-export type PortfolioTag = "kemono" | "toony" | "fullsuit" | "partial" | "head" | "paws" | "tail" | "wip" | "cosplay" | "plush" | "other";
+export type PortfolioTag = "kemono" | "toony" | "fullsuit" | "partial" | "head" | "paws" | "tail" | "wip" | "other";
 
 export type PortfolioItem = {
   id: string;
@@ -35,9 +35,6 @@ export const portfolio: PortfolioItem[] = [
   { id: "wip-canine", title: "Black canine head, furring", src: "/media/gallery/o1cn01w9dus01cnocoqzhzm-4611686018427385509-0-am-4bf73a.webp", width: 1200, height: 1600, tags: ["wip", "head"], alt: "Black canine fursuit head mid-way through furring, eyes not yet installed" },
   { id: "wip-fur-cut", title: "Cut fur pieces", src: "/media/gallery/o1cn01dgqmih1cnoblos5ug-4611686018427385509-0-am-9ac3b9.webp", width: 1200, height: 1600, tags: ["wip"], alt: "Orange and black faux fur pieces cut from a pattern and laid out on a work table" },
   { id: "wip-tails", title: "Tail fur samples", src: "/media/gallery/o1cn01i8wft21cnob1qdzdb-4611686018427385509-0-am-61d617.webp", width: 1080, height: 741, tags: ["wip", "tail"], alt: "Row of faux fur tail samples in yellow, mauve, orange and red" },
-  { id: "cosplay-1", title: "Fantasy cosplay gown", src: "/media/gallery/whatsapp-image-2026-05-08-at-3-20-55-pm-22e9b9.webp", width: 1026, height: 1008, tags: ["cosplay"], alt: "White and gold fantasy cosplay outfit with armour details on a mannequin" },
-  { id: "cosplay-2", title: "Military-style cosplay", src: "/media/gallery/whatsapp-image-2026-05-08-at-3-21-11-pm-aa71fe.webp", width: 1035, height: 1008, tags: ["cosplay"], alt: "White military-style cosplay coat with red accents beside the character reference art" },
-  { id: "plush-frog", title: "Frog plush", src: "/media/gallery/4a318d1e0efe7cbea750642fa830ef21ab4ad45a-457dc6.webp", width: 500, height: 500, tags: ["plush"], alt: "Green and white frog plush sitting upright" },
 ];
 
 export const filterLabels: Partial<Record<PortfolioTag, string>> = {
@@ -48,6 +45,4 @@ export const filterLabels: Partial<Record<PortfolioTag, string>> = {
   paws: "Paws",
   tail: "Tails",
   wip: "In progress",
-  cosplay: "Cosplay",
-  plush: "Plush",
 };

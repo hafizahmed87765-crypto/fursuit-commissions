@@ -32,6 +32,13 @@ export default function QuotePage() {
               <li>• A clear reference sheet is required before production. We can draw one for you.</li>
               <li>• Typical production time is {policies.typicalProduction}; your quote includes an estimate.</li>
               <li>• Clients must be {policies.minimumAge}+ (or have guardian approval).</li>
+              <li>
+                • Over $500? Start with a 50% deposit;{" "}
+                <Link href="/payment-plans/" className="link font-normal">
+                  payment plans
+                </Link>{" "}
+                may be available.
+              </li>
             </ul>
           </div>
           <div className="card p-6">

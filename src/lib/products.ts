@@ -23,6 +23,9 @@ export type Product = {
 
 export const products = raw as Product[];
 export const categories = cats as { slug: string; name: string; count: number }[];
+/** Categories offered as shop filters. Cosplay-branded categories are kept as
+ *  WooCommerce data (their products and URLs still work) but not promoted. */
+export const shopCategories = categories.filter((c) => !c.slug.includes("cosplay"));
 
 export const getProduct = (slug: string) => products.find((p) => p.slug === slug);
 
@@ -51,7 +54,7 @@ const RELATED: Record<string, string[]> = {
   masks: ["hand-and-feet-paws", "partials"],
   partials: ["heads-and-partials", "ear-and-tails"],
   "hand-and-feet-paws": ["heads-and-partials", "partials", "ear-and-tails"],
-  "ear-and-tails": ["hand-and-feet-paws", "cosplay-accessories"],
+  "ear-and-tails": ["hand-and-feet-paws", "heads-and-partials"],
 };
 
 export function relatedProducts(p: Product, limit = 4) {

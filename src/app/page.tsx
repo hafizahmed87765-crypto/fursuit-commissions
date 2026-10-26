@@ -23,7 +23,7 @@ export const metadata = pageMeta({
   path: "/",
 });
 
-const featured = portfolio.filter((p) => !p.tags.includes("cosplay") && !p.tags.includes("plush")).slice(0, 8);
+const featured = portfolio.slice(0, 8);
 
 export default function HomePage() {
   return (
@@ -34,6 +34,25 @@ export default function HomePage() {
       <section aria-labelledby="styles" className="container-x py-16 sm:py-24">
         <SectionHeading id="styles" eyebrow="Choose your style" title="Three ways to bring your character home" lede="Every commission is built from scratch. Start with the style that fits your character, and we'll shape the rest around your reference." />
         <ServiceCards />
+        <ul className="mt-6 grid gap-4 sm:grid-cols-3">
+          {[
+            { href: "/fursuit-parts/", title: "Fursuit Parts", body: "Paws, tails and heads, custom or ready-made" },
+            { href: "/fursuit-repairs/", title: "Repairs & Refurbishment", body: "Photo-based assessment for existing suits" },
+            { href: "/payment-plans/", title: "Payment Plans", body: "Deposits, balances and plans on select orders" },
+          ].map((s, i) => (
+            <li key={s.href} data-reveal style={{ ["--reveal-delay" as string]: `${i * 70}ms` }}>
+              <Link href={s.href} className="group flex h-full items-center justify-between gap-4 rounded-2xl border-2 border-forest/10 bg-white p-5 transition hover:border-mint-deep/50 hover:bg-mint-wash">
+                <span>
+                  <span className="block font-display text-lg font-semibold text-forest">{s.title}</span>
+                  <span className="block text-sm text-ink-muted">{s.body}</span>
+                </span>
+                <span aria-hidden className="text-xl text-forest transition-transform group-hover:translate-x-1">
+                  →
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ul>
       </section>
 
       <section aria-labelledby="featured" className="bg-mint-wash py-16 sm:py-24">
@@ -65,6 +84,12 @@ export default function HomePage() {
           </Link>
         </div>
         <ProcessSteps compact />
+        <p className="mt-8 text-ink-muted">
+          Wondering about deposits?{" "}
+          <Link href="/payment-plans/" className="link">
+            How payments and payment plans work
+          </Link>
+        </p>
       </section>
 
       <section aria-labelledby="planner" className="bg-lavender-soft py-16 sm:py-24">

@@ -18,10 +18,11 @@ export const metadata = pageMeta({
 });
 
 const steps = [
-  { title: "Send photos", body: "Use the form below with clear photos of each piece and close-ups of the damage." },
-  { title: "We assess", body: "We review construction, materials and damage, and tell you whether it's something we can fix well." },
-  { title: "Quote & shipping", body: "If we can take it on, you get a quote and shipping instructions. Don't ship anything before this." },
-  { title: "Repair & return", body: "Once the repair is done and paid for, we ship the suit back to you." },
+  { title: "Describe the issue", body: "Tell us what's damaged, the original maker if known, and what you'd like fixed." },
+  { title: "Upload photos", body: "Add clear photos of each piece plus close-ups of every problem area." },
+  { title: "Request assessment", body: "Submit the form. This asks for an assessment; it doesn't commit you to anything." },
+  { title: "Receive a quote", body: "We tell you honestly whether we can fix it well, and send a quote and shipping instructions if we can." },
+  { title: "Confirm the repair", body: "Accept the quote, then ship the suit. Don't send anything before we confirm." },
 ];
 
 export default function RepairsPage() {
@@ -72,9 +73,9 @@ export default function RepairsPage() {
       <section aria-labelledby="repair-steps" className="bg-mint-wash py-16 sm:py-20">
         <div className="container-x">
           <SectionHeading id="repair-steps" eyebrow="How it works" title="From photos to a refreshed suit" />
-          <ol className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <ol className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
             {steps.map((s, i) => (
-              <li key={s.title} data-reveal className="card flex gap-4 p-5">
+              <li key={s.title} data-reveal className="card flex gap-4 p-5 lg:flex-col">
                 <span aria-hidden className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-forest font-display text-lg font-bold text-white">
                   {i + 1}
                 </span>

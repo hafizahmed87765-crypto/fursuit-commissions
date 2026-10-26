@@ -27,7 +27,10 @@ export const site = {
     { name: "Facebook", href: "https://www.facebook.com/FursuitCommissions" },
     { name: "YouTube", href: "https://www.youtube.com/@fursuit87765" },
   ],
-  // From Terms → Payments: "PayPal, Stripe, and other approved processors".
+  // Commission invoices — Terms → Payments: "PayPal, Stripe, and other
+  // approved processors". The shop checkout itself only has Stripe (card)
+  // enabled (verified via the WooCommerce Store API, Oct 2026); see
+  // src/content/payments.ts.
   paymentMethods: ["PayPal", "Stripe"],
 };
 
@@ -41,7 +44,7 @@ export const policies = {
   typicalProduction: "about 6–12 weeks on average",
 };
 
-export type ServiceKey = "custom" | "kemono" | "toony" | "repair" | "cosplay" | "plush";
+export type ServiceKey = "custom" | "kemono" | "toony" | "repair";
 
 export const nav = {
   primary: [
@@ -52,11 +55,13 @@ export const nav = {
         { label: "Custom Fursuits", href: "/fursuit-commission/", note: "Heads, partials and fullsuits" },
         { label: "Kemono Suits", href: "/kemono-fursuits/", note: "Anime-inspired, big-eyed builds" },
         { label: "Toony Suits", href: "/toony-fursuits/", note: "Bold, expressive cartoon style" },
+        { label: "Fursuit Parts", href: "/fursuit-parts/", note: "Paws, tails, heads & ears" },
         { label: "Repairs & Refurbishment", href: "/fursuit-repairs/", note: "Assessment for existing suits" },
       ],
     },
     { label: "Gallery", href: "/gallery/" },
     { label: "Our Process", href: "/order-process/" },
+    { label: "Payment Plans", href: "/payment-plans/" },
     { label: "Shop", href: "/shop/" },
     {
       label: "More",
@@ -65,8 +70,6 @@ export const nav = {
         { label: "About", href: "/about-us/" },
         { label: "Contact", href: "/contact-us/" },
         { label: "Reference Sheets", href: "/furry-ref-sheet-commissions/" },
-        { label: "Cosplay Suit Commissions", href: "/cosplay-suit-commission/" },
-        { label: "Custom Plush Commissions", href: "/custom-plush-commission/" },
       ],
     },
   ],

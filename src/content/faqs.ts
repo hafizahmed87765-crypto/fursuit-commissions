@@ -10,7 +10,7 @@ export const generalFaqs: Faq[] = [
   },
   {
     q: "What types of suits and parts can I order?",
-    a: "Fullsuits, partials, fursuit heads, hand paws, feet paws and tails, in Kemono, Toony or custom styles. We also take repair assessments, cosplay suits and custom plushies.",
+    a: "Fullsuits, partials, fursuit heads, hand paws, feet paws and tails, in Kemono, Toony or custom styles. We also take repair assessments, and sell ready-made parts in our shop.",
     link: { href: "/fursuit-commission/", label: "Compare coverage options" },
   },
   {
@@ -34,7 +34,7 @@ export const generalFaqs: Faq[] = [
   {
     q: "What payment arrangements are available?",
     a: "Orders under $500 are paid in full upfront. Orders over $500 start with a 50% non-refundable deposit and the balance is due before shipping. Payment plans may be available on select orders. We accept PayPal and Stripe.",
-    link: { href: "/terms-and-conditions/", label: "Read the full payment terms" },
+    link: { href: "/payment-plans/", label: "How deposits and payment plans work" },
   },
   {
     q: "Do you ship internationally?",

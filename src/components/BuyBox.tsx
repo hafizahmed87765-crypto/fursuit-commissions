@@ -92,7 +92,7 @@ export default function BuyBox({ p }: { p: Product }) {
               Ask about this item
             </Link>
           )}
-          {canBuy ? <p className="text-xs text-ink-muted">You'll check out securely on our store with PayPal or card.</p> : null}
+          {canBuy ? <p className="text-xs text-ink-muted">You'll check out securely on our store, paying by card via Stripe. Shop items are paid in full; payment plans apply to custom commissions only.</p> : null}
         </>
       )}
 

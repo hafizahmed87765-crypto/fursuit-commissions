@@ -179,3 +179,22 @@ details.faq summary::-webkit-details-marker {
 .prose-content th {
   @apply border-b border-forest/10 py-2 pr-3;
 }
+
+/* Announcement bar: collapses when dismissed; stays hidden on later visits. */
+.announcement {
+  display: grid;
+  grid-template-rows: 1fr;
+  transition:
+    grid-template-rows 0.25s ease,
+    opacity 0.25s ease;
+}
+.announcement > * {
+  overflow: hidden;
+}
+.announcement.is-dismissing {
+  grid-template-rows: 0fr;
+  opacity: 0;
+}
+html[data-ann-dismissed] .announcement {
+  display: none;
+}

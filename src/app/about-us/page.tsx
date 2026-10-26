@@ -8,15 +8,15 @@ import { pageMeta } from "@/lib/seo";
 
 export const metadata = pageMeta({
   title: "About Our Fursuit Studio",
-  description: "FursuitCommissions.com is a maker studio for custom fursuits, cosplay suits and plushies, built from scratch, made to order and crafted with care.",
+  description: "FursuitCommissions.com is a maker studio for custom fursuits, Kemono and Toony suits, fursuit parts and repairs, built from scratch and made to order.",
   path: "/about-us/",
 });
 
 // Copy adapted from the studio's own About page (spam-free sections only).
 const crafts = [
-  { title: "Custom fursuits", body: "Full suits, partials, fursuit heads, paws and tails. Kemono, Toony or realistic, foam-carved and hand-sewn to your specs.", href: "/fursuit-commission/" },
-  { title: "Cosplay suits", body: "Original characters built convention-ready, with the same care and detail as our fursuit work.", href: "/cosplay-suit-commission/" },
-  { title: "Custom plushies", body: "Soft, huggable and fully custom, sewn to match your reference. Perfect for gifting or display.", href: "/custom-plush-commission/" },
+  { title: "Custom fursuits", body: "Fullsuits, partials and fursuit heads, foam-carved and hand-sewn to your reference.", href: "/fursuit-commission/" },
+  { title: "Kemono & Toony", body: "Anime-inspired Kemono faces or bold, expressive Toony characters, built around your design.", href: "/kemono-fursuits/" },
+  { title: "Parts & repairs", body: "Paws, tails and finishing touches, plus repair assessments for suits that need some love.", href: "/fursuit-parts/" },
 ];
 
 export default function AboutPage() {
@@ -26,13 +26,13 @@ export default function AboutPage() {
         crumbs={[{ name: "About", path: "/about-us/" }]}
         eyebrow="About us"
         title="We don't just make suits. We bring characters to life."
-        lede="FursuitCommissions.com is a maker studio specialising in custom fursuits, cosplay suits and handcrafted plushies: built from scratch, made to order and crafted with real care."
+        lede="FursuitCommissions.com is a maker studio specialising in custom fursuits: built from scratch, made to order and crafted with real care."
       />
       <section aria-labelledby="story" className="container-x grid items-center gap-10 py-16 sm:py-20 lg:grid-cols-2">
         <div data-reveal>
           <SectionHeading id="story" eyebrow="The studio behind every stitch" title="A studio that actually listens" />
           <div className="mt-5 space-y-4 text-lg text-ink-muted">
-            <p>We started because we believed the furry and cosplay community deserved a maker studio that takes your reference seriously, keeps you updated through every stage, and delivers something you're genuinely proud to wear or display.</p>
+            <p>We started because we believed the furry community deserved a maker studio that takes your reference seriously, keeps you updated through every stage, and delivers something you're genuinely proud to wear or display.</p>
             <p>Every piece that leaves our workshop is handmade by our team. Your order gets individual attention from first quote to final delivery.</p>
           </div>
         </div>
@@ -44,7 +44,7 @@ export default function AboutPage() {
 
       <section aria-labelledby="crafts" className="bg-mint-wash py-16 sm:py-20">
         <div className="container-x">
-          <SectionHeading id="crafts" eyebrow="What we make" title="Three crafts, one studio" />
+          <SectionHeading id="crafts" eyebrow="What we make" title="Everything for your fursuit, one studio" />
           <ul className="mt-10 grid gap-5 md:grid-cols-3">
             {crafts.map((c) => (
               <li key={c.title} data-reveal>

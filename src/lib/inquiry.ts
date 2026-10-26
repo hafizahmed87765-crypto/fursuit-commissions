@@ -15,8 +15,6 @@ export const SERVICES = [
   { value: "custom", label: "Custom fursuit" },
   { value: "kemono", label: "Kemono suit" },
   { value: "toony", label: "Toony suit" },
-  { value: "cosplay", label: "Cosplay suit" },
-  { value: "plush", label: "Custom plush" },
   { value: "refsheet", label: "Reference sheet only" },
 ] as const;
 
@@ -82,7 +80,7 @@ export function validateInquiry(kind: InquiryKind, f: Record<string, string>, fi
   validateEmail(f.email, errors);
   if (kind === "quote") {
     if (!SERVICES.some((s) => s.value === f.service)) errors.service = "Choose a service.";
-    if (f.service !== "refsheet" && f.service !== "plush" && !COVERAGE.some((c) => c.value === f.coverage)) errors.coverage = "Choose what you'd like made.";
+    if (f.service !== "refsheet" && !COVERAGE.some((c) => c.value === f.coverage)) errors.coverage = "Choose what you'd like made.";
     req(f.species, "Species", errors, "species", 120);
     req(f.design, "Design description", errors, "design", 5000);
     validateLinks(f.links, errors);

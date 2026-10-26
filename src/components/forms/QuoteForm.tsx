@@ -37,7 +37,7 @@ const STEPS = ["Service", "Coverage", "Character", "References", "Budget & timin
 // Which step owns each field, so server-side errors can send the visitor back.
 const FIELD_STEP: Record<string, number> = { service: 0, coverage: 1, parts: 1, species: 2, design: 2, files: 3, links: 3, name: 5, email: 5, agree: 6, privacy: 6 };
 
-const needsCoverage = (service: string) => service !== "refsheet" && service !== "plush";
+const needsCoverage = (service: string) => service !== "refsheet";
 
 function validateStep(step: number, d: Data, files: File[]): Errors {
   const e: Errors = {};
@@ -94,7 +94,7 @@ export default function QuoteForm() {
       links: "",
       budget: "",
       timing: "",
-      paymentPlan: "",
+      paymentPlan: params.get("paymentPlan") === "yes" ? "Yes" : "",
       name: "",
       email: "",
       contact: "",
@@ -142,7 +142,7 @@ export default function QuoteForm() {
     const e = validateStep(step, d, files);
     setErrors(e);
     if (Object.keys(e).length) return;
-    // Plush and reference-sheet requests skip the coverage step.
+    // Reference-sheet requests skip the coverage step.
     setStep((s) => (s === 0 && !needsCoverage(d.service) ? 2 : s + 1));
   };
   const back = () => setStep((s) => (s === 2 && !needsCoverage(d.service) ? 0 : Math.max(0, s - 1)));
@@ -386,7 +386,12 @@ export default function QuoteForm() {
                   <Radio key={p} name="paymentPlan" value={p} current={d.paymentPlan} onSelect={(v) => set("paymentPlan", v)} label={p} />
                 ))}
               </div>
-              <p className="field-hint">Payment plans may be available on select orders.</p>
+              <p className="field-hint">
+                Payment plans may be available on select orders; any schedule or fee is confirmed in your quote.{" "}
+                <Link href="/payment-plans/" className="link font-normal" target="_blank">
+                  How payment plans work
+                </Link>
+              </p>
             </fieldset>
           </>
         ) : null}

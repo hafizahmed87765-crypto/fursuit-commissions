@@ -33,7 +33,7 @@ function DesktopItem({ item, active }: { item: Item; active: boolean }) {
     };
   }, [open]);
 
-  const base = `inline-flex min-h-[44px] items-center gap-1 rounded-full px-3.5 font-display font-semibold transition hover:bg-mint-light ${active ? "text-forest bg-mint-light/70" : "text-forest/85"}`;
+  const base = `inline-flex min-h-[44px] items-center gap-1 whitespace-nowrap rounded-full px-3.5 font-display font-semibold transition hover:bg-mint-light ${active ? "text-forest bg-mint-light/70" : "text-forest/85"}`;
 
   if (!children) {
     return (
@@ -125,7 +125,7 @@ export default function Header() {
     <header className={`sticky top-0 z-40 bg-white/95 backdrop-blur transition-shadow ${scrolled ? "shadow-card" : ""}`}>
       <div className="container-x flex h-[72px] items-center justify-between gap-4">
         <Logo />
-        <nav aria-label="Main" className="hidden lg:block">
+        <nav aria-label="Main" className="hidden xl:block">
           <ul className="flex items-center gap-1">
             {nav.primary.map((item) => (
               <DesktopItem key={item.label} item={item} active={isActive(item.href)} />
@@ -133,13 +133,13 @@ export default function Header() {
           </ul>
         </nav>
         <div className="flex items-center gap-2">
-          <Link href={nav.cta.href} className="btn-primary btn-sm hidden sm:inline-flex">
+          <Link href={nav.cta.href} className="btn-primary btn-sm hidden whitespace-nowrap sm:inline-flex">
             {nav.cta.label}
           </Link>
           <button
             ref={toggleRef}
             type="button"
-            className="inline-flex h-11 w-11 items-center justify-center rounded-full text-forest hover:bg-mint-light lg:hidden"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-full text-forest hover:bg-mint-light xl:hidden"
             aria-expanded={menuOpen}
             aria-controls="mobile-menu"
             onClick={() => setMenuOpen((o) => !o)}
@@ -159,7 +159,7 @@ export default function Header() {
         role="dialog"
         aria-modal="true"
         aria-label="Site menu"
-        className={`fixed inset-x-0 bottom-0 top-[72px] z-40 overflow-y-auto bg-white transition duration-300 lg:hidden ${menuOpen ? "visible opacity-100" : "invisible -translate-y-2 opacity-0"}`}
+        className={`fixed inset-x-0 bottom-0 top-[72px] z-40 overflow-y-auto bg-white transition duration-300 xl:hidden ${menuOpen ? "visible opacity-100" : "invisible -translate-y-2 opacity-0"}`}
       >
         <nav aria-label="Mobile" className="container-x pb-32 pt-4">
           <ul className="divide-y divide-forest/10">

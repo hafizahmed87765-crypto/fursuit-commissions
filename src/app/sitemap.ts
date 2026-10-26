@@ -15,8 +15,8 @@ const pages: [string, number][] = [
   ["/about-us/", 0.5],
   ["/contact-us/", 0.5],
   ["/furry-ref-sheet-commissions/", 0.5],
-  ["/cosplay-suit-commission/", 0.5],
-  ["/custom-plush-commission/", 0.5],
+  ["/fursuit-parts/", 0.8],
+  ["/payment-plans/", 0.7],
   ["/terms-and-conditions/", 0.2],
   ["/privacy-policy/", 0.2],
 ];

@@ -31,7 +31,7 @@ export type ServiceLandingProps = {
 };
 
 export default function ServiceLanding(p: ServiceLandingProps) {
-  const work = p.portfolioTag ? portfolio.filter((i) => i.tags.includes(p.portfolioTag!)) : portfolio.filter((i) => !i.tags.includes("cosplay") && !i.tags.includes("plush"));
+  const work = p.portfolioTag ? portfolio.filter((i) => i.tags.includes(p.portfolioTag!)) : portfolio;
   const quote = `/get-a-quote/?service=${p.service}`;
 
   return (
@@ -107,6 +107,12 @@ export default function ServiceLanding(p: ServiceLandingProps) {
         <div className="container-x">
           <SectionHeading id="coverage" eyebrow="Coverage" title="Choose what we build" lede="Pick a head, partial, fullsuit or individual parts. Starting prices are listed where we publish them; everything else is quoted to your design." />
           <CommissionOptions />
+          <p className="mt-8 text-ink-muted">
+            Spreading the cost?{" "}
+            <Link href="/payment-plans/" className="link">
+              See deposits and payment plans
+            </Link>
+          </p>
         </div>
       </section>
 

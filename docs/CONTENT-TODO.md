@@ -15,3 +15,36 @@ Edit `src/content/*.ts` — no component changes needed.
 | 8 | **$0 products** (Inflatable Cat, Yellow & Black Cat Ear headbands) | WooCommerce | Shown as "Ask for price"; no buy button. Fix price in WooCommerce, then `npm run sync`. |
 | 9 | **20 uncategorised products** | WooCommerce | Still listed in shop; assign categories in WooCommerce, then `npm run sync`. |
 | 10 | Production time "6–12 weeks on average" (from old homepage FAQ) | `site.ts` → `policies` | Confirm still accurate. |
+
+## Payment plans (added Oct 2026)
+
+`/payment-plans/` only states what the Terms of Service already say. These are
+**unpublished** and render as "confirmed in your written quote" until filled in
+`src/content/payments.ts → paymentPlanConfig`:
+
+| Field | Needed |
+|-------|--------|
+| `maxInstalments` | How many instalments a plan can have |
+| `instalmentInterval` | How often instalments are due |
+| `processingFee` | The "small processing fee" from the Terms — exact amount or % |
+| `minimumOrder` | Which orders qualify for a plan |
+| `latePaymentPolicy` | What happens when an instalment is late |
+
+Also confirm:
+- **PayPal is not enabled at the shop checkout.** The WooCommerce Store API reports only `stripe`.
+  The Terms say PayPal is accepted for commissions; the site now says "Commissions: PayPal & Stripe ·
+  Shop: card via Stripe". Enable PayPal in WooCommerce if you want it at checkout too.
+- No financing provider (Klarna, Afterpay, PayPal Pay Later) is advertised. Add one only once it's enabled.
+
+## Cosplay & plush (removed Oct 2026)
+
+Service pages removed; their 8 old URLs return **410 Gone** with links to current services
+(`src/proxy.ts`). The WooCommerce categories `cosplay-accessories` and `cosplay-and-furry-suits`
+(Brawl Stars hat, Zeraora suit) and products with "cosplay"/"plush" in their names were **kept** —
+they are shop catalogue items, not the retired services — but those categories are no longer shown
+as shop filters or footer links. Decide in WooCommerce whether to keep, rename or unpublish them.
+
+## Newsletter
+
+Not added: this codebase has no newsletter backend. MailPoet is installed on the WordPress side; a
+signup can be wired to it (or another provider) once you choose one.

@@ -19,7 +19,7 @@ export default function Page() {
         { title: "Fursuit accuracy", body: "Drawn with markings, colours and proportions a maker can build from." },
         { title: "From any starting point", body: "Descriptions, sketches, old art or inspiration photos all work." },
         { title: "Required for production", body: "A clear ref sheet is needed before any fursuit build begins." },
-        { title: "Use it everywhere", body: "Great for future art commissions, plush and cosplay too." },
+        { title: "Use it everywhere", body: "Great for future art commissions and parts orders too." },
       ]}
       illustration="/media/gallery/assets-task-01k07cz82zf7zb7scm5rpcy2xj-175259525-ca3c05.webp"
     />

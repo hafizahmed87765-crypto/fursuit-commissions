@@ -14,14 +14,15 @@ export const metadata = pageMeta({
   path: "/order-process/",
 });
 
-const details = [
+const details: { title: string; body: string; link?: { href: string; label: string } }[] = [
   {
     title: "Communication",
     body: "We talk with you one-on-one by email (and Discord, Telegram or WhatsApp if you prefer) from your first inquiry until delivery.",
   },
   {
     title: "Payments",
-    body: `${policies.deposit} ${policies.paymentPlans} We accept ${site.paymentMethods.join(" and ")}.`,
+    body: `${policies.deposit} ${policies.paymentPlans} Commission payments are accepted via ${site.paymentMethods.join(" and ")}.`,
+    link: { href: "/payment-plans/", label: "Deposits & payment plans" },
   },
   {
     title: "Approvals & revisions",
@@ -54,8 +55,8 @@ export default function ProcessPage() {
           <Link href="/get-a-quote/" className="btn-primary">
             Start Your Commission
           </Link>
-          <Link href="/terms-and-conditions/" className="btn-secondary">
-            Read the terms
+          <Link href="/payment-plans/" className="btn-secondary">
+            Payment plans
           </Link>
         </div>
       </PageIntro>
@@ -73,6 +74,13 @@ export default function ProcessPage() {
               <div key={d.title} data-reveal className="card p-6">
                 <dt className="font-display text-xl font-semibold text-forest">{d.title}</dt>
                 <dd className="mt-2 text-ink-muted">{d.body}</dd>
+                {d.link ? (
+                  <dd className="mt-3">
+                    <Link href={d.link.href} className="link">
+                      {d.link.label} →
+                    </Link>
+                  </dd>
+                ) : null}
               </div>
             ))}
           </dl>

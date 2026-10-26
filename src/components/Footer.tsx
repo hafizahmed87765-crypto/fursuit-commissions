@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { site } from "@/content/site";
-import { categories, categoryName } from "@/lib/products";
+import { categoryName, shopCategories } from "@/lib/products";
 import Logo from "./Logo";
 
 const columns = [
@@ -10,10 +10,10 @@ const columns = [
       { label: "Custom Fursuits", href: "/fursuit-commission/" },
       { label: "Kemono Suits", href: "/kemono-fursuits/" },
       { label: "Toony Suits", href: "/toony-fursuits/" },
+      { label: "Fursuit Parts", href: "/fursuit-parts/" },
       { label: "Repairs & Refurbishment", href: "/fursuit-repairs/" },
+      { label: "Payment Plans", href: "/payment-plans/" },
       { label: "Reference Sheets", href: "/furry-ref-sheet-commissions/" },
-      { label: "Cosplay Suits", href: "/cosplay-suit-commission/" },
-      { label: "Custom Plush", href: "/custom-plush-commission/" },
     ],
   },
   {
@@ -21,6 +21,7 @@ const columns = [
     links: [
       { label: "Gallery", href: "/gallery/" },
       { label: "Our Process", href: "/order-process/" },
+      { label: "FAQ", href: "/#faq" },
       { label: "About Us", href: "/about-us/" },
       { label: "Contact", href: "/contact-us/" },
       { label: "Get a Quote", href: "/get-a-quote/" },
@@ -29,7 +30,7 @@ const columns = [
   {
     title: "Shop",
     links: [{ label: "All products", href: "/shop/" }].concat(
-      categories
+      shopCategories
         .filter((c) => c.count > 1)
         .slice(0, 5)
         .map((c) => ({ label: categoryName(c.slug), href: `/product-category/${c.slug}/` })),
@@ -75,7 +76,10 @@ export default function Footer() {
         <div className="container-x flex flex-col gap-3 py-6 text-sm text-forest/90 md:flex-row md:items-center md:justify-between">
           <p>© {new Date().getFullYear()} {site.name}. All rights reserved.</p>
           <p className="flex flex-wrap items-center gap-x-4 gap-y-1">
-            <span>We accept {site.paymentMethods.join(" & ")}</span>
+            <span>Commissions: {site.paymentMethods.join(" & ")} · Shop: card via Stripe</span>
+            <Link href="/payment-plans/" className="hover:underline">
+              Payment plans
+            </Link>
             <Link href="/terms-and-conditions/" className="hover:underline">
               Terms
             </Link>

@@ -3,8 +3,9 @@ import Link from "next/link";
 import { commissionOptions } from "@/content/site";
 import { formatPrice } from "@/lib/products";
 
-export default function CommissionOptions({ limit }: { limit?: number }) {
-  const list = limit ? commissionOptions.slice(0, limit) : commissionOptions;
+export default function CommissionOptions({ limit, keys }: { limit?: number; keys?: string[] }) {
+  const picked = keys ? keys.map((k) => commissionOptions.find((o) => o.key === k)).filter((o) => o !== undefined) : [...commissionOptions];
+  const list = limit ? picked.slice(0, limit) : picked;
   return (
     <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {list.map((o, i) => {

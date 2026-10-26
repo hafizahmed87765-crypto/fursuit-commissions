@@ -1,5 +1,6 @@
 // Permanent redirects from the old WordPress URLs. Pages that only existed as
-// duplicates, drafts or injected spam are answered with 410 in src/proxy.ts.
+// duplicates, drafts or injected spam, and the discontinued cosplay/plush
+// services, are answered with 410 in src/proxy.ts.
 const legacyRedirects = [
   // Duplicate homes
   ["/home-2", "/"],
@@ -9,20 +10,14 @@ const legacyRedirects = [
   ["/gallery-fursuit-commision", "/gallery/"],
   ["/gallery222", "/gallery/"],
   ["/wip", "/gallery/"],
-  ["/gallery-cosplay-commission", "/cosplay-suit-commission/"],
-  ["/gallery-plush-commission", "/custom-plush-commission/"],
   // Process pages
   ["/order-process-f", "/order-process/"],
-  ["/csc-order-process-cosplay", "/order-process/"],
-  ["/custom-plush-order-process", "/order-process/"],
   // Quote forms (the WordPress site had seven)
   ["/fs-get-a-quote", "/get-a-quote/"],
   ["/gq222", "/get-a-quote/"],
   ["/request-quote", "/get-a-quote/"],
   ["/quote-form-page", "/get-a-quote/"],
   ["/real-q-form", "/get-a-quote/"],
-  ["/csc-get-a-quote", "/get-a-quote/?service=cosplay"],
-  ["/cpc-get-a-quote", "/get-a-quote/?service=plush"],
   // Reference sheets
   ["/plush-reference-sheet", "/furry-ref-sheet-commissions/"],
   ["/furry-art-reference-sheet", "/furry-ref-sheet-commissions/"],

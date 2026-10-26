@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { categories, categoryName } from "@/lib/products";
+import { categoryName, shopCategories } from "@/lib/products";
 
 export default function ShopNav({ active }: { active?: string }) {
   return (
@@ -7,7 +7,7 @@ export default function ShopNav({ active }: { active?: string }) {
       <Link href="/shop/" aria-current={!active ? "page" : undefined} className={`btn-sm btn shrink-0 border-2 ${!active ? "border-forest bg-forest text-white" : "border-forest/15 bg-white text-forest hover:border-forest/40"}`}>
         All
       </Link>
-      {categories.map((c) => (
+      {shopCategories.map((c) => (
         <Link
           key={c.slug}
           href={`/product-category/${c.slug}/`}

@@ -7,7 +7,7 @@ import JsonLd from "./JsonLd";
 import type { PortfolioItem } from "@/content/portfolio";
 import { serviceLd } from "@/lib/seo";
 
-/** Lightweight page for secondary services (cosplay, plush, reference sheets). */
+/** Lightweight page for secondary services such as reference sheets. */
 export default function SimpleService({
   path,
   crumb,

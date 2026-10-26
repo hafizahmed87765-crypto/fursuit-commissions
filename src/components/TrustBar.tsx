@@ -1,4 +1,4 @@
-import { policies, site } from "@/content/site";
+import { policies } from "@/content/site";
 
 // Only facts the studio already publishes in its About page and Terms.
 const items = [
@@ -6,7 +6,7 @@ const items = [
   { title: "WIP photos", body: "At every major build stage" },
   { title: `${policies.warrantyMonths}-month warranty`, body: "Limited, on commissions" },
   { title: "Ships worldwide", body: "Tracked delivery to your door" },
-  { title: "Secure payment", body: site.paymentMethods.join(" & ") },
+  { title: "Clear payment terms", body: "Deposits & plans on select orders" },
 ];
 
 export default function TrustBar() {
