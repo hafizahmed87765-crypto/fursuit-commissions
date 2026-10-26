@@ -1,5 +1,5 @@
 // Curated portfolio. Images come from the studio's existing WordPress
-// gallery / WIP page and made-to-order product listings (synced into
+// gallery / WIP page and commission service pages (synced into
 // public/media by `npm run sync`). Tags are only applied where the photo
 // makes the style or coverage obvious.
 //

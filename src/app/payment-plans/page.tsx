@@ -4,7 +4,7 @@ import PageIntro from "@/components/PageIntro";
 import SectionHeading from "@/components/SectionHeading";
 import FaqList from "@/components/FaqList";
 import FinalCta from "@/components/FinalCta";
-import { commissionPaymentMethods, depositRules, instalmentFrequencies, paymentFaqs, paymentPlanConfig, paymentTimeline, shopCheckoutMethods } from "@/content/payments";
+import { commissionPaymentMethods, depositRules, instalmentFrequencies, paymentFaqs, paymentPlanConfig, paymentTimeline } from "@/content/payments";
 import { pageMeta } from "@/lib/seo";
 
 export const metadata = pageMeta({
@@ -132,7 +132,7 @@ export default function PaymentPlansPage() {
 
       {/* Methods */}
       <section aria-labelledby="methods" className="bg-petal py-16 sm:py-20">
-        <div className="container-x grid gap-6 md:grid-cols-2">
+        <div className="container-x grid gap-6">
           <div data-reveal className="card p-7">
             <h2 id="methods" className="text-2xl font-semibold">
               Custom commissions
@@ -140,17 +140,6 @@ export default function PaymentPlansPage() {
             <p className="mt-2 text-ink-muted">Deposits, instalments and balances can be paid with:</p>
             <ul className="mt-4 flex flex-wrap gap-2">
               {commissionPaymentMethods.map((m) => (
-                <li key={m} className="chip px-4 py-2 text-sm">
-                  {m}
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div data-reveal className="card p-7">
-            <h2 className="text-2xl font-semibold">Ready-made shop items</h2>
-            <p className="mt-2 text-ink-muted">Shop orders are paid in full at checkout. Payment plans don't apply to shop items.</p>
-            <ul className="mt-4 flex flex-wrap gap-2">
-              {shopCheckoutMethods.map((m) => (
                 <li key={m} className="chip px-4 py-2 text-sm">
                   {m}
                 </li>

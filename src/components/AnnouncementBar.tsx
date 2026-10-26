@@ -21,7 +21,7 @@ export default function AnnouncementBar() {
       <div className="container-x flex min-h-10 items-center gap-2 py-2">
         <p className="flex flex-1 flex-wrap items-center justify-center gap-x-3 gap-y-1 text-center text-sm">
           <span className="inline-flex items-center gap-2">
-            <span aria-hidden className={`h-2 w-2 rounded-full ${a.status === "open" ? "bg-mint-light motion-safe:animate-pulse" : "bg-blush"}`} />
+            <span aria-hidden className={`h-2 w-2 rounded-full ${a.status === "open" ? "bg-mint-light motion-safe:animate-soft-pulse" : "bg-blush"}`} />
             {a.text}
           </span>
           <Link href={a.link.href} className="font-semibold text-mint-light underline underline-offset-4 hover:text-white">

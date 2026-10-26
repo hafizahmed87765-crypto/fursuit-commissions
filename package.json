@@ -2,7 +2,7 @@
   "name": "fursuit-commissions",
   "version": "1.0.0",
   "private": true,
-  "description": "FursuitCommissions.com — custom fursuit studio site (Next.js, headless WooCommerce for shop + checkout)",
+  "description": "FursuitCommissions.com — custom fursuit studio site and Supabase-powered CMS",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -13,6 +13,12 @@
     "sync:dry": "node scripts/sync-woo.mjs --dry-run"
   },
   "dependencies": {
+    "@supabase/ssr": "^0.12.7",
+    "@supabase/supabase-js": "^2.118.0",
+    "@tiptap/extension-image": "^3.32.0",
+    "@tiptap/extension-link": "^3.32.0",
+    "@tiptap/react": "^3.32.0",
+    "@tiptap/starter-kit": "^3.32.0",
     "next": "^16.2.7",
     "nodemailer": "^8.0.10",
     "react": "^19.0.0",

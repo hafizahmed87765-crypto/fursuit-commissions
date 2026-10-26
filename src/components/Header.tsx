@@ -33,7 +33,7 @@ function DesktopItem({ item, active }: { item: Item; active: boolean }) {
     };
   }, [open]);
 
-  const base = `inline-flex min-h-[44px] items-center gap-1 whitespace-nowrap rounded-full px-3.5 font-display font-semibold transition hover:bg-mint-light ${active ? "text-forest bg-mint-light/70" : "text-forest/85"}`;
+  const base = `inline-flex min-h-[44px] items-center gap-1 whitespace-nowrap rounded-full px-3.5 font-display font-semibold transition duration-300 hover:bg-mint-light ${active ? "text-forest bg-mint-light/70" : "text-forest/85"}`;
 
   if (!children) {
     return (
@@ -50,8 +50,8 @@ function DesktopItem({ item, active }: { item: Item; active: boolean }) {
         {item.label}
         <Chevron open={open} />
       </button>
-      <div className={`absolute left-1/2 top-full z-50 w-80 -translate-x-1/2 pt-2 transition duration-200 ${open ? "visible translate-y-0 opacity-100" : "invisible -translate-y-1 opacity-0"}`}>
-        <ul className="card p-2">
+      <div className={`absolute left-1/2 top-full z-50 w-80 -translate-x-1/2 pt-2 transition duration-300 ease-smooth ${open ? "visible translate-y-0 scale-100 opacity-100" : "invisible -translate-y-2 scale-[0.98] opacity-0"}`}>
+        <ul className="card p-2 shadow-lift">
           {children.map((c) => (
             <li key={c.href}>
               <Link href={c.href} onClick={() => setOpen(false)} className="block rounded-2xl px-4 py-3 transition hover:bg-mint-wash">
@@ -122,8 +122,11 @@ export default function Header() {
   const isActive = (href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href));
 
   return (
-    <header className={`sticky top-0 z-40 bg-white/95 backdrop-blur transition-shadow ${scrolled ? "shadow-card" : ""}`}>
-      <div className="container-x flex h-[72px] items-center justify-between gap-4">
+    <header className={`sticky top-0 z-40 border-b transition-all duration-500 ease-smooth ${scrolled ? "border-forest/10 shadow-card" : "border-transparent"}`}>
+      {/* Blur lives on its own layer: backdrop-filter on the header itself would
+          become the containing block for the fixed mobile menu below. */}
+      <div aria-hidden className={`absolute inset-0 -z-10 backdrop-blur-md transition-colors duration-500 ${scrolled ? "bg-white/95" : "bg-white/85"}`} />
+      <div className={`container-x flex items-center justify-between gap-4 transition-[height] duration-500 ease-smooth ${scrolled ? "h-[64px]" : "h-[72px]"}`}>
         <Logo />
         <nav aria-label="Main" className="hidden xl:block">
           <ul className="flex items-center gap-1">
@@ -159,7 +162,7 @@ export default function Header() {
         role="dialog"
         aria-modal="true"
         aria-label="Site menu"
-        className={`fixed inset-x-0 bottom-0 top-[72px] z-40 overflow-y-auto bg-white transition duration-300 xl:hidden ${menuOpen ? "visible opacity-100" : "invisible -translate-y-2 opacity-0"}`}
+        className={`fixed inset-x-0 bottom-0 z-40 overflow-y-auto bg-white transition duration-500 ease-smooth xl:hidden ${scrolled ? "top-[64px]" : "top-[72px]"} ${menuOpen ? "visible opacity-100" : "invisible -translate-y-2 opacity-0"}`}
       >
         <nav aria-label="Mobile" className="container-x pb-32 pt-4">
           <ul className="divide-y divide-forest/10">
@@ -167,7 +170,7 @@ export default function Header() {
               <li key={item.label} className="py-3">
                 {"children" in item && item.children ? (
                   <>
-                    <p className="px-2 pb-1 font-display text-sm font-semibold uppercase tracking-wider text-mint-deep">{item.label}</p>
+                    <p className="eyebrow px-2 pb-1">{item.label}</p>
                     <ul>
                       {item.children.map((c) => (
                         <li key={c.href}>

@@ -2,25 +2,22 @@ import Link from "next/link";
 import PageIntro from "@/components/PageIntro";
 import SectionHeading from "@/components/SectionHeading";
 import CommissionOptions from "@/components/CommissionOptions";
-import ProductCard from "@/components/ProductCard";
 import FaqList from "@/components/FaqList";
 import FinalCta from "@/components/FinalCta";
-import { categoryName, hasPrice, shopProducts } from "@/lib/products";
 import { pageMeta } from "@/lib/seo";
 import type { Faq } from "@/content/faqs";
+import CmsFormForPage from "@/components/cms/CmsFormForPage";
 
 export const metadata = pageMeta({
   title: "Fursuit Parts: Paws, Tails, Heads & Ears",
-  description: "Custom made-to-order fursuit hand paws, feet paws and tails, plus ready-made heads, partial sets, paws, ears and tails from our shop.",
+  description: "Custom made-to-order fursuit hand paws, feet paws, tails and other parts, built to match your character.",
   path: "/fursuit-parts/",
 });
 
-const PART_CATEGORIES = ["heads-and-partials", "partials", "hand-and-feet-paws", "ear-and-tails"];
-
 const faqs: Faq[] = [
   {
-    q: "What's the difference between made-to-order and ready-made parts?",
-    a: "Made-to-order parts are built from your reference sheet in your character's colours and quoted before you pay. Ready-made parts are finished designs you can buy straight from the shop.",
+    q: "Can I commission just one part?",
+    a: "Yes. You can ask for an individual head, paws, feet paws, tail or another character-matched part.",
   },
   {
     q: "Can you match parts to a suit I already own?",
@@ -35,51 +32,24 @@ const faqs: Faq[] = [
 ];
 
 export default function PartsPage() {
-  const groups = PART_CATEGORIES.map((slug) => ({ slug, items: shopProducts.filter((p) => hasPrice(p) && p.categories.some((c) => c.slug === slug)) })).filter((g) => g.items.length);
   return (
     <>
       <PageIntro
         crumbs={[{ name: "Fursuit Parts", path: "/fursuit-parts/" }]}
         eyebrow="Fursuit parts"
         title="Paws, tails & finishing touches"
-        lede="Complete a partial, refresh an older suit or start small. Commission parts made to your character, or pick a ready-made piece from the shop."
+        lede="Complete a partial, refresh an older suit or start small with custom parts made to match your character."
       >
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
           <Link href="/get-a-quote/?coverage=parts" className="btn-primary">
             Request a Custom Quote
           </Link>
-          <Link href="#ready-made" className="btn-secondary">
-            Shop ready-made parts
-          </Link>
         </div>
       </PageIntro>
 
       <section aria-labelledby="mto" className="container-x py-16 sm:py-20">
-        <SectionHeading id="mto" eyebrow="Made to order" title="Custom parts for your character" lede="Starting prices are from our current listings; your final price is confirmed in your quote before you pay." />
+        <SectionHeading id="mto" eyebrow="Made to order" title="Custom parts for your character" lede="Any starting prices shown are confirmed in your quote before you pay." />
         <CommissionOptions keys={["hand-paws", "feet-paws", "tail", "head", "neon"]} />
-      </section>
-
-      <section id="ready-made" aria-labelledby="rm" className="bg-mint-wash py-16 sm:py-20">
-        <div className="container-x">
-          <SectionHeading id="rm" eyebrow="Ready-made" title="Order today from the shop" />
-          {groups.map((g) => (
-            <div key={g.slug} className="mt-12">
-              <div className="flex items-end justify-between gap-4">
-                <h3 className="text-2xl font-semibold">{categoryName(g.slug)}</h3>
-                <Link href={`/product-category/${g.slug}/`} className="link shrink-0 text-sm">
-                  View all
-                </Link>
-              </div>
-              <ul className="mt-5 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-                {g.items.slice(0, 4).map((p) => (
-                  <li key={p.id}>
-                    <ProductCard p={p} />
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
       </section>
 
       <section aria-labelledby="parts-faq" className="container-x py-16 sm:py-20">
@@ -88,6 +58,7 @@ export default function PartsPage() {
           <FaqList faqs={faqs} />
         </div>
       </section>
+      <CmsFormForPage pagePath="/fursuit-parts/" />
       <FinalCta />
     </>
   );

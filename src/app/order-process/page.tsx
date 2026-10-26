@@ -34,7 +34,7 @@ const details: { title: string; body: string; link?: { href: string; label: stri
   },
   {
     title: "Shipping",
-    body: "We ship worldwide. Shipping and insurance are included in your final quote or calculated at checkout; import duties and taxes are paid by the buyer.",
+    body: "We ship worldwide. Shipping and insurance are included in your final quote; import duties and taxes are paid by the buyer.",
   },
   {
     title: "Aftercare & warranty",

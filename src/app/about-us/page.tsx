@@ -48,7 +48,7 @@ export default function AboutPage() {
           <ul className="mt-10 grid gap-5 md:grid-cols-3">
             {crafts.map((c) => (
               <li key={c.title} data-reveal>
-                <Link href={c.href} className="card block h-full p-6 transition hover:shadow-lift">
+                <Link href={c.href} className="card card-hover block h-full p-6">
                   <h3 className="text-2xl font-semibold">{c.title}</h3>
                   <p className="mt-2 text-ink-muted">{c.body}</p>
                   <span className="mt-4 inline-block font-display font-semibold text-forest">Learn more →</span>

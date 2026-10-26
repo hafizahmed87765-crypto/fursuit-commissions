@@ -10,7 +10,7 @@ export const generalFaqs: Faq[] = [
   },
   {
     q: "What types of suits and parts can I order?",
-    a: "Fullsuits, partials, fursuit heads, hand paws, feet paws and tails, in Kemono, Toony or custom styles. We also take repair assessments, and sell ready-made parts in our shop.",
+    a: "Fullsuits, partials, fursuit heads, hand paws, feet paws and tails, in Kemono, Toony or custom styles. We also take repair assessments.",
     link: { href: "/fursuit-commission/", label: "Compare coverage options" },
   },
   {

@@ -44,18 +44,11 @@ export default function Page() {
         { title: "Matching parts", body: "Paws and tails styled to match the head's cartoon look." },
       ]}
       portfolioTag="toony"
-      examplesNote="Ready-made heads from our shop, to show the style. Your commission is built to your own design."
-      examples={[
-        { title: "Grey & White Wolf Head", href: "/product/cute-wolf-fursuit-head-grey-white-furry-mascot-cosplay-head/", src: "/media/products/hhlllkogqqme4yepjyr-tg-2k-a0ef2a.webp", width: 896, height: 1200, alt: "Toony grey and white wolf fursuit head with blue eyes" },
-        { title: "Orange Fox Head", href: "/product/japanese-style-animal-fursuit-plush-headgear-cute-cosplay-costume/", src: "/media/products/use-the-uploaded-image-as-reference-gene-h6tjski-ccd9f4.webp", width: 1024, height: 1024, alt: "Toony orange fox fursuit head with a wide smile" },
-        { title: "Pink Fox Head", href: "/product/japanese-style-animal-fursuit-plush-headgear-cute-cosplay-costume-copy/", src: "/media/products/use-the-uploaded-image-as-reference-gene-hnvgkhy-c34f6f.webp", width: 1024, height: 1024, alt: "Toony pink and white fox fursuit head" },
-        { title: "Black Husky Head", href: "/product/japanese-style-animal-fursuit-plush-headgear-cute-cosplay-costume-black/", src: "/media/products/use-the-uploaded-image-as-reference-gene-z1-nb4x-8acefd.webp", width: 1024, height: 1024, alt: "Toony black and white husky fursuit head" },
-      ]}
       faqs={faqs}
       related={[
         { href: "/kemono-fursuits/", label: "Prefer anime style?", body: "Compare with our Kemono suits" },
         { href: "/gallery/", label: "Gallery", body: "Filter finished work by Toony" },
-        { href: "/shop/", label: "Shop paws & tails", body: "Ready-made parts and accessories" },
+        { href: "/fursuit-parts/", label: "Custom parts", body: "Commission paws, tails and other matching pieces" },
         { href: "/#planner", label: "Commission planner", body: "Find the right coverage" },
       ]}
     />

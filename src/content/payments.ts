@@ -4,8 +4,6 @@
 // - Terms of Service (May 14, 2026): deposit rule, balance due before
 //   shipping, "payment plans may be available on select orders and may
 //   include a small processing fee", refunds/cancellations, PayPal + Stripe.
-// - Live WooCommerce Store API: the only enabled shop checkout gateway is
-//   `stripe` (card). PayPal is NOT enabled at shop checkout.
 //
 // Values set to `null` are NOT published by the business yet. The page shows
 // neutral "confirmed in your written quote" wording for them instead of
@@ -37,8 +35,6 @@ export const depositRules = [
 
 /** How commission invoices can be paid, per the Terms of Service. */
 export const commissionPaymentMethods = ["PayPal", "Stripe (card)"];
-/** Gateways actually enabled on the WooCommerce shop checkout. */
-export const shopCheckoutMethods = ["Card payments via Stripe"];
 
 export const paymentTimeline = [
   { title: "Request a quote", body: "Tell us about your character and tick “Interested in a payment plan” on the quote form." },
@@ -79,6 +75,6 @@ export const paymentFaqs = [
   },
   {
     q: "Which payment methods do you accept?",
-    a: "Commission payments are accepted via PayPal and Stripe. Ready-made shop items are paid by card at checkout through Stripe. If you need to spread the cost, ask about a payment plan on your quote request.",
+    a: "Commission payments are accepted via PayPal and Stripe. If you need to spread the cost, ask about a payment plan on your quote request.",
   },
 ];

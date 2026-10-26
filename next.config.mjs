@@ -22,28 +22,20 @@ const legacyRedirects = [
   ["/plush-reference-sheet", "/furry-ref-sheet-commissions/"],
   ["/furry-art-reference-sheet", "/furry-ref-sheet-commissions/"],
   // Misc
-  ["/store333", "/shop/"],
+  ["/store333", "/fursuit-parts/"],
+  ["/shop/:path*", "/fursuit-parts/"],
   ["/thankyou", "/"],
   ["/contact-list", "/contact-us/"],
 ];
-
-const woo = (process.env.NEXT_PUBLIC_WOO_ORIGIN || "").replace(/\/$/, "");
-const siteHost = (process.env.NEXT_PUBLIC_SITE_URL || "").replace(/\/$/, "");
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   trailingSlash: true,
   poweredByHeader: false,
+  experimental: { serverActions: { bodySizeLimit: "12mb" } },
   images: { formats: ["image/avif", "image/webp"] },
   async redirects() {
     const rules = legacyRedirects.map(([source, destination]) => ({ source, destination, permanent: true }));
-    // Cart, checkout and account live in WooCommerce. Only hand off when the
-    // shop origin is a different host, otherwise this would loop.
-    if (woo && woo !== siteHost) {
-      for (const p of ["cart", "checkout", "my-account"]) {
-        rules.push({ source: `/${p}/:path*`, destination: `${woo}/${p}/:path*`, permanent: false });
-      }
-    }
     return rules;
   },
   async headers() {

@@ -11,6 +11,7 @@ import JsonLd from "./JsonLd";
 import { portfolio, type PortfolioTag } from "@/content/portfolio";
 import type { Faq } from "@/content/faqs";
 import { serviceLd } from "@/lib/seo";
+import CmsFormForPage from "@/components/cms/CmsFormForPage";
 
 export type ServiceLandingProps = {
   path: string;
@@ -24,8 +25,6 @@ export type ServiceLandingProps = {
   traits: { title: string; body: string }[];
   traitsTitle: string;
   portfolioTag?: PortfolioTag;
-  examples?: { src: string; width: number; height: number; alt: string; title: string; href?: string }[];
-  examplesNote?: string;
   faqs: Faq[];
   related: { href: string; label: string; body: string }[];
 };
@@ -71,26 +70,6 @@ export default function ServiceLanding(p: ServiceLandingProps) {
         </ul>
       </section>
 
-      {p.examples?.length ? (
-        <section aria-labelledby="examples" className="bg-mint-wash py-16 sm:py-20">
-          <div className="container-x">
-            <SectionHeading id="examples" eyebrow="Ready-made pieces" title="Examples in this style" lede={p.examplesNote} />
-            <ul className="mt-10 grid grid-cols-2 gap-4 lg:grid-cols-4">
-              {p.examples.map((e) => (
-                <li key={e.src} data-reveal>
-                  <Link href={e.href ?? "/shop/"} className="group block overflow-hidden rounded-2xl bg-white shadow-card">
-                    <div className="aspect-square overflow-hidden bg-black">
-                      <Image src={e.src} alt={e.alt} width={e.width} height={e.height} sizes="(min-width:1024px) 25vw, 50vw" className="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
-                    </div>
-                    <p className="p-3 font-display text-sm font-semibold text-forest">{e.title}</p>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
-      ) : null}
-
       <section aria-labelledby="work-title" id="work" className="container-x py-16 sm:py-20">
         <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <SectionHeading id="work-title" eyebrow="From the workshop" title="Recent work" />
@@ -132,7 +111,7 @@ export default function ServiceLanding(p: ServiceLandingProps) {
             <SectionHeading id="faq" eyebrow="FAQ" title="Good to know" />
             <nav aria-label="Related pages" className="mt-8 space-y-3" data-reveal>
               {p.related.map((r) => (
-                <Link key={r.href} href={r.href} className="block rounded-2xl bg-white p-4 shadow-card transition hover:shadow-lift">
+                <Link key={r.href} href={r.href} className="card card-hover block rounded-2xl p-4">
                   <span className="block font-display font-semibold text-forest">{r.label} →</span>
                   <span className="block text-sm text-ink-muted">{r.body}</span>
                 </Link>
@@ -144,6 +123,7 @@ export default function ServiceLanding(p: ServiceLandingProps) {
       </section>
 
       <FinalCta />
+      <CmsFormForPage pagePath={p.path} />
       <JsonLd data={serviceLd(p.title, p.intro, p.path)} />
     </>
   );

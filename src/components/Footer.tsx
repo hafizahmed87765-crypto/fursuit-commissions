@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { site } from "@/content/site";
-import { categoryName, shopCategories } from "@/lib/products";
 import Logo from "./Logo";
 
 const columns = [
@@ -27,21 +26,12 @@ const columns = [
       { label: "Get a Quote", href: "/get-a-quote/" },
     ],
   },
-  {
-    title: "Shop",
-    links: [{ label: "All products", href: "/shop/" }].concat(
-      shopCategories
-        .filter((c) => c.count > 1)
-        .slice(0, 5)
-        .map((c) => ({ label: categoryName(c.slug), href: `/product-category/${c.slug}/` })),
-    ),
-  },
 ];
 
 export default function Footer() {
   return (
-    <footer className="mt-auto bg-mint-footer text-forest">
-      <div className="container-x grid gap-10 py-14 md:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr_1fr]">
+    <footer className="mt-auto border-t-[3px] border-forest bg-mint-footer text-forest">
+      <div className="container-x grid gap-10 py-14 md:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr]">
         <div>
           <Logo />
           <p className="mt-4 max-w-sm text-forest/90">
@@ -76,7 +66,7 @@ export default function Footer() {
         <div className="container-x flex flex-col gap-3 py-6 text-sm text-forest/90 md:flex-row md:items-center md:justify-between">
           <p>© {new Date().getFullYear()} {site.name}. All rights reserved.</p>
           <p className="flex flex-wrap items-center gap-x-4 gap-y-1">
-            <span>Commissions: {site.paymentMethods.join(" & ")} · Shop: card via Stripe</span>
+            <span>Commissions: {site.paymentMethods.join(" & ")}</span>
             <Link href="/payment-plans/" className="hover:underline">
               Payment plans
             </Link>
@@ -84,7 +74,7 @@ export default function Footer() {
               Terms
             </Link>
             <Link href="/privacy-policy/" className="hover:underline">
-              Privacy
+              Privacy Policy
             </Link>
           </p>
         </div>

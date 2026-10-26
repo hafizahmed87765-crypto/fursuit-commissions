@@ -8,6 +8,7 @@ import RepairForm from "@/components/forms/RepairForm";
 import { repairServices } from "@/content/site";
 import { repairFaqs } from "@/content/faqs";
 import { pageMeta, serviceLd } from "@/lib/seo";
+import CmsFormForPage from "@/components/cms/CmsFormForPage";
 
 const path = "/fursuit-repairs/";
 
@@ -120,6 +121,7 @@ export default function RepairsPage() {
           <FaqList faqs={repairFaqs} />
         </div>
       </section>
+      <CmsFormForPage pagePath={path} />
       <JsonLd data={serviceLd("Fursuit Repairs & Refurbishment", "Repair assessments for fursuits: seam repairs, fur replacement, head refurbishment and alterations.", path)} />
     </>
   );

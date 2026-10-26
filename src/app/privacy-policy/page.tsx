@@ -4,7 +4,7 @@ import { pageMeta } from "@/lib/seo";
 
 export const metadata = pageMeta({
   title: "Privacy Policy",
-  description: "What information FursuitCommissions.com collects through its forms and shop, how it is used, and your choices.",
+  description: "What information FursuitCommissions.com collects through its forms, how it is used, and your choices.",
   path: "/privacy-policy/",
 });
 
@@ -15,7 +15,6 @@ const sections = [
     h: "What we collect",
     p: [
       "Quote, repair and contact forms: your name, email address, optional messaging handle, the details you write about your character or suit, and any images, PDFs or links you attach.",
-      "Shop orders are handled by our WooCommerce store and payment providers (PayPal, Stripe), which collect the billing and shipping details needed to fulfil your order.",
       "If you accept analytics cookies, Google Tag Manager loads analytics tools that record anonymous usage such as pages visited. If you decline, they are not loaded.",
     ],
   },

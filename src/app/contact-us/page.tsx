@@ -4,6 +4,7 @@ import PageIntro from "@/components/PageIntro";
 import ContactForm from "@/components/forms/ContactForm";
 import { site } from "@/content/site";
 import { pageMeta } from "@/lib/seo";
+import CmsFormForPage from "@/components/cms/CmsFormForPage";
 
 export const metadata = pageMeta({
   title: "Contact Us",
@@ -14,7 +15,7 @@ export const metadata = pageMeta({
 export default function ContactPage() {
   return (
     <>
-      <PageIntro crumbs={[{ name: "Contact", path: "/contact-us/" }]} eyebrow="Contact" title="Say hello" lede="Questions about an order, a product or how commissions work? Send us a message and we'll reply by email." />
+      <PageIntro crumbs={[{ name: "Contact", path: "/contact-us/" }]} eyebrow="Contact" title="Say hello" lede="Questions about an order or how commissions work? Send us a message and we'll reply by email." />
       <div className="container-x grid gap-10 py-10 sm:py-14 lg:grid-cols-[1.5fr_1fr]">
         <Suspense fallback={<div className="card h-96 animate-pulse" />}>
           <ContactForm />
@@ -48,6 +49,7 @@ export default function ContactPage() {
           </div>
         </aside>
       </div>
+      <CmsFormForPage pagePath="/contact-us/" />
     </>
   );
 }

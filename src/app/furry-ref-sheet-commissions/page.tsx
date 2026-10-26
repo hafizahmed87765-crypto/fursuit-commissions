@@ -21,6 +21,16 @@ export default function Page() {
         { title: "Required for production", body: "A clear ref sheet is needed before any fursuit build begins." },
         { title: "Use it everywhere", body: "Great for future art commissions and parts orders too." },
       ]}
+      details={{
+        eyebrow: "Why commission a reference sheet?",
+        title: "One clear guide to your character",
+        lede: "A thoughtfully organized reference makes it easier to share your character's design with makers and artists, and gives you a consistent visual guide for future projects.",
+        points: [
+          { title: "Keep details consistent", body: "Bring colours, markings, proportions and distinctive features together in one place." },
+          { title: "Make your design easier to follow", body: "Clear views and notes help communicate details that can be hard to explain in words alone." },
+          { title: "Start with what you have", body: "Share descriptions, sketches, older art or inspiration images when you request a quote. You don't need a finished sheet to get started." },
+        ],
+      }}
       illustration="/media/gallery/assets-task-01k07cz82zf7zb7scm5rpcy2xj-175259525-ca3c05.webp"
     />
   );

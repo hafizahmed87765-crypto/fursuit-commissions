@@ -33,11 +33,11 @@ export function renderRows(rows: [string, string | undefined][]) {
   return { html, text };
 }
 
-export async function sendToStudio(opts: { subject: string; replyTo: string; rows: [string, string | undefined][]; attachments?: Attachment[] }) {
+export async function sendToStudio(opts: { subject: string; replyTo: string; rows: [string, string | undefined][]; attachments?: Attachment[]; to?: string }) {
   const { html, text } = renderRows(opts.rows);
   await getTransport().sendMail({
     from: process.env.SMTP_FROM || process.env.SMTP_USER,
-    to: process.env.OWNER_EMAIL,
+    to: opts.to || process.env.OWNER_EMAIL,
     replyTo: opts.replyTo,
     subject: opts.subject,
     text,

@@ -16,8 +16,8 @@ export default function NotFound() {
           <Link href="/gallery/" className="btn-secondary">
             Gallery
           </Link>
-          <Link href="/shop/" className="btn-secondary">
-            Shop
+          <Link href="/fursuit-parts/" className="btn-secondary">
+            Fursuit parts
           </Link>
           <Link href="/get-a-quote/" className="btn-secondary">
             Get a quote

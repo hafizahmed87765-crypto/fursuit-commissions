@@ -27,10 +27,7 @@ export const site = {
     { name: "Facebook", href: "https://www.facebook.com/FursuitCommissions" },
     { name: "YouTube", href: "https://www.youtube.com/@fursuit87765" },
   ],
-  // Commission invoices — Terms → Payments: "PayPal, Stripe, and other
-  // approved processors". The shop checkout itself only has Stripe (card)
-  // enabled (verified via the WooCommerce Store API, Oct 2026); see
-  // src/content/payments.ts.
+  // Commission invoices — Terms → Payments: PayPal and Stripe.
   paymentMethods: ["PayPal", "Stripe"],
 };
 
@@ -62,7 +59,6 @@ export const nav = {
     { label: "Gallery", href: "/gallery/" },
     { label: "Our Process", href: "/order-process/" },
     { label: "Payment Plans", href: "/payment-plans/" },
-    { label: "Shop", href: "/shop/" },
     {
       label: "More",
       href: "/about-us/",
@@ -76,9 +72,7 @@ export const nav = {
   cta: { label: "Get a Custom Quote", href: "/get-a-quote/" },
 };
 
-// Coverage / commission options. `from` prices come from the live
-// WooCommerce "made to order" listings (quote-only products). Options without
-// a listed price show "Quote" — no invented prices.
+// Coverage and commission options shown on the site.
 export const commissionOptions = [
   {
     key: "fullsuit",
@@ -106,7 +100,7 @@ export const commissionOptions = [
     title: "Hand paws",
     blurb: "Made to order in your character's colours, with paw-pad and claw options.",
     from: 200,
-    href: "/product/custom-furry-hand-paws-made-to-order/",
+    href: "/get-a-quote/?coverage=parts",
     image: "/media/products/whatsapp-image-2025-12-14-at-12-31-08-pm-b446b0.webp",
   },
   {
@@ -114,7 +108,7 @@ export const commissionOptions = [
     title: "Feet paws",
     blurb: "Indoor or outdoor soles, sized to your measurements and matched to your suit.",
     from: 300,
-    href: "/product/custom-furry-feet-paws-made-to-order/",
+    href: "/get-a-quote/?coverage=parts",
     image: "/media/products/whatsapp-image-2025-12-14-at-12-35-31-pm-0a11c0.webp",
   },
   {
@@ -122,7 +116,7 @@ export const commissionOptions = [
     title: "Tails",
     blurb: "Custom shape, length and markings, with a belt loop or clip attachment.",
     from: 150,
-    href: "/product/custom-furry-tail-made-to-order/",
+    href: "/get-a-quote/?coverage=parts",
     image: "/media/products/whatsapp-image-2025-12-14-at-12-37-12-pm-519091.webp",
   },
   {
@@ -130,7 +124,7 @@ export const commissionOptions = [
     title: "Character neon sign",
     blurb: "A neon light of your fursona, made to order from your reference.",
     from: 250,
-    href: "/product/custom-furry-neon-light-made-to-order/",
+    href: "/get-a-quote/?coverage=parts",
     image: "/media/products/whatsapp-image-2025-12-14-at-12-39-50-pm-1a4bc4.webp",
   },
 ] as const;
@@ -186,6 +180,21 @@ export const differentiators = [
   { title: "Built from scratch", body: "No templates. Every commission is patterned around your reference sheet." },
   { title: "6-month limited warranty", body: "Seam failures and structural foam issues on commissions are covered for six months." },
   { title: "Worldwide shipping", body: "We ship to the furry community wherever you are, with tracking." },
+];
+
+export const commissionReasons = [
+  {
+    title: "Make your character wearable",
+    body: "Bring your reference sheet, colours and personality into a suit designed around your character.",
+  },
+  {
+    title: "Choose the coverage that suits you",
+    body: "Start with a head, choose a partial, or plan a fullsuit. You can also commission individual paws or a tail.",
+  },
+  {
+    title: "Be part of the creative process",
+    body: "See work-in-progress photos at major stages and confirm design details as your commission takes shape.",
+  },
 ];
 
 export const repairServices = [

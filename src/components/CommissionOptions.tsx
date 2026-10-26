@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { commissionOptions } from "@/content/site";
-import { formatPrice } from "@/lib/products";
+const formatPrice = (amount: number) => new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(amount);
 
 export default function CommissionOptions({ limit, keys }: { limit?: number; keys?: string[] }) {
   const picked = keys ? keys.map((k) => commissionOptions.find((o) => o.key === k)).filter((o) => o !== undefined) : [...commissionOptions];
@@ -14,7 +14,7 @@ export default function CommissionOptions({ limit, keys }: { limit?: number; key
           <li key={o.key} data-reveal style={{ ["--reveal-delay" as string]: `${(i % 3) * 70}ms` }}>
             <Link href={href} className="group flex h-full gap-4 rounded-blob bg-white p-4 shadow-card ring-1 ring-forest/5 transition hover:shadow-lift motion-safe:hover:-translate-y-0.5">
               <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-2xl bg-black sm:h-28 sm:w-28">
-                <Image src={o.image} alt="" fill sizes="112px" className="object-cover transition duration-500 group-hover:scale-105" />
+                <Image src={o.image} alt="" fill sizes="112px" className="img-zoom object-cover" />
               </div>
               <div className="flex min-w-0 flex-1 flex-col">
                 <h3 className="text-xl font-semibold">{o.title}</h3>

@@ -10,9 +10,7 @@ export type AnalyticsEvent =
   | "quote_form_start"
   | "quote_form_submit_success"
   | "repair_form_submit_success"
-  | "contact_form_submit_success"
-  | "product_view"
-  | "add_to_cart";
+  | "contact_form_submit_success";
 
 declare global {
   interface Window {

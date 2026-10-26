@@ -33,14 +33,14 @@ export default function PortfolioGrid({ items, filters = false, initial }: { ite
   return (
     <div>
       {filters && available.length > 1 ? (
-        <div role="group" aria-label="Filter gallery" className="-mx-4 mb-8 flex gap-2 overflow-x-auto px-4 pb-2 sm:mx-0 sm:flex-wrap sm:px-0">
+        <div role="group" aria-label="Filter gallery" className="-mx-4 mb-10 flex gap-2.5 overflow-x-auto px-4 pb-2 pt-1 sm:mx-0 sm:flex-wrap sm:px-0">
           {(["all", ...available] as const).map((t) => (
             <button
               key={t}
               type="button"
               aria-pressed={tag === t}
               onClick={() => setTag(t)}
-              className={`btn-sm btn shrink-0 border-2 ${tag === t ? "border-forest bg-forest text-white" : "border-forest/15 bg-white text-forest hover:border-forest/40"}`}
+              className={`btn-sm btn shrink-0 ${tag === t ? "bg-forest text-white shadow-toon-sm" : "bg-white text-forest hover:bg-mint-light"}`}
             >
               {t === "all" ? "All work" : filterLabels[t]}
               <span className={`text-xs ${tag === t ? "text-mint-light" : "text-ink-muted"}`}>{t === "all" ? items.length : items.filter((i) => i.tags.includes(t)).length}</span>
@@ -49,21 +49,26 @@ export default function PortfolioGrid({ items, filters = false, initial }: { ite
         </div>
       ) : null}
 
-      <ul className="columns-2 gap-3 sm:gap-4 md:columns-3 lg:columns-4">
+      <ul className="columns-2 gap-4 sm:gap-6 md:columns-3 lg:columns-4">
         {shown.map((it, i) => (
-          <li key={it.id} data-reveal style={{ ["--reveal-delay" as string]: `${(i % 8) * 50}ms` }} className="mb-3 break-inside-avoid sm:mb-4">
-            <button type="button" onClick={() => setIndex(i)} className="group relative block w-full overflow-hidden rounded-2xl bg-forest/5 text-left">
+          <li key={it.id} data-reveal style={{ ["--reveal-delay" as string]: `${(i % 8) * 50}ms` }} className="mb-5 break-inside-avoid pt-2 sm:mb-7">
+            {/* Polaroid-style frame, alternately tilted; straightens on hover. */}
+            <button
+              type="button"
+              onClick={() => setIndex(i)}
+              className={`tape group relative block w-full rounded-xl border-[3px] border-forest bg-white p-2 pb-3 text-left shadow-toon-sm transition duration-300 ease-smooth hover:rotate-0 hover:shadow-toon motion-safe:hover:-translate-y-1 ${["-rotate-1", "rotate-1", "rotate-0", "rotate-[1.5deg]"][i % 4]}`}
+            >
+              <span className="block overflow-hidden rounded-lg bg-forest/5">
               <Image
                 src={it.src}
                 alt={it.alt}
                 width={it.width}
                 height={it.height}
                 sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
-                className="h-auto w-full transition duration-500 group-hover:scale-[1.03]"
+                className="h-auto w-full transition duration-700 ease-smooth group-hover:scale-[1.05]"
               />
-              <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-forest/85 to-transparent p-3 pt-10 text-sm font-semibold text-white opacity-0 transition group-hover:opacity-100 group-focus-visible:opacity-100">
-                {it.title}
               </span>
+              <span className="mt-2.5 block px-1 text-center font-display text-sm font-bold leading-snug text-forest sm:text-[0.95rem]">{it.title}</span>
               <span className="sr-only">Open larger image: {it.title}</span>
             </button>
           </li>

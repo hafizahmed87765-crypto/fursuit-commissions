@@ -6,6 +6,7 @@ import PortfolioGrid from "./PortfolioGrid";
 import JsonLd from "./JsonLd";
 import type { PortfolioItem } from "@/content/portfolio";
 import { serviceLd } from "@/lib/seo";
+import CmsFormForPage from "@/components/cms/CmsFormForPage";
 
 /** Lightweight page for secondary services such as reference sheets. */
 export default function SimpleService({
@@ -18,6 +19,7 @@ export default function SimpleService({
   points,
   work,
   illustration,
+  details,
 }: {
   path: string;
   crumb: string;
@@ -28,6 +30,12 @@ export default function SimpleService({
   points: { title: string; body: string }[];
   work?: PortfolioItem[];
   illustration?: string;
+  details?: {
+    eyebrow: string;
+    title: string;
+    lede: string;
+    points: { title: string; body: string }[];
+  };
 }) {
   return (
     <>
@@ -65,6 +73,22 @@ export default function SimpleService({
           </div>
         </section>
       ) : null}
+      {details ? (
+        <section aria-labelledby="service-details" className="bg-mint-wash py-16 sm:py-20">
+          <div className="container-x">
+            <SectionHeading id="service-details" eyebrow={details.eyebrow} title={details.title} lede={details.lede} />
+            <ul className="mt-10 grid gap-5 md:grid-cols-3">
+              {details.points.map((point, i) => (
+                <li key={point.title} data-reveal style={{ ["--reveal-delay" as string]: `${i * 80}ms` }} className="card p-6 sm:p-7">
+                  <h3 className="text-xl font-semibold">{point.title}</h3>
+                  <p className="mt-2 text-ink-muted">{point.body}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+      ) : null}
+      <CmsFormForPage pagePath={path} />
       <JsonLd data={serviceLd(title, lede, path)} />
     </>
   );

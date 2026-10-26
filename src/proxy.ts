@@ -1,4 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
+import { createServerClient } from "@supabase/ssr";
 
 // 410 Gone tells search engines a URL was removed on purpose, so they drop it
 // faster than a 404. Two groups:
@@ -8,6 +9,7 @@ import { NextResponse, type NextRequest } from "next/server";
 //    were in the old sitemap; there is no equivalent page to redirect to, and
 //    redirecting a discontinued service elsewhere would be a soft 404.
 const SPAM = [/^\/blogs?(\/|$)/, /^\/(sample-page|11-2|12-2)\/?$/, /^\/(post|page|mailpoet_page|cartflows_step|elementor-hf|wpm-testimonial)-sitemap\d*\.xml$/, /^\/sitemap_index\.xml$/];
+const REMOVED_COMMERCE = [/^\/product\//, /^\/product-category\//, /^\/cart\/?$/, /^\/checkout\/?$/, /^\/my-account\/?$/];
 const RETIRED = /^\/(cosplay-suit-commission|custom-plush-commission|gallery-cosplay-commission|gallery-plush-commission|csc-order-process-cosplay|custom-plush-order-process|csc-get-a-quote|cpc-get-a-quote)\/?$/;
 
 const retiredPage = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>This service is no longer offered | FursuitCommissions.com</title>
@@ -26,7 +28,28 @@ export function proxy(req: NextRequest) {
       headers: { "content-type": "text/plain; charset=utf-8", "x-robots-tag": "noindex" },
     });
   }
-  return NextResponse.next();
+  if (REMOVED_COMMERCE.some((re) => re.test(pathname))) {
+    return new NextResponse("410 Gone — the online shop has been removed.", {
+      status: 410,
+      headers: { "content-type": "text/plain; charset=utf-8", "x-robots-tag": "noindex" },
+    });
+  }
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  if (!url || !key) return NextResponse.next();
+
+  let response = NextResponse.next({ request: req });
+  const supabase = createServerClient(url, key, {
+    cookies: {
+      getAll: () => req.cookies.getAll(),
+      setAll: (cookiesToSet) => {
+        cookiesToSet.forEach(({ name, value }) => req.cookies.set(name, value));
+        response = NextResponse.next({ request: req });
+        cookiesToSet.forEach(({ name, value, options }) => response.cookies.set(name, value, options));
+      },
+    },
+  });
+  return supabase.auth.getClaims().then(() => response);
 }
 
 export const config = {
@@ -39,6 +62,13 @@ export const config = {
     "/11-2/",
     "/12-2/",
     "/:file(.*sitemap.*\\.xml)",
+    "/product/:path*",
+    "/product-category/:path*",
+    "/cart/",
+    "/checkout/",
+    "/my-account/",
+    "/admin/:path*",
+    "/api/admin/:path*",
     "/:slug(cosplay-suit-commission|custom-plush-commission|gallery-cosplay-commission|gallery-plush-commission|csc-order-process-cosplay|custom-plush-order-process|csc-get-a-quote|cpc-get-a-quote)",
     "/:slug(cosplay-suit-commission|custom-plush-commission|gallery-cosplay-commission|gallery-plush-commission|csc-order-process-cosplay|custom-plush-order-process|csc-get-a-quote|cpc-get-a-quote)/",
   ],

@@ -7,8 +7,8 @@ export default function RepairTeaser() {
     <section aria-labelledby="repairs-title" className="bg-forest text-white">
       <div className="container-x grid items-center gap-10 py-16 sm:py-20 lg:grid-cols-2">
         <div data-reveal className="grid grid-cols-2 gap-3 sm:gap-4">
-          <Image src="/media/gallery/o1cn016idzzr1cnobaqlqwi-4611686018427385509-0-am-f82eb1.webp" alt="Tape pattern over a foam fursuit head base" width={1600} height={1600} sizes="(min-width:1024px) 25vw, 50vw" className="aspect-square rounded-blob object-cover" />
-          <Image src="/media/gallery/o1cn01dgqmih1cnoblos5ug-4611686018427385509-0-am-9ac3b9.webp" alt="Faux fur pieces cut from a pattern on the workbench" width={1200} height={1600} sizes="(min-width:1024px) 25vw, 50vw" className="mt-8 aspect-square rounded-blob object-cover" />
+          <Image src="/media/gallery/o1cn016idzzr1cnobaqlqwi-4611686018427385509-0-am-f82eb1.webp" alt="Tape pattern over a foam fursuit head base" width={1600} height={1600} sizes="(min-width:1024px) 25vw, 50vw" className="aspect-square rounded-blob border-[3px] border-mint object-cover" />
+          <Image src="/media/gallery/o1cn01dgqmih1cnoblos5ug-4611686018427385509-0-am-9ac3b9.webp" alt="Faux fur pieces cut from a pattern on the workbench" width={1200} height={1600} sizes="(min-width:1024px) 25vw, 50vw" className="mt-8 aspect-square rotate-2 rounded-blob border-[3px] border-mint object-cover" />
         </div>
         <div data-reveal>
           <p className="eyebrow !text-mint">Repairs &amp; refurbishment</p>
@@ -27,10 +27,10 @@ export default function RepairTeaser() {
             ))}
           </ul>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Link href="/fursuit-repairs/#repair-form" className="btn bg-mint text-forest hover:bg-mint-light">
+            <Link href="/fursuit-repairs/#repair-form" className="btn border-mint bg-mint text-forest hover:bg-mint-light">
               Request a Repair Assessment
             </Link>
-            <Link href="/fursuit-repairs/" className="btn border-2 border-white/40 text-white hover:bg-white/10">
+            <Link href="/fursuit-repairs/" className="btn border-white/50 text-white hover:bg-white/10">
               How repairs work
             </Link>
           </div>

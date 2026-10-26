@@ -45,7 +45,7 @@ export const terms: { heading: string; items?: string[]; text?: string }[] = [
     heading: "Shipping",
     items: [
       "We ship worldwide",
-      "Shipping costs and insurance are calculated at checkout or included in your final quote",
+      "Shipping costs and insurance are included in your final quote",
       "We are not responsible for delays caused by customs, carrier issues, or circumstances beyond our control",
       "Import duties, taxes, and customs clearance fees are entirely the buyer's responsibility",
       "Once an order is handed to the shipping carrier, we are not liable for loss or damage — we strongly recommend purchasing shipping insurance",

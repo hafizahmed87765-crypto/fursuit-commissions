@@ -9,6 +9,7 @@ import Consent from "@/components/Consent";
 import RevealObserver from "@/components/RevealObserver";
 import JsonLd from "@/components/JsonLd";
 
+// Fredoka (rounded, echoes the logo wordmark) for headings, Nunito Sans for body.
 const display = Fredoka({ subsets: ["latin"], weight: ["500", "600", "700"], variable: "--font-display", display: "swap" });
 const body = Nunito_Sans({ subsets: ["latin"], variable: "--font-body", display: "swap" });
 
@@ -38,7 +39,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js');" + announcementScript() }} />
       </head>
       <body className="flex min-h-screen flex-col">
-        <a href="#main" className="sr-only z-[100] rounded-full bg-forest px-4 py-2 text-white focus:not-sr-only focus:fixed focus:left-4 focus:top-4">
+        <a href="#main" className="sr-only z-[100] rounded-xl bg-forest px-4 py-2 text-white focus:not-sr-only focus:fixed focus:left-4 focus:top-4">
           Skip to content
         </a>
         <AnnouncementBar />

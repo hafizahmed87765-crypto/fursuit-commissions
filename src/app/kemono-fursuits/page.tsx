@@ -18,7 +18,7 @@ const faqs: Faq[] = [
   {
     q: "What is a Kig?",
     a: "Kig (from kigurumi) usually means a full-face character head with a doll-like face, often paired with a bodysuit. Our Premium Kig series is made to order and quoted to your design.",
-    link: { href: "/product/premium-furry-kig-series-animal-costume-custom-made/", label: "See the Kig series listing" },
+    link: { href: "/get-a-quote/?service=kemono", label: "Request a Kemono quote" },
   },
   ...generalFaqs.filter((f) => /prices|reference sheet|production take|payment/.test(f.q)),
 ];
@@ -49,13 +49,6 @@ export default function Page() {
         { title: "Full character sets", body: "Pair the head with paws, tail and outfit for a complete Kig-style look." },
       ]}
       portfolioTag="kemono"
-      examplesNote="Ready-made Kemono pieces from our shop, to show the style. Your commission is built to your own design."
-      examples={[
-        { title: "Mint & Pastel Pink Bunny", href: "/product/mint-pastel-pink-anime-bunny-fursuit-fluffy-cosplay-costume-with-big-green-eyes/", src: "/media/products/lfe5pajuqfcifzotlhynlq-2k-bc84e0.webp", width: 1024, height: 1024, alt: "Mint and pastel pink Kemono bunny with long hair and green eyes" },
-        { title: "White & Pink Bunny", href: "/product/white-pink-anime-bunny-fursuit-cute-plush-cosplay-costume-with-big-blue-eyes/", src: "/media/products/d4rgsjpqqlgpcmy7fobjpa-2k-da7833.webp", width: 1024, height: 1024, alt: "White and pink Kemono bunny with big blue eyes" },
-        { title: "Black & Orange Cat", href: "/product/black-orange-anime-cat-fursuit-expressive-cosplay-costume-with-fluffy-ears/", src: "/media/products/4nz1zoenrzm5ms8kymwmpa-2k-1b8dca.webp", width: 1024, height: 1024, alt: "Black Kemono cat with long orange hair" },
-        { title: "Pastel Blue Bunny", href: "/product/pastel-blue-anime-bunny-fursuit-plush-cosplay-costume-with-big-eyes-paws/", src: "/media/products/ggurqdibsk2okpfyicw5zg-2k-f541ce.webp", width: 1024, height: 1024, alt: "Pale blue Kemono bunny with long hair and paws" },
-      ]}
       faqs={faqs}
       related={[
         { href: "/toony-fursuits/", label: "Prefer bolder features?", body: "Compare with our Toony style" },

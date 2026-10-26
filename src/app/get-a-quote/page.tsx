@@ -4,6 +4,7 @@ import PageIntro from "@/components/PageIntro";
 import QuoteForm from "@/components/forms/QuoteForm";
 import { policies } from "@/content/site";
 import { pageMeta } from "@/lib/seo";
+import CmsFormForPage from "@/components/cms/CmsFormForPage";
 
 export const metadata = pageMeta({
   title: "Get a Custom Fursuit Quote",
@@ -64,6 +65,7 @@ export default function QuotePage() {
           </div>
         </aside>
       </div>
+      <CmsFormForPage pagePath="/get-a-quote/" />
     </>
   );
 }
