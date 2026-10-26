@@ -4,7 +4,7 @@ import PageIntro from "@/components/PageIntro";
 import SectionHeading from "@/components/SectionHeading";
 import FaqList from "@/components/FaqList";
 import FinalCta from "@/components/FinalCta";
-import { commissionPaymentMethods, depositRules, paymentFaqs, paymentPlanConfig, paymentTimeline, shopCheckoutMethods } from "@/content/payments";
+import { commissionPaymentMethods, depositRules, instalmentFrequencies, paymentFaqs, paymentPlanConfig, paymentTimeline, shopCheckoutMethods } from "@/content/payments";
 import { pageMeta } from "@/lib/seo";
 
 export const metadata = pageMeta({
@@ -29,7 +29,7 @@ export default function PaymentPlansPage() {
         crumbs={[{ name: "Payment Plans", path: "/payment-plans/" }]}
         eyebrow="Payment plans"
         title="Paying for your commission, made clear"
-        lede="A custom suit is a big purchase. Here's exactly how deposits, balances and payment plans work, so there are no surprises between your quote and your doorstep."
+        lede="A custom suit is a big purchase. Here's exactly how deposits, balances and weekly or biweekly payment plans work, so there are no surprises between your quote and your doorstep."
       >
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
           <Link href="/get-a-quote/?paymentPlan=yes" className="btn-primary">
@@ -84,7 +84,25 @@ export default function PaymentPlansPage() {
             title="Payment plans on select orders"
             lede="If you'd like to spread the cost of a larger commission, ask for a payment plan when you request your quote. Whether a plan is available depends on the order, and every detail is confirmed in writing before you pay."
           />
-          <dl className="mt-8 grid gap-3 sm:grid-cols-2" data-reveal>
+          <h3 className="mt-8 text-lg font-semibold">Pay weekly or biweekly</h3>
+          <ul className="mt-3 grid gap-3 sm:grid-cols-2">
+            {instalmentFrequencies.map((f, i) => (
+              <li key={f.title} data-reveal style={{ ["--reveal-delay" as string]: `${i * 80}ms` }}>
+                <Link
+                  href={`/get-a-quote/?paymentPlan=yes&schedule=${f.title.toLowerCase()}`}
+                  className={`group flex h-full flex-col rounded-blob p-6 transition hover:shadow-lift motion-safe:hover:-translate-y-0.5 ${i ? "bg-forest text-white" : "bg-mint-light text-forest"}`}
+                >
+                  <span className={`text-sm font-semibold uppercase tracking-[0.14em] ${i ? "text-mint" : "text-mint-deep"}`}>{i ? "Every 2 weeks" : "Every week"}</span>
+                  <span className={`mt-1 font-display text-3xl font-bold ${i ? "text-white" : "text-forest"}`}>{f.title}</span>
+                  <span className={`mt-2 flex-1 text-sm ${i ? "text-mint-light" : "text-forest"}`}>{f.body}</span>
+                  <span className="mt-4 font-display text-sm font-semibold">
+                    Request a {f.title.toLowerCase()} plan <span aria-hidden className="inline-block transition-transform group-hover:translate-x-1">→</span>
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <dl className="mt-6 grid gap-3 sm:grid-cols-2" data-reveal>
             {planDetails.map((d) => (
               <div key={d.label} className="card p-5">
                 <dt className="text-sm font-semibold uppercase tracking-wider text-mint-deep">{d.label}</dt>
@@ -103,9 +121,9 @@ export default function PaymentPlansPage() {
                 <Link href="/get-a-quote/?paymentPlan=yes" className="link">
                   quote form
                 </Link>
-                , choose <strong className="text-forest">“Yes”</strong> under “Interested in a payment plan?”.
+                , choose <strong className="text-forest">“Yes”</strong> under “Interested in a payment plan?” and pick weekly or biweekly.
               </li>
-              <li>We reply with your quote and, if available, the proposed schedule and any fee.</li>
+              <li>We reply with your quote and, if available, your instalment amounts, due dates and any fee.</li>
               <li>Accept the quote in writing and pay your first payment or deposit to confirm.</li>
             </ol>
           </div>

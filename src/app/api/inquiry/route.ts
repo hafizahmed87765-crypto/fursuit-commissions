@@ -76,6 +76,7 @@ export async function POST(request: Request) {
       ["Budget", f.budget],
       ["Desired timing", f.timing],
       ["Interested in payment plan", f.paymentPlan],
+      ["Preferred plan schedule", f.planSchedule],
       ["Notes", f.notes],
       ["Came from", f.source],
     ],

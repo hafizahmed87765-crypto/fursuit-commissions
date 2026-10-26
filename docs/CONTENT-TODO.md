@@ -25,7 +25,7 @@ Edit `src/content/*.ts` — no component changes needed.
 | Field | Needed |
 |-------|--------|
 | `maxInstalments` | How many instalments a plan can have |
-| `instalmentInterval` | How often instalments are due |
+| ~~`instalmentInterval`~~ | ✅ Confirmed: weekly or biweekly |
 | `processingFee` | The "small processing fee" from the Terms — exact amount or % |
 | `minimumOrder` | Which orders qualify for a plan |
 | `latePaymentPolicy` | What happens when an instalment is late |

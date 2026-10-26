@@ -22,6 +22,7 @@ type Data = {
   budget: string;
   timing: string;
   paymentPlan: string;
+  planSchedule: string;
   name: string;
   email: string;
   contact: string;
@@ -95,6 +96,7 @@ export default function QuoteForm() {
       budget: "",
       timing: "",
       paymentPlan: params.get("paymentPlan") === "yes" ? "Yes" : "",
+      planSchedule: params.get("schedule") === "weekly" ? "Weekly" : params.get("schedule") === "biweekly" ? "Biweekly" : "",
       name: "",
       email: "",
       contact: "",
@@ -171,6 +173,7 @@ export default function QuoteForm() {
         budget: d.budget,
         timing: d.timing,
         paymentPlan: d.paymentPlan,
+        planSchedule: d.paymentPlan && d.paymentPlan !== "No" ? d.planSchedule : undefined,
         name: d.name,
         email: d.email,
         contact: d.contact,
@@ -386,8 +389,19 @@ export default function QuoteForm() {
                   <Radio key={p} name="paymentPlan" value={p} current={d.paymentPlan} onSelect={(v) => set("paymentPlan", v)} label={p} />
                 ))}
               </div>
+              {d.paymentPlan && d.paymentPlan !== "No" ? (
+                <fieldset className="mt-4 animate-rise">
+                  <legend className="field-label">
+                    Preferred schedule <span className="font-normal text-ink-muted">(optional)</span>
+                  </legend>
+                  <div className="grid gap-3 sm:grid-cols-2">
+                    <Radio name="planSchedule" value="Weekly" current={d.planSchedule} onSelect={(v) => set("planSchedule", v)} label="Weekly" hint="A payment every week" />
+                    <Radio name="planSchedule" value="Biweekly" current={d.planSchedule} onSelect={(v) => set("planSchedule", v)} label="Biweekly" hint="A payment every two weeks" />
+                  </div>
+                </fieldset>
+              ) : null}
               <p className="field-hint">
-                Payment plans may be available on select orders; any schedule or fee is confirmed in your quote.{" "}
+                Payment plans may be available on select orders, paid weekly or biweekly; amounts, dates and any fee are confirmed in your quote.{" "}
                 <Link href="/payment-plans/" className="link font-normal" target="_blank">
                   How payment plans work
                 </Link>
@@ -418,7 +432,7 @@ export default function QuoteForm() {
                 ["Character", [d.characterName, d.species].filter(Boolean).join(" · "), 2],
                 ["Design", d.design, 2],
                 ["References", [d.hasRef === "yes" ? "Has ref sheet" : d.hasRef === "no" ? "No ref sheet yet" : "", files.length ? `${files.length} file(s)` : "", d.links ? "links added" : ""].filter(Boolean).join(" · ") || "None added", 3],
-                ["Budget & timing", [d.budget, d.timing, d.paymentPlan && `Payment plan: ${d.paymentPlan}`].filter(Boolean).join(" · ") || "Not specified", 4],
+                ["Budget & timing", [d.budget, d.timing, d.paymentPlan && `Payment plan: ${d.paymentPlan}${d.planSchedule && d.paymentPlan !== "No" ? ` (${d.planSchedule.toLowerCase()})` : ""}`].filter(Boolean).join(" · ") || "Not specified", 4],
                 ["Contact", [d.name, d.email, d.contact].filter(Boolean).join(" · "), 5],
               ]
                 .filter(([, v]) => v !== null)

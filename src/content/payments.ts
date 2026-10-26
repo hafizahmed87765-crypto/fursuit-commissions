@@ -14,8 +14,8 @@
 export const paymentPlanConfig = {
   /** e.g. "Up to 3 instalments". CONFIRM with owner. */
   maxInstalments: null as string | null,
-  /** e.g. "Every 30 days". CONFIRM with owner. */
-  instalmentInterval: null as string | null,
+  /** Confirmed by the owner (Oct 2026): customers can pay weekly or biweekly. */
+  instalmentInterval: "Weekly or biweekly" as string | null,
   /** Terms say "may include a small processing fee". Exact fee: CONFIRM. */
   processingFee: null as string | null,
   /** Minimum order value for a plan. CONFIRM (deposit rule starts at $500). */
@@ -23,6 +23,12 @@ export const paymentPlanConfig = {
   /** What happens if an instalment is late. CONFIRM. */
   latePaymentPolicy: null as string | null,
 };
+
+/** Instalment frequencies the owner has confirmed. Amounts are set per quote. */
+export const instalmentFrequencies = [
+  { title: "Weekly", body: "Smaller payments every week, for spreading the cost as evenly as possible." },
+  { title: "Biweekly", body: "A payment every two weeks, for fewer, slightly larger instalments." },
+];
 
 export const depositRules = [
   { label: "Orders under $500", value: "Paid in full upfront", body: "Work begins once full payment is received and your design is approved." },
@@ -36,9 +42,9 @@ export const shopCheckoutMethods = ["Card payments via Stripe"];
 
 export const paymentTimeline = [
   { title: "Request a quote", body: "Tell us about your character and tick “Interested in a payment plan” on the quote form." },
-  { title: "Receive your quote", body: "Your written quote states the total price and, if a plan is offered for your order, its schedule and any processing fee." },
+  { title: "Receive your quote", body: "Your written quote states the total price and, if a plan is offered for your order, your weekly or biweekly schedule and any processing fee." },
   { title: "Pay to start", body: "Under $500: pay in full. Over $500: pay the 50% non-refundable deposit. Work begins once payment is received and the design is approved." },
-  { title: "Production", body: "We build your suit with WIP updates. Any agreed instalments are paid on the dates set in your quote." },
+  { title: "Production", body: "We build your suit with WIP updates. Weekly or biweekly instalments are paid on the dates set in your quote." },
   { title: "Balance before shipping", body: "Full payment must be cleared before your order ships — no exceptions." },
 ];
 
@@ -49,7 +55,7 @@ export const paymentFaqs = [
   },
   {
     q: "Can I pay the rest in instalments?",
-    a: "Payment plans may be available on select orders. Ask on your quote request; if a plan is possible for your commission, the schedule is set out in your written quote before you pay anything.",
+    a: "Yes, on select orders. You can choose to pay weekly or biweekly. Ask on your quote request; if a plan is possible for your commission, the instalment amounts and due dates are set out in your written quote before you pay anything.",
   },
   {
     q: "Is there a fee for a payment plan?",
