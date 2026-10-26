@@ -29,7 +29,7 @@ const faqs: Faq[] = [
   },
   {
     q: "Can I use a payment plan for parts?",
-    a: "Orders under $500 are paid in full upfront, so most single parts are paid in one go. Larger part bundles over $500 follow the 50% deposit rule.",
+    a: "Orders under $500 are paid in full upfront, so most single parts are paid in one go. Larger part bundles over $500 start with an upfront payment, with the balance due before shipping.",
     link: { href: "/payment-plans/", label: "How payments work" },
   },
 ];

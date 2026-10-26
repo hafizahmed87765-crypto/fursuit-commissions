@@ -38,7 +38,7 @@ export const policies = {
   minimumAge: 18,
   warrantyMonths: 6,
   shipsWorldwide: true,
-  deposit: "Orders under $500 are paid in full upfront. Orders over $500 start with a 50% non-refundable deposit, with the balance due before shipping.",
+  deposit: "Orders under $500 are paid in full upfront. Orders over $500 need an upfront, non-refundable payment to start, with the balance due before shipping.",
   paymentPlans: "Payment plans may be available on select orders and may include a small processing fee. Ask when you request your quote.",
   // Homepage FAQ: "On average, it takes about 6–12 weeks".
   typicalProduction: "about 6–12 weeks on average",
@@ -152,7 +152,7 @@ export const processSteps = [
   },
   {
     title: "Confirm & pay deposit",
-    body: "Approve the specifications and terms. Orders over $500 start with a 50% deposit; smaller orders are paid upfront.",
+    body: "Approve the specifications and terms. Orders over $500 start with an upfront payment; smaller orders are paid in full.",
     image: "/media/gallery/assets-task-01k07cjg1bfy8skbzyx2n5s9bj-175259483-a8e498.webp",
   },
   {

@@ -32,7 +32,7 @@ export const instalmentFrequencies = [
 
 export const depositRules = [
   { label: "Orders under $500", value: "Paid in full upfront", body: "Work begins once full payment is received and your design is approved." },
-  { label: "Orders over $500", value: "50% deposit to start", body: "A 50% non-refundable deposit starts work; the remaining balance is due before shipping." },
+  { label: "Orders over $500", value: "Upfront payment to start", body: "An upfront, non-refundable payment is needed to start work. The amount is set in your quote, and the remaining balance is due before shipping." },
 ];
 
 /** How commission invoices can be paid, per the Terms of Service. */
@@ -43,7 +43,7 @@ export const shopCheckoutMethods = ["Card payments via Stripe"];
 export const paymentTimeline = [
   { title: "Request a quote", body: "Tell us about your character and tick “Interested in a payment plan” on the quote form." },
   { title: "Receive your quote", body: "Your written quote states the total price and, if a plan is offered for your order, your weekly or biweekly schedule and any processing fee." },
-  { title: "Pay to start", body: "Under $500: pay in full. Over $500: pay the 50% non-refundable deposit. Work begins once payment is received and the design is approved." },
+  { title: "Pay to start", body: "Under $500: pay in full. Over $500: make the upfront payment set in your quote. Work begins once payment is received and the design is approved." },
   { title: "Production", body: "We build your suit with WIP updates. Weekly or biweekly instalments are paid on the dates set in your quote." },
   { title: "Balance before shipping", body: "Full payment must be cleared before your order ships — no exceptions." },
 ];
@@ -51,7 +51,7 @@ export const paymentTimeline = [
 export const paymentFaqs = [
   {
     q: "How much is the deposit?",
-    a: "Orders over $500 start with a 50% non-refundable deposit. Orders under $500 are paid in full before work begins.",
+    a: "Orders over $500 need an upfront, non-refundable payment to start work; the amount is stated in your quote. Orders under $500 are paid in full before work begins.",
   },
   {
     q: "Can I pay the rest in instalments?",

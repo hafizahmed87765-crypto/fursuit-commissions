@@ -33,7 +33,7 @@ export const generalFaqs: Faq[] = [
   },
   {
     q: "What payment arrangements are available?",
-    a: "Orders under $500 are paid in full upfront. Orders over $500 start with a 50% non-refundable deposit and the balance is due before shipping. Payment plans may be available on select orders. We accept PayPal and Stripe.",
+    a: "Orders under $500 are paid in full upfront. Orders over $500 need an upfront, non-refundable payment to start, with the balance due before shipping. Payment plans may be available on select orders. We accept PayPal and Stripe.",
     link: { href: "/payment-plans/", label: "How deposits and payment plans work" },
   },
   {

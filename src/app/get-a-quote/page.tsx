@@ -33,7 +33,7 @@ export default function QuotePage() {
               <li>• Typical production time is {policies.typicalProduction}; your quote includes an estimate.</li>
               <li>• Clients must be {policies.minimumAge}+ (or have guardian approval).</li>
               <li>
-                • Over $500? Start with a 50% deposit;{" "}
+                • Over $500? Start with an upfront payment;{" "}
                 <Link href="/payment-plans/" className="link font-normal">
                   payment plans
                 </Link>{" "}
