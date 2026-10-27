@@ -28,7 +28,7 @@ export default async function AboutPage() {
         crumbs={[{ name: "About", path: "/about-us/" }]}
         eyebrow="About us"
         title="We don't just make suits. We bring characters to life."
-        lede="FursuitCommissions.com is a fursuit maker studio specialising in custom fursuits: built from scratch, made to order and crafted with real care."
+        lede="FursuitCommissions.com is a fursuit maker studio specialising in custom fursuits. We don't just make suits to a template: we bring your character to life, built from scratch, made to order and crafted with real care."
       />
       <section aria-labelledby="story" className="container-x grid items-center gap-10 py-16 sm:py-20 lg:grid-cols-2">
         <div data-reveal>

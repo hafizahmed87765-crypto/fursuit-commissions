@@ -4,7 +4,7 @@ import { pageMeta } from "@/lib/seo";
 
 const path = "/kemono-fursuits/";
 const intro =
-  "Kemono suits take their look from anime and Japanese character design: large glossy eyes, small muzzles and soft, rounded faces. We build each Kemono suit around your character, from a single Kemono head to a full Kig-style costume.";
+  "Kemono suits take their look from anime and Japanese character design: large glossy eyes, small muzzles and soft, rounded faces. We build Kemono fursuits around your character, from a single Kemono head to a full Kig-style costume.";
 
 const faqs: Faq[] = [
   {

@@ -40,7 +40,7 @@ export default async function RepairsPage() {
             <p className="eyebrow mt-6 !text-mint">Repairs &amp; refurbishment</p>
             <h1 className="mt-2 text-4xl font-bold leading-tight !text-white sm:text-5xl">Fursuit repairs, starting with an honest assessment</h1>
             <p className="mt-5 max-w-xl text-lg text-mint-light">
-              Split seams, tired fur or a head that's lost its shape? Send photos and we'll tell you what can realistically be done before you ship anything.
+              Split seams, tired fur or a fursuit head that's lost its shape? Send photos and we'll give you an honest assessment of what can realistically be done before you ship anything.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Link href="#repair-form" className="btn bg-mint text-forest hover:bg-mint-light">

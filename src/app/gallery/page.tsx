@@ -26,7 +26,7 @@ export default async function GalleryPage() {
         title="Our work, from tape pattern to final fur"
         lede={
           <>
-            Our fursuit gallery collects the Kemono and Toony fursuits we have built, one card per character. Swipe a card for more angles, filter by style, and tap any photo to see it larger. Want to see your character here?{" "}
+            Our fursuit gallery collects the Kemono and Toony fursuits we have built, from tape patterns to final fur, one card per character. Swipe a card for more angles, filter by style, and tap any photo to see it larger. Want to see your character here?{" "}
             <Link href="/get-a-quote/" className="link">
               Request a quote
             </Link>

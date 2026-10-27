@@ -49,7 +49,7 @@ export default function ProcessPage() {
         crumbs={[{ name: "Our Process", path: "/order-process/" }]}
         eyebrow="Our process"
         title="How a commission works"
-        lede="From your first message to unboxing day, here's exactly what happens and what we need from you at each step."
+        lede="Here's how a fursuit commission works, from your first message to unboxing day: exactly what happens and what we need from you at each step."
       >
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
           <Link href="/get-a-quote/" className="btn-primary">
