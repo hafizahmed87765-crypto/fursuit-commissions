@@ -22,9 +22,9 @@ export const site = {
   // The studio's Hostinger mailbox; form submissions are delivered here too (OWNER_EMAIL).
   email: "hello@fursuitcommissions.com" as string | null,
   socials: [
-    { name: "Instagram", href: "https://www.instagram.com/fursuitcommissions" },
+    { name: "Instagram", href: "https://www.instagram.com/fursuitcommissions_/" },
     { name: "Facebook", href: "https://www.facebook.com/FursuitCommissions" },
-    { name: "YouTube", href: "https://www.youtube.com/@fursuit87765" },
+    { name: "TikTok", href: "https://www.tiktok.com/@fursuitcommission2" },
   ],
   // Commission invoices — Terms → Payments: PayPal and Stripe.
   paymentMethods: ["PayPal", "Stripe"],
