@@ -19,9 +19,8 @@ export const site = {
     text: "Commissions are open. Quotes are free and every build is made to order.",
     link: { href: "/get-a-quote/", label: "Request a quote" },
   },
-  // From the Terms of Service contact line. (The live Contact page only shows
-  // template placeholders: info@example.com, +123 456 7890, a NY address.)
-  email: "info@fursuitcommissions.com" as string | null,
+  // The studio's Hostinger mailbox; form submissions are delivered here too (OWNER_EMAIL).
+  email: "hello@fursuitcommissions.com" as string | null,
   socials: [
     { name: "Instagram", href: "https://www.instagram.com/fursuitcommissions" },
     { name: "Facebook", href: "https://www.facebook.com/FursuitCommissions" },
