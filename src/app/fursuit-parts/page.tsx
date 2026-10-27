@@ -42,7 +42,7 @@ export default async function PartsPage() {
         crumbs={[{ name: "Fursuit Parts", path: "/fursuit-parts/" }]}
         eyebrow="Fursuit parts"
         title="Paws, tails & finishing touches"
-        lede="Complete a partial, refresh an older suit or start small with custom parts made to match your character."
+        lede="Complete a partial, refresh an older suit or start small with custom paws, tails and finishing touches made to match your character."
       >
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
           <Link href="/get-a-quote/?coverage=parts" className="btn-primary">

@@ -15,7 +15,7 @@ export const metadata = pageMeta({
 export default function ContactPage() {
   return (
     <>
-      <PageIntro crumbs={[{ name: "Contact", path: "/contact-us/" }]} eyebrow="Contact" title="Say hello" lede="Questions about an order or how commissions work? Send us a message and we'll reply by email." />
+      <PageIntro crumbs={[{ name: "Contact", path: "/contact-us/" }]} eyebrow="Contact" title="Say hello" lede="Questions about an order or how commissions work? Say hello with a message below and we'll reply by email." />
       <div className="container-x grid gap-10 py-10 sm:py-14 lg:grid-cols-[1.5fr_1fr]">
         <Suspense fallback={<div className="card h-96 animate-pulse" />}>
           <ContactForm />

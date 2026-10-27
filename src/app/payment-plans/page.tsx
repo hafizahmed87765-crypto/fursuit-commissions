@@ -31,7 +31,7 @@ export default async function PaymentPlansPage() {
         crumbs={[{ name: "Payment Plans", path: "/payment-plans/" }]}
         eyebrow="Payment plans"
         title="Paying for your commission, made clear"
-        lede="A custom suit is a big purchase. Here's exactly how deposits, balances and weekly or biweekly payment plans work, so there are no surprises between your quote and your doorstep."
+        lede="A custom suit is a big purchase, so paying for your commission should be simple. Here's exactly how deposits, balances and weekly or biweekly payment plans work, so there are no surprises between your quote and your doorstep."
       >
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
           <Link href="/get-a-quote/?paymentPlan=yes" className="btn-primary">

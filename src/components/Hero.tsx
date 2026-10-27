@@ -37,7 +37,7 @@ export default async function Hero() {
             Your character, <span className="marker whitespace-nowrap">brought to life.</span>
           </h1>
           <p className="lede mt-6 max-w-xl animate-rise text-ink [animation-delay:200ms]">
-            Custom fursuits and furry costumes crafted around your character, your style and your vision. Heads, partials and fullsuits from a handmade fursuit maker, plus repairs for the suits you already love.
+            Custom fursuits and furry costumes crafted around your style and your vision, with your character brought to life in real fur. Heads, partials and fullsuits from a handmade fursuit maker, plus repairs for the suits you already love.
           </p>
           <div className="mt-8 flex animate-rise flex-col gap-4 [animation-delay:280ms] sm:flex-row">
             <Link href="/get-a-quote/" className="btn-primary px-7 py-3 text-[1.05rem]">
