@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import type { Errors, InquiryKind } from "@/lib/inquiry";
+import { MAX_REQUEST_BYTES, blockedMessage, shrinkFiles, tooLargeMessage } from "@/lib/upload-client";
 
 type Status = "idle" | "submitting" | "success" | "error";
 
@@ -28,8 +29,14 @@ export function useInquiry(kind: InquiryKind) {
       if (Array.isArray(v)) v.forEach((x) => fd.append(k, x));
       else fd.set(k, v);
     }
-    files.forEach((f) => fd.append("files", f, f.name));
     try {
+      const ready = await shrinkFiles(files);
+      if (ready.reduce((n, f) => n + f.size, 0) > MAX_REQUEST_BYTES) {
+        setError(tooLargeMessage);
+        setStatus("error");
+        return { ok: false, errors: {} as Errors };
+      }
+      ready.forEach((f) => fd.append("files", f, f.name));
       const res = await fetch("/api/inquiry/", { method: "POST", body: fd });
       const data = (await res.json().catch(() => ({}))) as { ok?: boolean; error?: string; errors?: Errors };
       if (res.ok && data.ok) {
@@ -37,7 +44,7 @@ export function useInquiry(kind: InquiryKind) {
         return { ok: true, errors: {} as Errors };
       }
       setServerErrors(data.errors ?? {});
-      setError(data.error ?? (data.errors ? "Please fix the highlighted fields." : "Something went wrong and your request was not sent."));
+      setError(data.error ?? (data.errors ? "Please fix the highlighted fields." : blockedMessage(res.status)));
       setStatus("error");
       return { ok: false, errors: data.errors ?? {} };
     } catch {

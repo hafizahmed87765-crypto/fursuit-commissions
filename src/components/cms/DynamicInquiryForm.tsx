@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import { MAX_REQUEST_BYTES, blockedMessage, shrinkFiles, tooLargeMessage } from "@/lib/upload-client";
 
 type Field = { field_key: string; label: string; field_type: string; is_required: boolean; placeholder: string; help_text: string; options: unknown; condition?: { field?: string; equals?: string } | null };
 export default function DynamicInquiryForm({ slug, fields, submitLabel, successMessage, pagePath }: { slug: string; fields: Field[]; submitLabel: string; successMessage: string; pagePath: string }) {
@@ -11,10 +12,20 @@ export default function DynamicInquiryForm({ slug, fields, submitLabel, successM
   async function submit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setBusy(true); setMessage("");
-    const response = await fetch(`/api/cms-forms/${encodeURIComponent(slug)}/`, { method: "POST", body: new FormData(event.currentTarget) });
+    const body = new FormData(event.currentTarget);
+    let total = 0;
+    for (const [key, value] of [...body.entries()]) {
+      if (typeof value === "string") continue;
+      body.delete(key);
+      for (const file of await shrinkFiles([value])) { if (file.size) { total += file.size; body.append(key, file, file.name); } }
+    }
+    if (total > MAX_REQUEST_BYTES) { setBusy(false); setMessage(tooLargeMessage); return; }
+    let response: Response;
+    try { response = await fetch(`/api/cms-forms/${encodeURIComponent(slug)}/`, { method: "POST", body }); }
+    catch { setBusy(false); setMessage("We couldn't reach our server. Check your connection and try again."); return; }
     const result = await response.json().catch(() => ({}));
     setBusy(false);
-    if (!response.ok) { setMessage(result.error || "Your inquiry could not be sent. Please try again."); return; }
+    if (!response.ok) { setMessage(result.error || blockedMessage(response.status)); return; }
     ref.current?.reset();
     setMessage(result.message || successMessage);
   }

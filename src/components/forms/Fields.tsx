@@ -93,7 +93,7 @@ export function FileField({ label, files, onChange, error, hint, required }: { l
           Choose files
         </button>
         <p id={`${id}-hint`} className="field-hint">
-          {hint ?? "JPG, PNG, WEBP, GIF, HEIC or PDF."} Up to {UPLOAD.maxFiles} files, 8 MB each, 20 MB total.
+          {hint ?? "JPG, PNG, WEBP, GIF, HEIC or PDF."} Up to {UPLOAD.maxFiles} files, 8 MB each. Photos are resized automatically before sending.
         </p>
       </div>
       {files.length ? (
