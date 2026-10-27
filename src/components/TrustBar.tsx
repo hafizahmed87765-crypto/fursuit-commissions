@@ -2,7 +2,7 @@ import { policies } from "@/content/site";
 import Paw from "./Paw";
 
 // Only facts the studio already publishes in its About page and Terms.
-const items = ["Handmade to order", "WIP photos at every stage", `${policies.warrantyMonths}-month limited warranty`, "Ships worldwide", "Kemono & Toony styles", "Repair assessments", "Deposits & payment plans"];
+const items = ["Fursuits handmade to order", "WIP photos at every stage", `${policies.warrantyMonths}-month limited warranty`, "Ships worldwide", "Kemono & Toony fursuits", "Repair assessments", "Deposits & payment plans"];
 
 function Row({ hidden = false }: { hidden?: boolean }) {
   return (

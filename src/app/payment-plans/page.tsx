@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { getSiteImages } from "@/lib/site-images";
 import Link from "next/link";
 import PageIntro from "@/components/PageIntro";
 import SectionHeading from "@/components/SectionHeading";
@@ -22,7 +23,8 @@ const planDetails = [
   { label: "Eligibility", value: c.minimumOrder ?? "Select orders; ask when you request a quote" },
 ];
 
-export default function PaymentPlansPage() {
+export default async function PaymentPlansPage() {
+  const { P3 } = await getSiteImages();
   return (
     <>
       <PageIntro
@@ -112,7 +114,7 @@ export default function PaymentPlansPage() {
           </dl>
         </div>
         <div data-reveal className="card overflow-hidden">
-          <Image src="/media/gallery/assets-task-01k07cjg1bfy8skbzyx2n5s9bj-175259483-a8e498.webp" alt="" width={1536} height={1024} sizes="(min-width:1024px) 40vw, 100vw" className="w-full" />
+          <Image src={P3.src} alt={P3.alt} width={P3.width} height={P3.height} sizes="(min-width:1024px) 40vw, 100vw" className="w-full" />
           <div className="p-6">
             <h3 className="text-xl font-semibold">How to request a plan</h3>
             <ol className="mt-3 list-decimal space-y-2 pl-5 text-ink-muted">

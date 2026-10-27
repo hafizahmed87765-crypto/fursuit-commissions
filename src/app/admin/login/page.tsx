@@ -5,7 +5,9 @@ export const metadata = { robots: { index: false, follow: false } };
 
 const errors: Record<string, string> = {
   missing: "Enter your email and password.",
-  credentials: "Those sign-in details were not accepted.",
+  credentials: "That email and password don't match a staff account. Check the password, or that the user exists in Supabase → Authentication → Users.",
+  unconfirmed: "This account's email address hasn't been confirmed yet. Confirm it in Supabase → Authentication → Users, then try again.",
+  network: "Couldn't reach Supabase to check your sign-in. Check your internet connection and the Supabase URL in .env.local.",
   unauthorized: "This account does not have CMS access.",
   setup: "Admin sign-in is not configured yet. Set the Supabase environment variables and apply the database migration.",
 };

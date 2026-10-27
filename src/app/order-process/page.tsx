@@ -9,8 +9,8 @@ import { generalFaqs } from "@/content/faqs";
 import { pageMeta } from "@/lib/seo";
 
 export const metadata = pageMeta({
-  title: "Our Fursuit Commission Process",
-  description: "How a custom fursuit commission works: references, quote, deposit, measurements, WIP updates, final approval, shipping and aftercare.",
+  title: "How to Commission a Fursuit: Our Commission Process",
+  description: "How to commission a custom fursuit, step by step: references, quote, deposit, measurements, WIP updates, final approval, shipping and aftercare.",
   path: "/order-process/",
 });
 
@@ -62,7 +62,7 @@ export default function ProcessPage() {
       </PageIntro>
 
       <section aria-labelledby="steps" className="container-x py-16 sm:py-20">
-        <SectionHeading id="steps" eyebrow="Step by step" title="Seven steps to your suit" />
+        <SectionHeading id="steps" eyebrow="Step by step" title="The fursuit commission process in seven steps" />
         <ProcessSteps />
       </section>
 
@@ -96,6 +96,10 @@ export default function ProcessPage() {
             and{" "}
             <Link href="/fursuit-commission/" className="link">
               custom fursuits
+            </Link>
+            , or see{" "}
+            <Link href="/fursuit-prices/" className="link">
+              how fursuit prices are worked out
             </Link>
             .
           </p>

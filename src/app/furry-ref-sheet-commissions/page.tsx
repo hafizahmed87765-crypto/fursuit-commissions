@@ -1,4 +1,5 @@
 import SimpleService from "@/components/SimpleService";
+import { getSiteImages } from "@/lib/site-images";
 import { pageMeta } from "@/lib/seo";
 
 const path = "/furry-ref-sheet-commissions/";
@@ -6,7 +7,8 @@ const lede = "No reference sheet yet? Our artists draw clear, fursuit-accurate f
 
 export const metadata = pageMeta({ title: "Fursona Reference Sheet Commissions", description: lede, path });
 
-export default function Page() {
+export default async function Page() {
+  const { P7 } = await getSiteImages();
   return (
     <SimpleService
       path={path}
@@ -31,7 +33,7 @@ export default function Page() {
           { title: "Start with what you have", body: "Share descriptions, sketches, older art or inspiration images when you request a quote. You don't need a finished sheet to get started." },
         ],
       }}
-      illustration="/media/gallery/assets-task-01k07cz82zf7zb7scm5rpcy2xj-175259525-ca3c05.webp"
+      illustration={P7.src}
     />
   );
 }

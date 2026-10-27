@@ -1,0 +1,52 @@
+﻿ID,Page,Section,Category,What to photograph,Shape,Min size (px),How it's replaced,Current photo,Code location
+H1,Homepage,Hero ref sheet - main photo,Kemono,"Best Kemono head, front-facing, eyes visible, plain background",Portrait 4:5,1600 x 2000,Admin > Site images (slot H1),Calico cat Kig head,src/components/Hero.tsx
+H2,Homepage,Hero ref sheet - More sonas thumb 1,Kemono,Second Kemono character (head or partial),Square 1:1,1000 x 1000,Admin > Site images (slot H2),Mint bunny Kemono suit,src/components/Hero.tsx
+H3,Homepage,Hero ref sheet - More sonas thumb 2,Toony,"Toony head, bright colours",Square 1:1,1000 x 1000,Admin > Site images (slot H3),Purple Toony dragon head,src/components/Hero.tsx
+H4,Homepage,Style badge - Kemono Fursuits,Kemono,"Kemono head or partial, full face",Square 1:1,1200 x 1200,Admin > Site images (slot H4),Pink Kemono bunny,src/components/ServiceCards.tsx
+H5,Homepage,Style badge - Toony Fursuits,Toony,"Toony head, expressive face",Square 1:1,1200 x 1200,Admin > Site images (slot H5),Grey Toony wolf head,src/components/ServiceCards.tsx
+H6,Homepage,Style badge - Custom Fursuits,Custom / any species,Fullsuit or bodysuit of a non-Kemono/Toony species,Square 1:1,1200 x 1200,Admin > Site images (slot H6),Pink & white bodysuit,src/components/ServiceCards.tsx
+H7,Homepage,Repairs band - photo 1,Workshop / WIP,"Repair or WIP close-up (tape pattern, foam base)",Square 1:1,1200 x 1200,Admin > Site images (slot H7),Duct-tape head pattern,src/components/RepairTeaser.tsx
+H8,Homepage,Repairs band - photo 2,Workshop / WIP,"Fur being cut, sewn or patched",Square 1:1,1200 x 1200,Admin > Site images (slot H8),Cut fur pieces,src/components/RepairTeaser.tsx
+C1,"Homepage, Parts, Furry Costumes, style pages",Coverage card - Fullsuit,Fullsuit,"Full-body suit, whole character in frame, standing",Square 1:1,1200 x 1200,Admin > Site images (slot C1),Grey wolf fullsuit,src/content/site.ts (commissionOptions)
+C2,"Homepage, Parts, Furry Costumes, style pages",Coverage card - Partial,Partial,Head + hand paws + tail worn together,Square 1:1,1200 x 1200,Admin > Site images (slot C2),Partial suit,src/content/site.ts (commissionOptions)
+C3,"Homepage, Parts, Furry Costumes, style pages",Coverage card - Fursuit head,Head,"Single fursuit head on a stand, 3/4 angle",Square 1:1,1200 x 1200,Admin > Site images (slot C3),Grey Toony wolf head,src/content/site.ts (commissionOptions)
+C4,"Homepage (Parts card), Parts, Furry Costumes",Coverage card - Hand paws,Paws,"Pair of hand paws, pads facing camera",Square 1:1,1200 x 1200,Admin > Site images (slot C4),Brown & black hand paws,src/content/site.ts (commissionOptions)
+C5,"Parts, Furry Costumes",Coverage card - Feet paws,Paws,"Pair of feet paws, toe beans visible",Square 1:1,1200 x 1200,Admin > Site images (slot C5),Navy feet paws,src/content/site.ts (commissionOptions)
+C6,"Parts, Furry Costumes",Coverage card - Tail,Tail,"Whole tail laid flat or hanging, full length",Square 1:1,1200 x 1200,Admin > Site images (slot C6),Golden fox tail,src/content/site.ts (commissionOptions)
+C7,Parts,Coverage card - Character neon sign,Other,"Finished neon sign, lit, dark background",Square 1:1,1200 x 1200,Admin > Site images (slot C7),Character neon sign,src/content/site.ts (commissionOptions)
+S1,Kemono Fursuits,Page hero (also social share image),Kemono,Your strongest Kemono build (different from H1 if possible),Landscape 4:3,2000 x 1500,Admin > Site images (slot S1),Calico Kig (same as H1),src/app/kemono-fursuits/page.tsx
+S2,Toony Fursuits,Page hero (also social share image),Toony,Your strongest Toony build (different from H3/H5 if possible),Landscape 4:3,2000 x 1500,Admin > Site images (slot S2),Purple dragon (same as H3),src/app/toony-fursuits/page.tsx
+S3,Custom Fursuits,Page hero,Custom / any species,Fullsuit or partial of an original species,Landscape 4:3,2000 x 1500,Admin > Site images (slot S3),Pink bodysuit (same as H6),src/app/fursuit-commission/page.tsx
+S4,Furry Mascot Costumes,Page photo (also social share image),Fullsuit / mascot,"Full-body suit, worn or on a stand, whole character visible",Square 1:1,1600 x 1600,Admin > Site images (slot S4),Grey wolf fullsuit (same as C1),src/app/furry-mascot-costumes/page.tsx
+S5,Fursuit Repairs,Hero photo 1,Workshop / WIP,Head mid-repair or mid-furring,Portrait 3:4,1200 x 1600,Admin > Site images (slot S5),"Black canine head, furring",src/app/fursuit-repairs/page.tsx
+S6,Fursuit Repairs,Hero photo 2,Workshop / WIP,Head base (foam or resin) before fur,Portrait 3:4,1200 x 1600,Admin > Site images (slot S6),Resin head base,src/app/fursuit-repairs/page.tsx
+S7,About Us,Story photo 1,Workshop / WIP,Bodysuit in progress on a dress form,Portrait 3:4,1200 x 1600,Admin > Site images (slot S7),Tiger bodysuit in progress,src/app/about-us/page.tsx
+S8,About Us,Story photo 2,Workshop / WIP,"Workbench: fur pieces, patterns or tools",Portrait 3:4,1200 x 1600,Admin > Site images (slot S8),Cut fur pieces,src/app/about-us/page.tsx
+P1,Our Process,Step 1 - Share your character,Process (photo or illustration),A reference sheet on screen or paper,Landscape 3:2,1536 x 1024,Admin > Site images (slot P1),Illustration,src/content/site.ts (processSteps)
+P2,Our Process,Step 2 - Receive your quote,Process (photo or illustration),Quote / email being reviewed,Landscape 3:2,1536 x 1024,Admin > Site images (slot P2),Illustration,src/content/site.ts (processSteps)
+P3,Our Process + Payment Plans,Step 3 - Confirm & pay deposit,Process (photo or illustration),Payment / agreement scene,Landscape 3:2,1536 x 1024,Admin > Site images (slot P3),Illustration,"src/content/site.ts (processSteps), src/app/payment-plans/page.tsx"
+P4,Our Process,Step 4 - Measurements & approvals,Process (photo or illustration),Measuring tape / duct-tape dummy,Landscape 3:2,1536 x 1024,Admin > Site images (slot P4),Illustration,src/content/site.ts (processSteps)
+P5,Our Process,Step 5 - Build with WIP updates,Process (photo or illustration),Head being furred or sewn,Landscape 3:2,1536 x 1024,Admin > Site images (slot P5),Illustration,src/content/site.ts (processSteps)
+P6,Our Process,Step 6 - Final approval,Process (photo or illustration),Finished suit ready to ship,Landscape 3:2,1536 x 1024,Admin > Site images (slot P6),Illustration,src/content/site.ts (processSteps)
+P7,Reference Sheets,Example illustration,Ref sheet,An example reference sheet you drew (with client permission),Landscape 3:2,1536 x 1024,Admin > Site images (slot P7),Illustration (same as P1),src/app/furry-ref-sheet-commissions/page.tsx
+P8,All pages (default),Social share preview (Facebook / Discord / X),Brand,"Best overall photo; subject centred, no text",Landscape 1.91:1,1200 x 630,Admin > Site images (slot P8),Calico Kig (same as H1),src/lib/seo.ts
+B1,Every page,Logo icon / 404 page,Brand,Only if your logo changes (transparent PNG),Square 1:1,512 x 512,Send to developer (code),Wolf logo icon,"src/components/Logo.tsx, src/app/not-found.tsx"
+B2,Most pages (final call-to-action),Mascot peeking over panel,Brand,Only if your logo / mascot changes (transparent PNG or WebP),Roughly square,800 x 750,Send to developer (code),Wolf logo with wordmark,src/components/FinalCta.tsx
+
+GALLERY SHOT LIST - upload in Admin > Galleries (no developer needed)
+Gallery,Shows on,Photos shown,Recommended to upload,Mix to include,Tags to tick,Shape,Min size (px)
+Gallery page (all work),/gallery/ and homepage Fresh from the workshop (first 12),All,45-55 total,Everything below combined,As listed per row,Any (masonry grid),1600 on long edge
+Kemono,Kemono Fursuits page - Recent work,First 8,10-12,"Heads, partials and fullsuits; front and 3/4 angles",Kemono + Heads or Fullsuit,Portrait or square best,1600 on long edge
+Toony,Toony Fursuits page - Recent work,First 8,10-12,"Heads, partials and fullsuits; show expressions",Toony + Heads or Fullsuit,Portrait or square best,1600 on long edge
+Custom (other species),Custom Fursuits page - Recent work,First 8,8-10,"Canines, felines, dragons, hybrids; fullsuits and partials",Fullsuit or Heads,Any,1600 on long edge
+Fullsuits,Gallery filter - Fullsuit,-,6-8 (can overlap with the styles above),"Whole character standing, worn if possible",Fullsuit,Portrait 3:4,1600 on long edge
+Parts,Fursuit Parts page - Recent parts,First 8,8-10,"Hand paws, feet paws, tails, neon signs",Paws or Tails,Square best,1600 on long edge
+Paws,Gallery filter - Paws,-,4-6 (part of Parts),"Hand and feet paws, pad close-ups",Paws,Square,1600 on long edge
+Tails,Gallery filter - Tails,-,3-4 (part of Parts),Full length plus tip close-up,Tails,Square or portrait,1600 on long edge
+Work in progress,Gallery filter - In progress,-,6-8,"Tape patterns, foam or resin bases, fur cutting, sewing",In progress (+ Heads etc.),Any,1600 on long edge
+
+PHOTO TIPS
+"JPEG, PNG or WebP, under 10 MB each (admin upload limit); the site resizes and converts automatically."
+"Plain, uncluttered background and even light; keep the subject centred with space around it (cards crop to squares)."
+No baked-in text or large watermarks; only use photos you own or have client permission to show.
+"Name files descriptively before uploading, e.g. pink-kemono-bunny-fursuit-head.jpg (helps image search)."

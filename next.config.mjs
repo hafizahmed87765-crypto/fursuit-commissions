@@ -32,8 +32,13 @@ const legacyRedirects = [
 const nextConfig = {
   trailingSlash: true,
   poweredByHeader: false,
-  experimental: { serverActions: { bodySizeLimit: "12mb" } },
-  images: { formats: ["image/avif", "image/webp"] },
+  // Room for several photos per gallery upload (each is capped at 10 MB server-side).
+  experimental: { serverActions: { bodySizeLimit: "60mb" } },
+  images: {
+    formats: ["image/avif", "image/webp"],
+    // Admin-uploaded gallery photos are served from Supabase Storage.
+    remotePatterns: [{ protocol: "https", hostname: "*.supabase.co", pathname: "/storage/v1/object/public/**" }],
+  },
   async redirects() {
     const rules = legacyRedirects.map(([source, destination]) => ({ source, destination, permanent: true }));
     return rules;

@@ -5,26 +5,29 @@ import SectionHeading from "@/components/SectionHeading";
 import StartingPoints from "@/components/StartingPoints";
 import ServiceCards from "@/components/ServiceCards";
 import PortfolioGrid from "@/components/PortfolioGrid";
+import WorkShowcase from "@/components/WorkShowcase";
+import { featuredWork } from "@/lib/work";
 import RepairTeaser from "@/components/RepairTeaser";
 import ProcessSteps from "@/components/ProcessSteps";
 import Planner from "@/components/Planner";
 import Reviews from "@/components/Reviews";
 import FaqList from "@/components/FaqList";
 import FinalCta from "@/components/FinalCta";
-import { portfolio } from "@/content/portfolio";
 import { commissionReasons, policies } from "@/content/site";
 import { generalFaqs } from "@/content/faqs";
 import { pageMeta } from "@/lib/seo";
+import { getPlacementItems } from "@/lib/gallery-placements";
+import { getSiteImages } from "@/lib/site-images";
 import CmsFormForPage from "@/components/cms/CmsFormForPage";
 
 export const metadata = pageMeta({
-  title: "Custom Fursuit & Kemono Commissions | FursuitCommissions.com",
+  // The layout's title template doesn't apply to the root page, so the brand is included here.
+  title: "Fursuit Commissions: Custom Fursuits & Furry Costumes | FursuitCommissions.com",
   description:
-    "Custom fursuits, Kemono and Toony suits handmade to your character: heads, partials, fullsuits, paws and tails. Free quotes, WIP updates and worldwide shipping.",
+    "Custom fursuit commissions from a handmade fursuit maker: furry costumes, Kemono and Toony suits and furry mascot costumes. Free quotes and worldwide shipping.",
   path: "/",
 });
 
-const featured = portfolio.slice(0, 12);
 
 // Each promise is a practice from the studio's own About page and Terms.
 const promises = [
@@ -55,7 +58,10 @@ const helpLinks = [
   { href: "/contact-us/", label: "Contact us" },
 ];
 
-export default function HomePage() {
+export default async function HomePage() {
+  const siteImages = await getSiteImages();
+  // An admin-assigned homepage gallery wins; otherwise show the character sliders.
+  const featured = (await getPlacementItems("home"))?.slice(0, 12);
   return (
     <>
       <Hero />
@@ -68,7 +74,7 @@ export default function HomePage() {
           eyebrow="Pick a starting point"
           title="From a single tail to a full character"
           mark="full character"
-          lede="Choose your coverage and we'll build the rest around your reference. Where we list a starting price it's for a standard build; everything else is quoted to your design."
+          lede="Choose your fursuit coverage and we'll build the rest around your reference. Where we list a starting price it's for a standard build; everything else is quoted to your design."
         />
         <StartingPoints />
         <p className="mt-8 text-center text-ink-muted" data-reveal>
@@ -85,17 +91,38 @@ export default function HomePage() {
           <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
             <SectionHeading id="styles" eyebrow="Pick your style badge" title="Three ways to bring your character home" mark="character home" />
             <p className="lede max-w-md" data-reveal>
-              Every commission is built from scratch. Start with the style that fits your character, and we&apos;ll shape the rest around your reference.
+              Every fursuit commission is built from scratch. Start with the style that fits your character, and we&apos;ll shape the rest around your reference.
             </p>
           </div>
-          <ServiceCards />
+          <ServiceCards images={{ kemono: siteImages.H4, toony: siteImages.H5, custom: siteImages.H6 }} />
         </div>
+      </section>
+
+      <section aria-labelledby="explore" className="container-x pt-16 sm:pt-24">
+        <SectionHeading id="explore" eyebrow="Looking for something specific?" title="Fursuits, furry costumes & mascots" mark="furry costumes" />
+        <ul className="mt-10 grid gap-6 md:grid-cols-3">
+          {[
+            { href: "/furry-costumes/", title: "Custom furry costumes", body: "What a custom furry costume is, how it's made and the styles you can choose." },
+            { href: "/furry-mascot-costumes/", title: "Furry mascot costumes", body: "Handmade mascot heads, paws and suits for your character, stream or community." },
+            { href: "/fursuit-prices/", title: "Fursuit commission prices", body: "What affects the cost of a custom fursuit, with our published starting prices." },
+          ].map((l, i) => (
+            <li key={l.href} data-reveal style={{ ["--reveal-delay" as string]: `${i * 80}ms` }}>
+              <Link href={l.href} className="group toon toon-hover flex h-full flex-col p-6">
+                <h3 className="text-2xl font-bold">{l.title}</h3>
+                <p className="mt-2 flex-1 text-ink-muted">{l.body}</p>
+                <span className="mt-4 font-display font-bold text-forest">
+                  Learn more <span aria-hidden className="inline-block transition-transform group-hover:translate-x-1">→</span>
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ul>
       </section>
 
       <section aria-label="Ways to start your commission" className="container-x grid gap-8 pt-16 sm:pt-24 lg:grid-cols-2">
         <div data-reveal className="toon bg-forest p-8 text-white sm:p-11 lg:-rotate-1">
           <p className="eyebrow !text-mint">Know what you want?</p>
-          <h2 className="mt-2 text-3xl font-bold !text-white sm:text-4xl">Request a custom quote</h2>
+          <h2 className="mt-2 text-3xl font-bold !text-white sm:text-4xl">Request a custom fursuit quote</h2>
           <p className="mt-3 max-w-md text-lg text-mint-light">Upload your reference sheet and tell us what you&apos;d like made. It takes about five minutes, and nothing is booked until you accept.</p>
           <Link href="/get-a-quote/" className="btn mt-7 border-mint bg-mint text-forest hover:bg-mint-light motion-safe:hover:-translate-y-0.5">
             Get a free quote <span aria-hidden>→</span>
@@ -104,7 +131,7 @@ export default function HomePage() {
         <div data-reveal style={{ ["--reveal-delay" as string]: "90ms" }} className="toon bg-lavender-soft p-8 sm:p-11 lg:rotate-1">
           <p className="eyebrow">Not sure yet?</p>
           <h2 className="mt-2 text-3xl font-bold sm:text-4xl">Try the commission planner</h2>
-          <p className="mt-3 max-w-md text-lg text-ink-muted">Answer a few quick questions and we&apos;ll point you to the right commission, with your answers carried into the quote form.</p>
+          <p className="mt-3 max-w-md text-lg text-ink-muted">Answer a few quick questions and we&apos;ll point you to the right fursuit commission, with your answers carried into the quote form.</p>
           <Link href="#planner" className="btn-primary mt-7">
             Start the planner <span aria-hidden>↓</span>
           </Link>
@@ -113,13 +140,13 @@ export default function HomePage() {
 
       <section aria-labelledby="featured" className="container-x py-16 sm:py-24">
         <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
-          <SectionHeading id="featured" eyebrow="The badge wall" title="Fresh from the workshop" mark="workshop" lede="Finished pieces and works in progress, from tape patterns to final fur. Tap any photo to see it larger." />
+          <SectionHeading id="featured" eyebrow="The badge wall" title="Fresh from the workshop" mark="workshop" lede="Kemono and Toony fursuits we have made for real characters. Swipe each card for more angles, or tap to see it larger." />
           <Link href="/gallery/" className="btn-secondary shrink-0 self-start md:self-auto">
             View full gallery
           </Link>
         </div>
         <div className="mt-10">
-          <PortfolioGrid items={featured} filters />
+          {featured ? <PortfolioGrid items={featured} filters /> : <WorkShowcase products={featuredWork(8)} />}
         </div>
       </section>
 
@@ -146,7 +173,7 @@ export default function HomePage() {
             eyebrow="Why commission a fursuit?"
             title="A wearable version of your character"
             mark="wearable"
-            lede="A custom commission brings your character from reference sheet to something you can wear, photograph and take to events. The design starts with you."
+            lede="A custom fursuit commission brings your character from reference sheet to something you can wear, photograph and take to events. The design starts with you."
           />
           <ul className="grid gap-4">
             {commissionReasons.map((reason, i) => (
@@ -208,7 +235,7 @@ export default function HomePage() {
             <div className="bg-paws absolute inset-0 rounded-[1.8rem]" aria-hidden />
             <div className="relative">
               <h2 id="faq" className="h-section">
-                Questions before you commission?
+                Questions about fursuit commissions?
               </h2>
               <p className="mt-3 text-lg text-forest">Everything about ordering, payments and shipping. Can&apos;t find your answer? Send us a message.</p>
               <ul className="mt-6 grid gap-2.5">

@@ -7,7 +7,7 @@ export const metadata = { robots: { index: false, follow: false } };
 const links = [
   ["Overview", "/admin/"], ["Pages", "/admin/pages/"], ["Blog", "/admin/blog/"],
   ["Forms", "/admin/forms/"], ["Inquiries", "/admin/submissions/"],
-  ["Media", "/admin/media/"], ["Galleries", "/admin/galleries/"], ["Commissions", "/admin/commissions/"],
+  ["Media", "/admin/media/"], ["Galleries", "/admin/galleries/"], ["Site images", "/admin/site-images/"], ["Commissions", "/admin/commissions/"],
 ] as const;
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {

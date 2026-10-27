@@ -4,10 +4,10 @@ import { pageMeta } from "@/lib/seo";
 
 const path = "/fursuit-commission/";
 const intro =
-  "Heads, partials and fullsuits made from scratch around your reference sheet, in any species and style. You get a personal quote, WIP photos at every stage and worldwide shipping.";
+  "Heads, partials and fullsuits made from scratch around your reference sheet, in any species and style: a custom furry costume of your own character. You get a personal quote, WIP photos at every stage and worldwide shipping.";
 
 export const metadata = pageMeta({
-  title: "Custom Fursuit Commissions: Heads, Partials & Fullsuits",
+  title: "Custom Fursuit Commissions: Fullsuits, Partials & Heads",
   description: "Commission a custom fursuit head, partial or fullsuit built from your reference sheet. Free quotes, WIP updates at every stage and worldwide shipping.",
   path,
 });
@@ -22,7 +22,8 @@ export default function Page() {
       title="Custom Fursuit Commissions"
       intro={intro}
       tint="bg-mint-wash"
-      hero={{ src: "/media/gallery/o1cn01tyheih1cnocozjamh-4611686018427385509-0-am-66696d.webp", width: 1200, height: 1600, alt: "White fursuit bodysuit with pink and blue markings on a stand in the workshop", position: "50% 25%" }}
+      heroSlot="S3"
+      hero={{ src: "/media/work/kemono-crowned-fox-fullsuit-1.webp", width: 1200, height: 1600, alt: "Kemono-style crimson and grey fox fursuit with a teal crown marking, blue anime eyes and red-striped paws, head, hand paws and feet paws in the workshop", position: "50% 25%" }}
       traitsTitle="Built around your character, not a template"
       traits={[
         { title: "Any species", body: "Canines, felines, dragons, hybrids and original species. If it's on your ref sheet, we pattern it." },
@@ -32,6 +33,7 @@ export default function Page() {
       ]}
       faqs={generalFaqs.slice(0, 8)}
       related={[
+        { href: "/fursuit-prices/", label: "Fursuit prices", body: "What affects the cost of a custom fursuit" },
         { href: "/kemono-fursuits/", label: "Kemono suits", body: "Anime-inspired faces with big glossy eyes" },
         { href: "/toony-fursuits/", label: "Toony suits", body: "Bold, expressive cartoon characters" },
         { href: "/furry-ref-sheet-commissions/", label: "Need a reference sheet?", body: "Our artists can draw one before your build" },

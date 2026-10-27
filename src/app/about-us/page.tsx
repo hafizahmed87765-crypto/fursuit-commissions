@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { getSiteImages } from "@/lib/site-images";
 import Link from "next/link";
 import PageIntro from "@/components/PageIntro";
 import SectionHeading from "@/components/SectionHeading";
@@ -7,7 +8,7 @@ import FinalCta from "@/components/FinalCta";
 import { pageMeta } from "@/lib/seo";
 
 export const metadata = pageMeta({
-  title: "About Our Fursuit Studio",
+  title: "About Our Fursuit Maker Studio",
   description: "FursuitCommissions.com is a maker studio for custom fursuits, Kemono and Toony suits, fursuit parts and repairs, built from scratch and made to order.",
   path: "/about-us/",
 });
@@ -19,14 +20,15 @@ const crafts = [
   { title: "Parts & repairs", body: "Paws, tails and finishing touches, plus repair assessments for suits that need some love.", href: "/fursuit-parts/" },
 ];
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const { S7, S8 } = await getSiteImages();
   return (
     <>
       <PageIntro
         crumbs={[{ name: "About", path: "/about-us/" }]}
         eyebrow="About us"
         title="We don't just make suits. We bring characters to life."
-        lede="FursuitCommissions.com is a maker studio specialising in custom fursuits: built from scratch, made to order and crafted with real care."
+        lede="FursuitCommissions.com is a fursuit maker studio specialising in custom fursuits: built from scratch, made to order and crafted with real care."
       />
       <section aria-labelledby="story" className="container-x grid items-center gap-10 py-16 sm:py-20 lg:grid-cols-2">
         <div data-reveal>
@@ -37,8 +39,8 @@ export default function AboutPage() {
           </div>
         </div>
         <div data-reveal className="grid grid-cols-2 gap-3">
-          <Image src="/media/gallery/o1cn01lptcuc1cnobh57si4-4611686018427385509-0-am-6ca55d.webp" alt="Orange tiger bodysuit in progress on a dress form" width={1200} height={1600} sizes="(min-width:1024px) 25vw, 50vw" className="aspect-[3/4] rounded-blob object-cover" />
-          <Image src="/media/gallery/o1cn01dgqmih1cnoblos5ug-4611686018427385509-0-am-9ac3b9.webp" alt="Faux fur pieces cut from a pattern on the workbench" width={1200} height={1600} sizes="(min-width:1024px) 25vw, 50vw" className="mt-10 aspect-[3/4] rounded-blob object-cover" />
+          <Image src={S7.src} alt={S7.alt} width={S7.width} height={S7.height} sizes="(min-width:1024px) 25vw, 50vw" className="aspect-[3/4] rounded-blob object-cover" />
+          <Image src={S8.src} alt={S8.alt} width={S8.width} height={S8.height} sizes="(min-width:1024px) 25vw, 50vw" className="mt-10 aspect-[3/4] rounded-blob object-cover" />
         </div>
       </section>
 

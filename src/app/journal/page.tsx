@@ -1,8 +1,8 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = { title: "Journal", description: "Updates and stories from FursuitCommissions.com." };
+export const metadata = pageMeta({ title: "Fursuit Journal: Guides & Studio News", description: "Fursuit guides, commission tips and news from the FursuitCommissions.com workshop.", path: "/journal/" });
 
 export default async function JournalPage() {
   if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {

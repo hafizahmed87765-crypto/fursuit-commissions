@@ -7,7 +7,7 @@ import { pageMeta } from "@/lib/seo";
 import CmsFormForPage from "@/components/cms/CmsFormForPage";
 
 export const metadata = pageMeta({
-  title: "Get a Custom Fursuit Quote",
+  title: "Get a Free Custom Fursuit Quote",
   description: "Request a free, no-obligation quote for a custom fursuit, Kemono or Toony suit, partial, head or parts. Upload your reference sheet and we'll reply with pricing and a timeline.",
   path: "/get-a-quote/",
 });
@@ -19,7 +19,7 @@ export default function QuotePage() {
         crumbs={[{ name: "Get a Quote", path: "/get-a-quote/" }]}
         eyebrow="Free quote"
         title="Start your commission"
-        lede="Tell us about your character and what you'd like made. It takes about five minutes, your answers are kept as you move between steps, and nothing is booked until you accept your quote."
+        lede="Request your free fursuit quote: tell us about your character and what you'd like made. It takes about five minutes, your answers are kept as you move between steps, and nothing is booked until you accept your quote."
       />
       <div className="container-x grid gap-10 py-10 sm:py-14 lg:grid-cols-[1fr_320px]">
         <Suspense fallback={<div className="card h-96 animate-pulse" aria-label="Loading form" />}>

@@ -1,10 +1,5 @@
-// Curated portfolio. Images come from the studio's existing WordPress
-// gallery / WIP page and commission service pages (synced into
-// public/media by `npm run sync`). Tags are only applied where the photo
-// makes the style or coverage obvious.
-//
-// CONFIRM: most WIP photos were uploaded with Taobao/Alibaba CDN filenames
-// (O1CN01…). Confirm they show the studio's own work before launch.
+// Single-photo portfolio: paws, tails, bodysuits and builds in progress.
+// Photos come from public/media/work (see scripts/import-work-photos.cjs).
 
 export type PortfolioTag = "kemono" | "toony" | "fullsuit" | "partial" | "head" | "paws" | "tail" | "wip" | "other";
 
@@ -20,21 +15,27 @@ export type PortfolioItem = {
 };
 
 export const portfolio: PortfolioItem[] = [
-  { id: "calico-kig", title: "Calico cat Kig head", src: "/media/products/whatsapp-image-2025-12-14-at-12-27-58-pm-f42ae7.webp", width: 1280, height: 1262, tags: ["kemono", "head"], alt: "Kemono-style calico cat fursuit head with large blue anime eyes and pink inner ears, worn with a pale blue top" },
-  { id: "tiger-kemono", title: "Tiger Kemono head", src: "/media/gallery/whatsapp-image-2025-07-14-at-04-09-57-7e24860f-7f8288.webp", width: 1513, height: 1008, tags: ["kemono", "head"], alt: "Orange and black striped tiger fursuit head with violet anime eyes and a small open smile" },
-  { id: "dragon-head", title: "Horned purple dragon head", src: "/media/gallery/o1cn01pcmuzy1cnocobexva-4611686018427385509-0-am-7fa10f.webp", width: 1200, height: 1600, tags: ["toony", "head"], alt: "Purple and turquoise horned dragon fursuit head with expressive cyan eyebrows, on a head stand" },
-  { id: "dragon-side", title: "Dragon head, side view", src: "/media/gallery/o1cn01runzzt1cnocongldw-4611686018427385509-0-am-a45ae9.webp", width: 1200, height: 1600, tags: ["toony", "head"], alt: "Side view of the purple dragon fursuit head showing black horns and a long turquoise hair tuft" },
-  { id: "pink-fullsuit", title: "Pink & white fullsuit", src: "/media/gallery/o1cn01tyheih1cnocozjamh-4611686018427385509-0-am-66696d.webp", width: 1200, height: 1600, tags: ["fullsuit"], alt: "White fursuit bodysuit with soft pink and blue markings and feet paws, hanging on a stand in the workshop" },
-  { id: "feet-paws", title: "Navy feet paws", src: "/media/products/whatsapp-image-2025-12-14-at-12-35-31-pm-0a11c0.webp", width: 1280, height: 1241, tags: ["paws"], alt: "Pair of navy blue and white fursuit feet paws with pink bean-shaped toe pads" },
-  { id: "hand-paws", title: "Brown & black hand paws", src: "/media/products/whatsapp-image-2025-12-14-at-12-31-08-pm-b446b0.webp", width: 1280, height: 1108, tags: ["paws"], alt: "Brown and black fursuit hand paws with pink paw pads" },
-  { id: "fox-tail", title: "Golden fox tail", src: "/media/products/whatsapp-image-2025-12-14-at-12-37-12-pm-519091.webp", width: 1280, height: 1267, tags: ["tail"], alt: "Long fluffy golden-orange fox tail with a cream tip" },
-  { id: "neon", title: "Character neon sign", src: "/media/products/whatsapp-image-2025-12-14-at-12-39-50-pm-1a4bc4.webp", width: 960, height: 1280, tags: ["other"], alt: "Neon light sign outlining a horned fursona's face in blue, pink and yellow tubes" },
-  { id: "wip-tiger-body", title: "Tiger bodysuit in progress", src: "/media/gallery/o1cn01lptcuc1cnobh57si4-4611686018427385509-0-am-6ca55d.webp", width: 1200, height: 1600, tags: ["wip", "fullsuit"], alt: "Orange tiger bodysuit with black stripes and white paws, partly assembled on a dress form" },
-  { id: "wip-tape", title: "Duct-tape head pattern", src: "/media/gallery/o1cn016idzzr1cnobaqlqwi-4611686018427385509-0-am-f82eb1.webp", width: 1600, height: 1600, tags: ["wip", "head"], alt: "Clear tape pattern over a foam head base with tiger stripe lines marked in black" },
-  { id: "wip-base", title: "Resin head base", src: "/media/gallery/o1cn01bvcrw61cnoaqqcpah-4611686018427385509-0-am-afe8ea.webp", width: 1205, height: 1600, tags: ["wip", "head"], alt: "White resin fursuit head base held up before fur is applied" },
-  { id: "wip-canine", title: "Black canine head, furring", src: "/media/gallery/o1cn01w9dus01cnocoqzhzm-4611686018427385509-0-am-4bf73a.webp", width: 1200, height: 1600, tags: ["wip", "head"], alt: "Black canine fursuit head mid-way through furring, eyes not yet installed" },
-  { id: "wip-fur-cut", title: "Cut fur pieces", src: "/media/gallery/o1cn01dgqmih1cnoblos5ug-4611686018427385509-0-am-9ac3b9.webp", width: 1200, height: 1600, tags: ["wip"], alt: "Orange and black faux fur pieces cut from a pattern and laid out on a work table" },
-  { id: "wip-tails", title: "Tail fur samples", src: "/media/gallery/o1cn01i8wft21cnob1qdzdb-4611686018427385509-0-am-61d617.webp", width: 1080, height: 741, tags: ["wip", "tail"], alt: "Row of faux fur tail samples in yellow, mauve, orange and red" },
+  { id: "red-paw-pads", title: "Hand paws with red paw pads", src: "/media/work/toony-snow-leopard-partial-1.webp", width: 1200, height: 1600, tags: ["paws"], alt: "Toony-style grey snow leopard fursuit with black rosettes, pink eyes, glasses, a gold bell collar and white hand paws with red paw pads, showing the paw pads" },
+  { id: "clawed-feet-paws", title: "Clawed digitigrade feet paws", src: "/media/work/kemono-blue-dragon-digitigrade-fullsuit-8.webp", width: 1200, height: 1600, tags: ["paws"], alt: "Kemono-style white and sky-blue horned dragon fullsuit with blue swirl markings, a digitigrade bodysuit and clawed feet paws, feet paws with claws" },
+  { id: "grey-feet-paws", title: "Grey feet paws with black toe beans", src: "/media/work/toony-red-streak-wolf-partial-4.webp", width: 1067, height: 1600, tags: ["paws"], alt: "Toony-style charcoal and white wolf fursuit with a red hair streak, red eye markings, red inner ears and matching feet paws, with the matching feet paws" },
+  { id: "lavender-hand-paws", title: "Lavender hand paws", src: "/media/work/kemono-lavender-ram-partial-fursuit-6.webp", width: 1600, height: 1201, tags: ["paws","kemono"], alt: "Kemono-style grey and white fursuit with lavender curled horns, purple inner ears and sleepy anime eyes, matching hand paws with lavender paw pads" },
+  { id: "blue-striped-tail", title: "Blue, red & gold striped tail", src: "/media/work/kemono-blue-flame-horn-fullsuit-4.webp", width: 1258, height: 1600, tags: ["tail"], alt: "Kemono-style blue and white fursuit with flame-shaped orange horns, amber anime eyes, a paw-print bandana and a long striped tail, the striped tail laid flat" },
+  { id: "red-jagged-tail", title: "Red & white jagged tail", src: "/media/work/toony-red-black-white-fullsuit-2.webp", width: 1600, height: 1200, tags: ["tail"], alt: "Red, white and black fursuit with jagged red trim and black legs, the matching tail laid flat" },
+  { id: "finned-tail", title: "Teal finned tail and bodysuit", src: "/media/work/toony-teal-diamond-bodysuit-1.webp", width: 1201, height: 1600, tags: ["tail","fullsuit"], alt: "Teal, white and black fursuit bodysuit with a diamond pattern, white feet paws and a finned tail, three-quarter view with the tail" },
+  { id: "dragon-tail", title: "Blue swirl dragon tail", src: "/media/work/kemono-blue-dragon-digitigrade-fullsuit-6.webp", width: 1200, height: 1600, tags: ["tail","kemono"], alt: "Kemono-style white and sky-blue horned dragon fullsuit with blue swirl markings, a digitigrade bodysuit and clawed feet paws, side view of the tail" },
+  { id: "neon-fullsuit", title: "Neon wolf fullsuit", src: "/media/work/toony-neon-wolf-fullsuit-2.webp", width: 718, height: 1032, tags: ["fullsuit","toony"], alt: "Toony-style purple, lime green and yellow wolf fullsuit with blue paws, a red X eye and a yellow exclamation eye, full-body pose" },
+  { id: "tiger-bodysuit", title: "Orange tiger bodysuit", src: "/media/work/toony-orange-tiger-bodysuit-1.webp", width: 1059, height: 1600, tags: ["fullsuit"], alt: "Orange tiger fursuit bodysuit with black stripes, a yellow belly and attached hand and feet paws, front view" },
+  { id: "dragon-fullsuit", title: "Blue & white dragon fullsuit", src: "/media/work/kemono-blue-dragon-digitigrade-fullsuit-1.webp", width: 900, height: 1600, tags: ["fullsuit","kemono"], alt: "Kemono-style white and sky-blue horned dragon fullsuit with blue swirl markings, a digitigrade bodysuit and clawed feet paws, full-body front view" },
+  { id: "husky-head", title: "Black husky head with teal ears", src: "/media/work/toony-teal-ear-husky-fursuit-head-1.webp", width: 1067, height: 1600, tags: ["head","toony"], alt: "Toony-style black and white husky fursuit head with teal ears, lime cheek fluff, blue and yellow anime eyes and a studded bell collar, front view" },
+  { id: "red-panda-head", title: "Red panda Kemono head", src: "/media/work/kemono-red-panda-fursuit-head-1.webp", width: 1067, height: 1600, tags: ["head","kemono"], alt: "Kemono-style red panda fursuit head with red and pink striped ears, ruby anime eyes and freckled white cheeks, front view" },
+  { id: "wip-dtd", title: "Duct-tape dummy", src: "/media/work/fursuit-duct-tape-dummy-1.webp", width: 1200, height: 1600, tags: ["wip"], alt: "Duct-tape dummy for a custom fursuit bodysuit, with a feet paw base" },
+  { id: "wip-tail-pattern", title: "Tail pattern on the dummy", src: "/media/work/fursuit-duct-tape-dummy-3.webp", width: 1080, height: 1440, tags: ["wip","tail"], alt: "Duct-tape dummy for a custom fursuit bodysuit, with the paper tail pattern" },
+  { id: "wip-digi-padding", title: "Digitigrade leg padding", src: "/media/work/fursuit-duct-tape-dummy-4.webp", width: 1200, height: 1600, tags: ["wip","fullsuit"], alt: "Duct-tape dummy for a custom fursuit bodysuit, with digitigrade leg padding and a mesh bodysuit" },
+  { id: "wip-head-pattern", title: "Head base patterning", src: "/media/work/fursuit-head-base-patterning-1.webp", width: 1600, height: 1600, tags: ["wip","head"], alt: "Fursuit head base, wrapped in film with seam lines drawn on, front view" },
+  { id: "wip-3d-bases", title: "3D-modelled head bases", src: "/media/work/fursuit-head-base-patterning-3.webp", width: 1600, height: 1600, tags: ["wip","head"], alt: "Fursuit head base, 3D-modelled designs with an open-mouth jaw" },
+  { id: "wip-crowned-fox", title: "Crowned fox before assembly", src: "/media/work/kemono-crowned-fox-fullsuit-2.webp", width: 1200, height: 1600, tags: ["wip","fullsuit"], alt: "Kemono-style crimson and grey fox fursuit with a teal crown marking, blue anime eyes and red-striped paws, with the digitigrade bodysuit before final assembly" },
+  { id: "studio-fur", title: "Our faux fur stock", src: "/media/work/fursuit-studio-2.webp", width: 1079, height: 1431, tags: ["wip"], alt: "Our fursuit studio, with rolls of faux fur in every colour" },
+  { id: "studio-printers", title: "3D printers for head bases", src: "/media/work/fursuit-studio-4.webp", width: 1079, height: 1448, tags: ["wip"], alt: "Our fursuit studio, with the 3D printers that make our head bases" },
 ];
 
 export const filterLabels: Partial<Record<PortfolioTag, string>> = {

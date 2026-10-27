@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { getSiteImages } from "@/lib/site-images";
 import Link from "next/link";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import SectionHeading from "@/components/SectionHeading";
@@ -26,7 +27,8 @@ const steps = [
   { title: "Confirm the repair", body: "Accept the quote, then ship the suit. Don't send anything before we confirm." },
 ];
 
-export default function RepairsPage() {
+export default async function RepairsPage() {
+  const { S5, S6 } = await getSiteImages();
   return (
     <>
       <section className="bg-forest text-white">
@@ -50,8 +52,8 @@ export default function RepairsPage() {
             </div>
           </div>
           <div className="grid animate-reveal grid-cols-2 gap-3">
-            <Image src="/media/gallery/o1cn01w9dus01cnocoqzhzm-4611686018427385509-0-am-4bf73a.webp" alt="Black canine fursuit head mid-way through furring on the workbench" width={1200} height={1600} priority sizes="(min-width:1024px) 22vw, 50vw" className="aspect-[3/4] rounded-blob object-cover" />
-            <Image src="/media/gallery/o1cn01bvcrw61cnoaqqcpah-4611686018427385509-0-am-afe8ea.webp" alt="Bare resin fursuit head base before fur is applied" width={1205} height={1600} sizes="(min-width:1024px) 22vw, 50vw" className="mt-10 aspect-[3/4] rounded-blob object-cover" />
+            <Image src={S5.src} alt={S5.alt} width={S5.width} height={S5.height} priority sizes="(min-width:1024px) 22vw, 50vw" className="aspect-[3/4] rounded-blob object-cover" />
+            <Image src={S6.src} alt={S6.alt} width={S6.width} height={S6.height} sizes="(min-width:1024px) 22vw, 50vw" className="mt-10 aspect-[3/4] rounded-blob object-cover" />
           </div>
         </div>
       </section>

@@ -3,6 +3,8 @@ import Link from "next/link";
 import Breadcrumbs from "./Breadcrumbs";
 import SectionHeading from "./SectionHeading";
 import PortfolioGrid from "./PortfolioGrid";
+import WorkShowcase from "./WorkShowcase";
+import { characters, featuredWork } from "@/lib/work";
 import CommissionOptions from "./CommissionOptions";
 import ProcessSteps from "./ProcessSteps";
 import FaqList from "./FaqList";
@@ -11,6 +13,8 @@ import JsonLd from "./JsonLd";
 import { portfolio, type PortfolioTag } from "@/content/portfolio";
 import type { Faq } from "@/content/faqs";
 import { serviceLd } from "@/lib/seo";
+import { getPlacementItems } from "@/lib/gallery-placements";
+import { getSiteImages, type SlotId } from "@/lib/site-images";
 import CmsFormForPage from "@/components/cms/CmsFormForPage";
 
 export type ServiceLandingProps = {
@@ -21,6 +25,8 @@ export type ServiceLandingProps = {
   title: string;
   intro: string;
   hero: { src: string; width: number; height: number; alt: string; position?: string };
+  /** Admin > Site images slot that can replace the hero photo. */
+  heroSlot?: SlotId;
   tint: string;
   traits: { title: string; body: string }[];
   traitsTitle: string;
@@ -29,8 +35,12 @@ export type ServiceLandingProps = {
   related: { href: string; label: string; body: string }[];
 };
 
-export default function ServiceLanding(p: ServiceLandingProps) {
-  const work = p.portfolioTag ? portfolio.filter((i) => i.tags.includes(p.portfolioTag!)) : portfolio;
+export default async function ServiceLanding(p: ServiceLandingProps) {
+  const hero = p.heroSlot ? { ...(await getSiteImages())[p.heroSlot], position: p.hero.position } : p.hero;
+  // An admin gallery assigned to this style's page wins over the built-in portfolio.
+  const work = await getPlacementItems(p.service);
+  const tag = p.portfolioTag;
+  const showcase = tag === "kemono" || tag === "toony" ? characters.filter((c) => c.style === tag).slice(0, 8) : featuredWork(8);
   const quote = `/get-a-quote/?service=${p.service}`;
 
   return (
@@ -53,7 +63,7 @@ export default function ServiceLanding(p: ServiceLandingProps) {
             </div>
           </div>
           <div className="animate-reveal overflow-hidden rounded-blob bg-black shadow-lift">
-            <Image src={p.hero.src} alt={p.hero.alt} width={p.hero.width} height={p.hero.height} priority sizes="(min-width:1024px) 45vw, 100vw" className="aspect-[4/3] w-full object-cover" style={{ objectPosition: p.hero.position ?? "50% 30%" }} />
+            <Image src={hero.src} alt={hero.alt} width={hero.width} height={hero.height} priority sizes="(min-width:1024px) 45vw, 100vw" className="aspect-[4/3] w-full object-cover" style={{ objectPosition: hero.position ?? "50% 30%" }} />
           </div>
         </div>
       </section>
@@ -72,13 +82,13 @@ export default function ServiceLanding(p: ServiceLandingProps) {
 
       <section aria-labelledby="work-title" id="work" className="container-x py-16 sm:py-20">
         <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
-          <SectionHeading id="work-title" eyebrow="From the workshop" title="Recent work" />
+          <SectionHeading id="work-title" eyebrow="From the workshop" title={`Recent ${p.crumb}`} />
           <Link href="/gallery/" className="btn-secondary shrink-0 self-start">
             Full gallery
           </Link>
         </div>
         <div className="mt-10">
-          <PortfolioGrid items={work.slice(0, 8)} />
+          {work ? <PortfolioGrid items={work.slice(0, 8)} /> : tag && tag !== "kemono" && tag !== "toony" ? <PortfolioGrid items={portfolio.filter((i) => i.tags.includes(tag)).slice(0, 8)} /> : <WorkShowcase products={showcase} />}
         </div>
       </section>
 
@@ -108,7 +118,7 @@ export default function ServiceLanding(p: ServiceLandingProps) {
       <section aria-labelledby="faq" className="bg-mint-wash py-16 sm:py-20">
         <div className="container-x grid gap-10 lg:grid-cols-[1fr_1.6fr]">
           <div>
-            <SectionHeading id="faq" eyebrow="FAQ" title="Good to know" />
+            <SectionHeading id="faq" eyebrow="FAQ" title={`${p.crumb}: good to know`} />
             <nav aria-label="Related pages" className="mt-8 space-y-3" data-reveal>
               {p.related.map((r) => (
                 <Link key={r.href} href={r.href} className="card card-hover block rounded-2xl p-4">

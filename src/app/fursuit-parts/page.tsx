@@ -7,10 +7,12 @@ import FinalCta from "@/components/FinalCta";
 import { pageMeta } from "@/lib/seo";
 import type { Faq } from "@/content/faqs";
 import CmsFormForPage from "@/components/cms/CmsFormForPage";
+import PortfolioGrid from "@/components/PortfolioGrid";
+import { getPlacementItems } from "@/lib/gallery-placements";
 
 export const metadata = pageMeta({
-  title: "Fursuit Parts: Paws, Tails, Heads & Ears",
-  description: "Custom made-to-order fursuit hand paws, feet paws, tails and other parts, built to match your character.",
+  title: "Fursuit Parts: Custom Paws, Tails & Heads",
+  description: "Custom fursuit parts made to order: hand paws, feet paws, tails and fursuit heads, built to match your character. Published starting prices.",
   path: "/fursuit-parts/",
 });
 
@@ -31,7 +33,9 @@ const faqs: Faq[] = [
   },
 ];
 
-export default function PartsPage() {
+export default async function PartsPage() {
+  // Shown only when an admin gallery is assigned to the Parts page.
+  const recentParts = await getPlacementItems("parts");
   return (
     <>
       <PageIntro
@@ -51,6 +55,17 @@ export default function PartsPage() {
         <SectionHeading id="mto" eyebrow="Made to order" title="Custom parts for your character" lede="Any starting prices shown are confirmed in your quote before you pay." />
         <CommissionOptions keys={["hand-paws", "feet-paws", "tail", "head", "neon"]} />
       </section>
+
+      {recentParts ? (
+        <section aria-labelledby="recent-parts" className="bg-mint-wash py-16 sm:py-20">
+          <div className="container-x">
+            <SectionHeading id="recent-parts" eyebrow="From the workshop" title="Recent parts" mark="Recent" />
+            <div className="mt-10">
+              <PortfolioGrid items={recentParts} />
+            </div>
+          </div>
+        </section>
+      ) : null}
 
       <section aria-labelledby="parts-faq" className="container-x py-16 sm:py-20">
         <div className="grid gap-10 lg:grid-cols-[1fr_1.6fr]">
