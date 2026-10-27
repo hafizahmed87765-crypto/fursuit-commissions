@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 
 const KEY = "fc-consent";
 const GTM = process.env.NEXT_PUBLIC_GTM_ID;
+const CLARITY = process.env.NEXT_PUBLIC_CLARITY_ID;
 
 function read(): string | null {
   try {
@@ -25,27 +26,46 @@ function loadGtm(id: string) {
   document.head.appendChild(s);
 }
 
+type ClarityFn = ((...args: unknown[]) => void) & { q?: unknown[][] };
+
+/** Microsoft Clarity (heatmaps and session recordings), loaded only after consent. */
+function loadClarity(id: string) {
+  if (document.getElementById("clarity")) return;
+  const w = window as unknown as { clarity?: ClarityFn };
+  w.clarity = w.clarity || Object.assign((...args: unknown[]) => { (w.clarity!.q = w.clarity!.q || []).push(args); }, {});
+  const s = document.createElement("script");
+  s.id = "clarity";
+  s.async = true;
+  s.src = `https://www.clarity.ms/tag/${encodeURIComponent(id)}`;
+  document.head.appendChild(s);
+}
+
+function loadAnalytics() {
+  if (GTM) loadGtm(GTM);
+  if (CLARITY) loadClarity(CLARITY);
+}
+
 /** Small, non-blocking cookie notice. Analytics only load after "Accept". */
 export default function Consent() {
   const [show, setShow] = useState(false);
 
   useEffect(() => {
-    if (!GTM) return;
+    if (!GTM && !CLARITY) return;
     const choice = read();
-    if (choice === "granted") loadGtm(GTM);
+    if (choice === "granted") loadAnalytics();
     else if (!choice) {
       const t = setTimeout(() => setShow(true), 1500);
       return () => clearTimeout(t);
     }
   }, []);
 
-  if (!GTM || !show) return null;
+  if ((!GTM && !CLARITY) || !show) return null;
 
   const decide = (v: "granted" | "denied") => {
     try {
       localStorage.setItem(KEY, v);
     } catch {}
-    if (v === "granted") loadGtm(GTM);
+    if (v === "granted") loadAnalytics();
     setShow(false);
   };
 

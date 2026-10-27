@@ -15,7 +15,7 @@ const sections = [
     h: "What we collect",
     p: [
       "Quote, repair and contact forms: your name, email address, optional messaging handle, the details you write about your character or suit, and any images, PDFs or links you attach.",
-      "If you accept analytics cookies, Google Tag Manager loads analytics tools that record anonymous usage such as pages visited. If you decline, they are not loaded.",
+      "If you accept analytics cookies, Google Tag Manager and Microsoft Clarity load analytics tools that record anonymous usage, such as pages visited, clicks and scrolling (Clarity may record session replays with form inputs masked). If you decline, they are not loaded.",
     ],
   },
   {
