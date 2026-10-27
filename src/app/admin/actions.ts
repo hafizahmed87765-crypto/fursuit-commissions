@@ -132,7 +132,7 @@ export async function addPageSection(form: FormData) {
   const pageId = text(form, "page_id", 80);
   const heading = text(form, "heading", 180);
   const sectionType = text(form, "section_type", 40);
-  let body: Record<string, unknown>;
+  let body: Record<string, unknown> = {};
   try {
     body = JSON.parse(text(form, "body", 12000) || "{}");
     if (!body || Array.isArray(body) || typeof body !== "object") throw new Error();
@@ -141,7 +141,7 @@ export async function addPageSection(form: FormData) {
   if (sectionType === "image" && mediaId) {
     const db = createSupabaseAdminClient();
     const { data: media } = await db.from("media_assets").select("storage_path,alt_text").eq("id", mediaId).eq("storage_bucket", "cms-public").maybeSingle();
-    if (!media) failure("/admin/pages/", "Choose an image from the public media library.");
+    if (!media) return failure("/admin/pages/", "Choose an image from the public media library.");
     body.image_url = db.storage.from("cms-public").getPublicUrl(media.storage_path).data.publicUrl;
     body.alt = media.alt_text;
   }
@@ -169,14 +169,14 @@ export async function updatePageSection(form: FormData) {
   const id = text(form, "id", 80);
   const heading = text(form, "heading", 180);
   const sectionType = text(form, "section_type", 40);
-  let body: Record<string, unknown>;
+  let body: Record<string, unknown> = {};
   try { body = JSON.parse(text(form, "body", 12000)); if (!body || Array.isArray(body) || typeof body !== "object") throw new Error(); }
   catch { failure("/admin/pages/", "Section content must be a JSON object."); }
   const db = createSupabaseAdminClient();
   const mediaId = text(form, "media_id", 80);
   if (sectionType === "image" && mediaId) {
     const { data: media } = await db.from("media_assets").select("storage_path,alt_text").eq("id", mediaId).eq("storage_bucket", "cms-public").maybeSingle();
-    if (!media) failure("/admin/pages/", "Choose an image from the public media library.");
+    if (!media) return failure("/admin/pages/", "Choose an image from the public media library.");
     body.image_url = db.storage.from("cms-public").getPublicUrl(media.storage_path).data.publicUrl;
     body.alt = media.alt_text;
   }
@@ -191,7 +191,7 @@ export async function createBlogPost(form: FormData) {
   const admin = await requireCmsAdmin();
   const title = text(form, "title", 180);
   const slug = slugify(text(form, "slug", 160) || title);
-  let body: Record<string, unknown>;
+  let body: Record<string, unknown> = {};
   try {
     body = JSON.parse(text(form, "body", 40000) || "[]");
     if (!body || typeof body !== "object" || body.type !== "doc") throw new Error();
@@ -206,7 +206,7 @@ export async function createBlogPost(form: FormData) {
     seo_title: text(form, "seo_title", 180), meta_description: text(form, "meta_description", 320),
     featured_image_id: text(form, "featured_image_id", 80) || null, created_by: admin.user.id, updated_by: admin.user.id,
   }).select("id").single();
-  if (error || !post) failure("/admin/blog/", error?.code === "23505" ? "That slug is already in use." : "The post could not be created.");
+  if (error || !post) return failure("/admin/blog/", error?.code === "23505" ? "That slug is already in use." : "The post could not be created.");
   const categoryIds = form.getAll("category_ids").map(String).filter(Boolean);
   const tagIds = form.getAll("tag_ids").map(String).filter(Boolean);
   if (categoryIds.length) await db.from("blog_post_categories").insert(categoryIds.map((category_id) => ({ post_id: post.id, category_id })));
@@ -221,7 +221,7 @@ export async function updateBlogPost(form: FormData) {
   const title = text(form, "title", 180);
   const slug = slugify(text(form, "slug", 160) || title);
   const status = text(form, "status", 20);
-  let body: Record<string, unknown>;
+  let body: Record<string, unknown> = {};
   try { body = JSON.parse(text(form, "body", 40000)); if (!body || body.type !== "doc") throw new Error(); }
   catch { failure("/admin/blog/", "Post body must be valid editor content."); }
   if (!id || !title || !slug || !["draft", "published", "archived"].includes(status)) failure("/admin/blog/", "Check the article title, slug and status.");
@@ -269,7 +269,7 @@ export async function createCmsForm(form: FormData) {
   const admin = await requireCmsAdmin();
   const name = text(form, "name", 180);
   const slug = slugify(text(form, "slug", 160) || name);
-  let fields: { key: string; label: string; type: string; required?: boolean; options?: string[]; help?: string; placeholder?: string; condition?: unknown }[];
+  let fields: { key: string; label: string; type: string; required?: boolean; options?: string[]; help?: string; placeholder?: string; condition?: unknown }[] = [];
   try {
     fields = JSON.parse(text(form, "fields", 30000) || "[]");
     if (!Array.isArray(fields) || fields.some((f) => !f.key || !f.label || !f.type)) throw new Error();
@@ -280,7 +280,7 @@ export async function createCmsForm(form: FormData) {
     name, slug, submit_label: text(form, "submit_label", 80) || "Send inquiry",
     success_message: text(form, "success_message", 500) || "Thanks. Your inquiry has been sent.", created_by: admin.user.id,
   }).select("id").single();
-  if (error || !created) failure("/admin/forms/", error?.code === "23505" ? "That form slug is already in use." : "The form could not be created.");
+  if (error || !created) return failure("/admin/forms/", error?.code === "23505" ? "That form slug is already in use." : "The form could not be created.");
   const { error: notificationError } = await db.from("form_notification_settings").insert({ form_id: created.id, recipient_email: text(form, "notification_email", 254) });
   if (notificationError) failure("/admin/forms/", "The form was created, but its notification settings could not be saved.");
   const { error: fieldError } = await db.from("form_fields").insert(fields.map((field, position) => ({
@@ -300,7 +300,7 @@ export async function updateCmsForm(form: FormData) {
   const admin = await requireCmsAdmin();
   const id = text(form, "id", 80);
   const name = text(form, "name", 180);
-  let fields: { key: string; label: string; type: string; required?: boolean; options?: string[]; help?: string; placeholder?: string; condition?: unknown }[];
+  let fields: { key: string; label: string; type: string; required?: boolean; options?: string[]; help?: string; placeholder?: string; condition?: unknown }[] = [];
   try {
     fields = JSON.parse(text(form, "fields", 30000) || "[]");
     if (!Array.isArray(fields) || fields.some((f) => !f.key || !f.label || !f.type)) throw new Error();
@@ -336,7 +336,7 @@ export async function publishCmsForm(form: FormData) {
     db.from("cms_forms").select("id,name,slug,submit_label,success_message,current_version").eq("id", id).single(),
     db.from("form_fields").select("field_key,label,field_type,is_required,placeholder,help_text,options,validation,condition,position").eq("form_id", id).order("position"),
   ]);
-  if (!cmsForm || !fields?.length) failure("/admin/forms/", "Add at least one valid field before publishing this form.");
+  if (!cmsForm || !fields?.length) return failure("/admin/forms/", "Add at least one valid field before publishing this form.");
   const version = cmsForm.current_version + 1;
   const definition = { ...cmsForm, fields };
   const { error: versionError } = await db.from("form_versions").insert({ form_id: id, version, definition, created_by: admin.user.id });
@@ -392,8 +392,8 @@ export async function createCommissionType(form: FormData) {
 export async function uploadPublicMedia(form: FormData) {
   const admin = await requireCmsAdmin();
   const file = form.get("file");
-  if (!(file instanceof File) || file.size < 1 || file.size > 10 * 1024 * 1024) failure("/admin/media/", "Choose an image under 10 MB.");
-  if (!["image/jpeg", "image/png", "image/webp"].includes(file.type)) failure("/admin/media/", "Upload a JPEG, PNG or WebP image.");
+  if (!(file instanceof File) || file.size < 1 || file.size > 10 * 1024 * 1024) return failure("/admin/media/", "Choose an image under 10 MB.");
+  if (!["image/jpeg", "image/png", "image/webp"].includes(file.type)) return failure("/admin/media/", "Upload a JPEG, PNG or WebP image.");
   const input = Buffer.from(await file.arrayBuffer());
   const meta = await sharp(input).rotate().resize({ width: 2000, height: 2000, fit: "inside", withoutEnlargement: true }).webp({ quality: 84 }).toBuffer({ resolveWithObject: true });
   const fileName = `${crypto.randomUUID()}.webp`;
@@ -425,7 +425,7 @@ export async function updateGallery(form: FormData) {
   await requireCmsAdmin();
   const id = text(form, "id", 80);
   const { data: galleryItems } = await createSupabaseAdminClient().from("galleries").select("slug").eq("id", id).maybeSingle();
-  if (!galleryItems) failure("/admin/galleries/", "Gallery not found.");
+  if (!galleryItems) return failure("/admin/galleries/", "Gallery not found.");
   const db = createSupabaseAdminClient();
   const placement = text(form, "placement", 20);
   // A spot on the site shows one gallery: assigning it here takes it from any other gallery.
