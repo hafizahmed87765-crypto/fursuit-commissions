@@ -5,7 +5,8 @@ type PageMeta = { title: string; description: string; path: string; image?: stri
 
 export function pageMeta({ title, description, path, image, noindex }: PageMeta): Metadata {
   const url = `${site.url}${path}`;
-  const og = image ?? "/media/products/whatsapp-image-2025-12-14-at-12-27-58-pm-f42ae7.webp";
+  // Default preview is Admin > Site images slot P8, served via a redirect route.
+  const og = image ?? "/share-image/P8/";
   return {
     title,
     description,

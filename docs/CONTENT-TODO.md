@@ -48,3 +48,13 @@ as shop filters or footer links. Decide in WooCommerce whether to keep, rename o
 
 Not added: this codebase has no newsletter backend. MailPoet is installed on the WordPress side; a
 signup can be wired to it (or another provider) once you choose one.
+
+## SEO pages added Oct 27, 2026 — owner to confirm
+
+- **/furry-mascot-costumes/**: describes personal, creator and community mascots, and says brand, team or
+  business-event mascot projects are "reviewed individually". Confirm whether commercial mascot work is
+  offered; if yes, the page can say so directly, and if no, remove the brand/team sentence.
+- **/fursuit-prices/**: lists only the starting prices already in `src/content/site.ts` (parts and neon).
+  If you're happy to publish "from" prices for heads, partials or fullsuits, add them to `commissionOptions`
+  and they appear on this page, the homepage cards and the parts page automatically.
+- **Journal**: blog posts live in Supabase. Suggested SEO articles are listed in docs/SEO-KEYWORD-STRATEGY.md.

@@ -4,7 +4,7 @@ import { pageMeta } from "@/lib/seo";
 
 const path = "/kemono-fursuits/";
 const intro =
-  "Kemono suits take their look from anime and Japanese character design: large glossy eyes, small muzzles and soft, rounded faces. We build them custom around your character, from heads to full Kig-style costumes.";
+  "Kemono suits take their look from anime and Japanese character design: large glossy eyes, small muzzles and soft, rounded faces. We build each Kemono suit around your character, from a single Kemono head to a full Kig-style costume.";
 
 const faqs: Faq[] = [
   {
@@ -27,7 +27,7 @@ export const metadata = pageMeta({
   title: "Custom Kemono Fursuits & Kig Commissions",
   description: "Commission a custom Kemono fursuit with anime-style eyes, soft rounded features and optional hair. Heads, partials and full Kig-style suits, quoted to your design.",
   path,
-  image: "/media/products/whatsapp-image-2025-12-14-at-12-27-58-pm-f42ae7.webp",
+  image: "/share-image/S1/",
 });
 
 export default function Page() {
@@ -40,13 +40,14 @@ export default function Page() {
       title="Custom Kemono Fursuits"
       intro={intro}
       tint="bg-lavender-soft"
-      hero={{ src: "/media/products/whatsapp-image-2025-12-14-at-12-27-58-pm-f42ae7.webp", width: 1280, height: 1262, alt: "Kemono calico cat fursuit head with large blue anime eyes", position: "50% 30%" }}
+      heroSlot="S1"
+      hero={{ src: "/media/work/kemono-grey-horned-dragon-partial-2.webp", width: 1257, height: 1600, alt: "Kemono-style grey and white horned dragon fursuit with coral ears, red-tipped horns, golden anime eyes and a paw-print bandana, three-quarter view", position: "50% 30%" }}
       traitsTitle="What gives Kemono its charm"
       traits={[
-        { title: "Anime eyes", body: "Large, glossy eyes in your character's colours are the heart of the look." },
+        { title: "Anime eyes", body: "Large, glossy eyes in your character's colours are the heart of the Kemono look." },
         { title: "Soft, rounded face", body: "A short muzzle and full cheeks for that cute, doll-like expression." },
-        { title: "Hair & wigs", body: "Long hair, braids and fringes styled to match your reference." },
-        { title: "Full character sets", body: "Pair the head with paws, tail and outfit for a complete Kig-style look." },
+        { title: "Hair & wigs", body: "Long hair, braids and fringes, a Kemono favourite, styled to match your reference." },
+        { title: "Full character sets", body: "Pair your Kemono head with paws, tail and outfit for a complete Kig-style look." },
       ]}
       portfolioTag="kemono"
       faqs={faqs}

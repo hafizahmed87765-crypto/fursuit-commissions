@@ -1,7 +1,8 @@
 import Image from "next/image";
 import { processSteps } from "@/content/site";
+import { getSiteImages, processSlots } from "@/lib/site-images";
 
-export default function ProcessSteps({ compact = false }: { compact?: boolean }) {
+export default async function ProcessSteps({ compact = false }: { compact?: boolean }) {
   if (compact) {
     // Numbered timeline: a line joins the circles on wide screens.
     return (
@@ -24,13 +25,16 @@ export default function ProcessSteps({ compact = false }: { compact?: boolean })
       </ol>
     );
   }
+  // Step photos are Admin > Site images slots P1–P6; the last step has none.
+  const images = await getSiteImages();
+  const stepImages = processSteps.map((_, i) => (processSlots[i] ? images[processSlots[i]] : null));
   return (
     <ol className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
       {processSteps.map((s, i) => (
         <li key={s.title} data-reveal style={{ ["--reveal-delay" as string]: `${(i % 4) * 70}ms` }} className="group card card-hover relative flex flex-col overflow-hidden">
-          {s.image ? (
+          {stepImages[i] ? (
             <div className="aspect-[3/2] overflow-hidden bg-mint-wash">
-              <Image src={s.image} alt="" width={1536} height={1024} sizes="(min-width:1024px) 33vw, (min-width:768px) 50vw, 100vw" className="img-zoom h-full w-full object-cover" />
+              <Image src={stepImages[i].src} alt={stepImages[i].alt} width={stepImages[i].width} height={stepImages[i].height} sizes="(min-width:1024px) 33vw, (min-width:768px) 50vw, 100vw" className="img-zoom h-full w-full object-cover" />
             </div>
           ) : null}
           <div className="flex flex-1 gap-4 p-5">

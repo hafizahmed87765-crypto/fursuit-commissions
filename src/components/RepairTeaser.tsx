@@ -1,14 +1,16 @@
 import Image from "next/image";
 import Link from "next/link";
 import { repairServices } from "@/content/site";
+import { getSiteImages } from "@/lib/site-images";
 
-export default function RepairTeaser() {
+export default async function RepairTeaser() {
+  const { H7, H8 } = await getSiteImages();
   return (
     <section aria-labelledby="repairs-title" className="bg-forest text-white">
       <div className="container-x grid items-center gap-10 py-16 sm:py-20 lg:grid-cols-2">
         <div data-reveal className="grid grid-cols-2 gap-3 sm:gap-4">
-          <Image src="/media/gallery/o1cn016idzzr1cnobaqlqwi-4611686018427385509-0-am-f82eb1.webp" alt="Tape pattern over a foam fursuit head base" width={1600} height={1600} sizes="(min-width:1024px) 25vw, 50vw" className="aspect-square rounded-blob border-[3px] border-mint object-cover" />
-          <Image src="/media/gallery/o1cn01dgqmih1cnoblos5ug-4611686018427385509-0-am-9ac3b9.webp" alt="Faux fur pieces cut from a pattern on the workbench" width={1200} height={1600} sizes="(min-width:1024px) 25vw, 50vw" className="mt-8 aspect-square rotate-2 rounded-blob border-[3px] border-mint object-cover" />
+          <Image src={H7.src} alt={H7.alt} width={H7.width} height={H7.height} sizes="(min-width:1024px) 25vw, 50vw" className="aspect-square rounded-blob border-[3px] border-mint object-cover" />
+          <Image src={H8.src} alt={H8.alt} width={H8.width} height={H8.height} sizes="(min-width:1024px) 25vw, 50vw" className="mt-8 aspect-square rotate-2 rounded-blob border-[3px] border-mint object-cover" />
         </div>
         <div data-reveal>
           <p className="eyebrow !text-mint">Repairs &amp; refurbishment</p>

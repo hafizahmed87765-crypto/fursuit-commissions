@@ -16,7 +16,13 @@ export async function signInToAdmin(formData: FormData) {
   }
 
   const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-  if (error || !data.user) redirect("/admin/login/?error=credentials");
+  if (error || !data.user) {
+    // Log the real reason server-side; the page only shows a safe summary.
+    console.error("[admin login]", error?.name, error?.code, error?.status, error?.message);
+    if (error?.code === "email_not_confirmed") redirect("/admin/login/?error=unconfirmed");
+    if (error && (error.name === "AuthRetryableFetchError" || !error.status)) redirect("/admin/login/?error=network");
+    redirect("/admin/login/?error=credentials");
+  }
 
   const { data: profile } = await supabase
     .from("admin_users")

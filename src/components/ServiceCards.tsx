@@ -3,35 +3,36 @@
 import Image from "next/image";
 import Link from "next/link";
 import { track } from "@/lib/analytics";
+import type { SiteImage } from "@/lib/site-images";
 import Paw from "./Paw";
 
 // Styled like convention badges; the trait lines come from each style's landing page.
 const services = [
   {
     key: "kemono",
-    title: "Kemono Suits",
+    title: "Kemono Fursuits",
     header: "bg-lavender",
     tilt: "lg:-rotate-2",
     body: "Anime-inspired faces with big glossy eyes, soft rounded features and doll-like charm.",
     traits: ["Anime eyes", "Soft, rounded face", "Hair & wigs"],
     href: "/kemono-fursuits/",
-    image: "/media/products/d4rgsjpqqlgpcmy7fobjpa-2k-da7833.webp",
-    alt: "White and pink Kemono bunny suit with large blue anime eyes",
-    w: 1024,
-    h: 1024,
+    image: "/media/work/kemono-lavender-wolf-fursuit-head-1.webp",
+    alt: "Kemono-style white and lavender wolf fursuit head with purple stripes, big violet anime eyes and an orange chest mark, front view",
+    w: 1067,
+    h: 1600,
   },
   {
     key: "toony",
-    title: "Toony Suits",
+    title: "Toony Fursuits",
     header: "bg-blush",
     tilt: "lg:translate-y-6",
     body: "Bold shapes, bright colours and big personality. Expressive cartoon characters made huggable.",
     traits: ["Expressive eyes", "Exaggerated features", "Bright colour blocks"],
     href: "/toony-fursuits/",
-    image: "/media/products/hhlllkogqqme4yepjyr-tg-2k-a0ef2a.webp",
-    alt: "Toony grey and white wolf fursuit head with big blue eyes",
-    w: 896,
-    h: 1200,
+    image: "/media/work/toony-teal-ear-husky-fursuit-head-1.webp",
+    alt: "Toony-style black and white husky fursuit head with teal ears, lime cheek fluff, blue and yellow anime eyes and a studded bell collar, front view",
+    w: 1067,
+    h: 1600,
   },
   {
     key: "custom",
@@ -41,14 +42,15 @@ const services = [
     body: "Any species, any style. Heads, partials and fullsuits patterned around your reference sheet.",
     traits: ["Any species", "Your markings", "Made to fit"],
     href: "/fursuit-commission/",
-    image: "/media/gallery/o1cn01tyheih1cnocozjamh-4611686018427385509-0-am-66696d.webp",
-    alt: "White and pink fursuit bodysuit with feet paws on a workshop stand",
-    w: 1200,
+    image: "/media/work/kemono-blue-dragon-digitigrade-fullsuit-1.webp",
+    alt: "Kemono-style white and sky-blue horned dragon fullsuit with blue swirl markings, a digitigrade bodysuit and clawed feet paws, full-body front view",
+    w: 900,
     h: 1600,
   },
 ];
 
-export default function ServiceCards() {
+/** `images` comes from the server (Admin > Site images slots H4–H6); built-in photos are the fallback. */
+export default function ServiceCards({ images }: { images?: Partial<Record<"kemono" | "toony" | "custom", SiteImage>> }) {
   return (
     <ul className="mt-16 grid gap-12 md:grid-cols-3 md:gap-7">
       {services.map((s, i) => (
@@ -67,7 +69,7 @@ export default function ServiceCards() {
             </div>
             <div className="flex flex-1 flex-col p-5">
               <div className="overflow-hidden rounded-2xl border-[3px] border-forest bg-black">
-                <Image src={s.image} alt={s.alt} width={s.w} height={s.h} sizes="(min-width: 768px) 30vw, 90vw" className="img-zoom aspect-square w-full object-cover object-top" />
+                <Image src={images?.[s.key as "kemono"]?.src ?? s.image} alt={images?.[s.key as "kemono"]?.alt ?? s.alt} width={images?.[s.key as "kemono"]?.width ?? s.w} height={images?.[s.key as "kemono"]?.height ?? s.h} sizes="(min-width: 768px) 30vw, 90vw" className="img-zoom aspect-square w-full object-cover object-[50%_30%]" />
               </div>
               <p className="mt-4 flex-1 text-ink-muted">{s.body}</p>
               <ul className="mt-4 flex flex-wrap gap-1.5">
