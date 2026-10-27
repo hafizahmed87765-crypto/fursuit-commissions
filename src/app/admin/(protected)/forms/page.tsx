@@ -47,7 +47,7 @@ export default async function AdminForms({ searchParams }: { searchParams: Promi
               <input type="hidden" name="id" value={form.id} />
               <div className="grid gap-4 md:grid-cols-2"><label className="field-label">Name<input className="field mt-1" name="name" defaultValue={form.name} required /></label><label className="field-label">Submit button text<input className="field mt-1" name="submit_label" defaultValue={form.submit_label} /></label></div>
               <div className="grid gap-4 md:grid-cols-2"><label className="field-label">Notification email<input className="field mt-1" name="notification_email" type="email" defaultValue={form.notificationEmail} /></label><label className="field-label">Success message<input className="field mt-1" name="success_message" defaultValue={form.success_message} /></label></div>
-              <label className="field-label">Assigned page paths<textarea className="field mt-1 font-mono text-sm" name="page_paths" rows={2} defaultValue={form.assignments.map((a) => a.page_path).join("\n")} /></label>
+              <label className="field-label">Assigned page paths<textarea className="field mt-1 font-mono text-sm" name="page_paths" rows={2} defaultValue={form.assignments.map((a: { page_path: string }) => a.page_path).join("\n")} /></label>
               <label className="field-label">Fields — edit, add or reorder in this JSON list<textarea className="field mt-1 font-mono text-sm" name="fields" rows={12} defaultValue={JSON.stringify(form.fields, null, 2)} /></label>
               <button className="btn-secondary justify-self-start">Save changes (unpublishes form)</button>
             </form>

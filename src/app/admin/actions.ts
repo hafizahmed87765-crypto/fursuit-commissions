@@ -1,14 +1,61 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { readFile } from "node:fs/promises";
+import path from "node:path";
+import { revalidatePath, updateTag } from "next/cache";
 import { redirect } from "next/navigation";
 import { requireCmsAdmin } from "@/lib/supabase/auth";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import sharp from "sharp";
+import { portfolio } from "@/content/portfolio";
+import { GALLERY_CACHE_TAG, galleryTags, isPlacement, placements } from "@/lib/gallery-placements";
+import { SITE_IMAGES_TAG, isSlotId } from "@/lib/site-images";
 
 const slugify = (value: string) => value.toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 const text = (form: FormData, name: string, max = 5000) => String(form.get(name) ?? "").trim().slice(0, max);
-const failure = (path: string, reason: string): never => redirect(`${path}?error=${encodeURIComponent(reason)}`);
+function failure(path: string, reason: string): never {
+  redirect(`${path}?error=${encodeURIComponent(reason)}`);
+}
+
+const GALLERIES = "/admin/galleries/";
+const IMAGE_TYPES = ["image/jpeg", "image/png", "image/webp"];
+const MAX_IMAGE_BYTES = 10 * 1024 * 1024;
+type AdminDb = ReturnType<typeof createSupabaseAdminClient>;
+
+const isImage = (value: FormDataEntryValue | null): value is File => value instanceof File && value.size > 0;
+const imageProblem = (file: File) => (file.size > MAX_IMAGE_BYTES ? "is over 10 MB" : !IMAGE_TYPES.includes(file.type) ? "is not a JPEG, PNG or WebP image" : null);
+const pickTags = (form: FormData) => form.getAll("tags").map(String).filter((t) => (galleryTags as string[]).includes(t));
+
+/** Resize to max 2000px, convert to WebP, store publicly and record it in the media library. Returns the media id. */
+async function storePublicImage(db: AdminDb, input: Buffer, originalName: string, userId: string, altText = "", caption = "") {
+  const meta = await sharp(input).rotate().resize({ width: 2000, height: 2000, fit: "inside", withoutEnlargement: true }).webp({ quality: 84 }).toBuffer({ resolveWithObject: true });
+  const storagePath = `library/${new Date().toISOString().slice(0, 7)}/${crypto.randomUUID()}.webp`;
+  const { error: storageError } = await db.storage.from("cms-public").upload(storagePath, meta.data, { contentType: "image/webp", upsert: false });
+  if (storageError) return null;
+  const { data, error } = await db.from("media_assets").insert({
+    storage_bucket: "cms-public", storage_path: storagePath, original_name: originalName.slice(0, 255), mime_type: "image/webp",
+    size_bytes: meta.data.byteLength, width: meta.info.width, height: meta.info.height,
+    alt_text: altText.slice(0, 500), caption: caption.slice(0, 500), is_public: true, uploaded_by: userId,
+  }).select("id").single();
+  if (error || !data) {
+    await db.storage.from("cms-public").remove([storagePath]);
+    return null;
+  }
+  return data.id as string;
+}
+
+/** Next free display position at the end of a gallery. */
+async function nextPosition(db: AdminDb, galleryId: string) {
+  const { data } = await db.from("gallery_items").select("position").eq("gallery_id", galleryId).order("position", { ascending: false }).limit(1).maybeSingle();
+  return data ? data.position + 1 : 0;
+}
+
+/** Gallery changes can affect any page a gallery is placed on. */
+function refreshGalleries() {
+  updateTag(GALLERY_CACHE_TAG);
+  for (const p of Object.values(placements)) revalidatePath(p.path);
+  revalidatePath(GALLERIES);
+}
 
 export async function createPage(form: FormData) {
   const admin = await requireCmsAdmin();
@@ -307,22 +354,27 @@ export async function createGallery(form: FormData) {
   const slug = slugify(text(form, "slug", 160) || title);
   if (!title || !slug) failure("/admin/galleries/", "Add a gallery title and valid slug.");
   const db = createSupabaseAdminClient();
-  const { error } = await db.from("galleries").insert({ title, slug, description: text(form, "description"), is_public: form.get("is_public") === "on", created_by: admin.user.id });
-  if (error) failure("/admin/galleries/", error.code === "23505" ? "That gallery slug is already in use." : "The gallery could not be created.");
-  revalidatePath("/admin/galleries/");
-  redirect("/admin/galleries/");
+  const placement = text(form, "placement", 20);
+  if (placement && isPlacement(placement)) await db.from("galleries").update({ placement: null }).eq("placement", placement);
+  const { error } = await db.from("galleries").insert({
+    title, slug, description: text(form, "description"), is_public: form.get("is_public") === "on", created_by: admin.user.id,
+    ...(placement && isPlacement(placement) ? { placement } : {}),
+  });
+  if (error) failure(GALLERIES, error.code === "23505" ? "That gallery slug is already in use." : error.code === "42703" ? "Run the gallery placements migration (supabase/migrations/202610270001_gallery_placements.sql) first." : "The gallery could not be created.");
+  refreshGalleries();
+  redirect(GALLERIES);
 }
 
 export async function addGalleryItem(form: FormData) {
   await requireCmsAdmin();
   const galleryId = text(form, "gallery_id", 80);
   const mediaId = text(form, "media_id", 80);
-  const position = Math.max(0, Number(text(form, "position", 8)) || 0);
   const db = createSupabaseAdminClient();
-  const { error } = await db.from("gallery_items").insert({ gallery_id: galleryId, media_id: mediaId, position, alt_override: text(form, "alt", 300), caption_override: text(form, "caption", 500) });
-  if (error) failure("/admin/galleries/", "Could not add that item. Check the media and display order.");
-  revalidatePath("/admin/galleries/");
-  redirect("/admin/galleries/");
+  const position = await nextPosition(db, galleryId);
+  const { error } = await db.from("gallery_items").insert({ gallery_id: galleryId, media_id: mediaId, position, alt_override: text(form, "alt", 300), caption_override: text(form, "caption", 500), tags: pickTags(form) });
+  if (error) failure(GALLERIES, error.code === "23505" ? "That photo is already in this gallery." : "Could not add that photo.");
+  refreshGalleries();
+  redirect(GALLERIES);
 }
 
 export async function createCommissionType(form: FormData) {
@@ -375,10 +427,17 @@ export async function updateGallery(form: FormData) {
   const { data: galleryItems } = await createSupabaseAdminClient().from("galleries").select("slug").eq("id", id).maybeSingle();
   if (!galleryItems) failure("/admin/galleries/", "Gallery not found.");
   const db = createSupabaseAdminClient();
-  const { error } = await db.from("galleries").update({ title: text(form, "title", 180), description: text(form, "description"), is_public: form.get("is_public") === "on" }).eq("id", id);
-  if (error) failure("/admin/galleries/", "The gallery could not be saved.");
+  const placement = text(form, "placement", 20);
+  // A spot on the site shows one gallery: assigning it here takes it from any other gallery.
+  if (placement && isPlacement(placement)) await db.from("galleries").update({ placement: null }).eq("placement", placement).neq("id", id);
+  const { error } = await db.from("galleries").update({
+    title: text(form, "title", 180), description: text(form, "description"), is_public: form.get("is_public") === "on",
+    placement: placement && isPlacement(placement) ? placement : null,
+  }).eq("id", id);
+  if (error) failure(GALLERIES, error.code === "42703" ? "Run the gallery placements migration (supabase/migrations/202610270001_gallery_placements.sql) first." : "The gallery could not be saved.");
   revalidatePath(`/galleries/${galleryItems.slug}/`);
-  redirect("/admin/galleries/");
+  refreshGalleries();
+  redirect(GALLERIES);
 }
 
 export async function updateGalleryItem(form: FormData) {
@@ -387,9 +446,10 @@ export async function updateGalleryItem(form: FormData) {
   const mediaId = text(form, "media_id", 80);
   const position = Math.max(0, Number(text(form, "position", 8)) || 0);
   const db = createSupabaseAdminClient();
-  const { error } = await db.from("gallery_items").update({ position, alt_override: text(form, "alt", 300), caption_override: text(form, "caption", 500) }).eq("gallery_id", galleryId).eq("media_id", mediaId);
-  if (error) failure("/admin/galleries/", "The gallery image could not be updated.");
-  redirect("/admin/galleries/");
+  const { error } = await db.from("gallery_items").update({ position, alt_override: text(form, "alt", 300), caption_override: text(form, "caption", 500), tags: pickTags(form) }).eq("gallery_id", galleryId).eq("media_id", mediaId);
+  if (error) failure(GALLERIES, error.code === "23505" ? "Another photo already uses that position. Use the move buttons instead." : "The photo details could not be saved.");
+  refreshGalleries();
+  redirect(GALLERIES);
 }
 
 export async function removeGalleryItem(form: FormData) {
@@ -397,8 +457,9 @@ export async function removeGalleryItem(form: FormData) {
   if (admin.role !== "owner") failure("/admin/galleries/", "Only an owner can remove gallery images.");
   const db = createSupabaseAdminClient();
   const { error } = await db.from("gallery_items").delete().eq("gallery_id", text(form, "gallery_id", 80)).eq("media_id", text(form, "media_id", 80));
-  if (error) failure("/admin/galleries/", "The gallery image could not be removed.");
-  redirect("/admin/galleries/");
+  if (error) failure(GALLERIES, "The photo could not be removed.");
+  refreshGalleries();
+  redirect(GALLERIES);
 }
 
 export async function updateCommissionType(form: FormData) {
@@ -434,4 +495,164 @@ export async function addSubmissionNote(form: FormData) {
   if (error) failure("/admin/submissions/", "The internal note could not be saved.");
   revalidatePath("/admin/submissions/");
   redirect("/admin/submissions/");
+}
+
+export async function uploadToGallery(form: FormData) {
+  const admin = await requireCmsAdmin();
+  const galleryId = text(form, "gallery_id", 80);
+  const files = form.getAll("files").filter(isImage);
+  if (!galleryId || !files.length) failure(GALLERIES, "Choose at least one photo to upload.");
+  if (files.length > 12) failure(GALLERIES, "Upload up to 12 photos at a time.");
+  const tags = pickTags(form);
+  const caption = text(form, "caption", 500);
+  const alt = text(form, "alt", 300);
+  const db = createSupabaseAdminClient();
+  let position = await nextPosition(db, galleryId);
+  const skipped: string[] = [];
+  for (const file of files) {
+    const problem = imageProblem(file);
+    if (problem) {
+      skipped.push(`${file.name} ${problem}`);
+      continue;
+    }
+    const mediaId = await storePublicImage(db, Buffer.from(await file.arrayBuffer()), file.name, admin.user.id, alt, caption);
+    if (!mediaId) {
+      skipped.push(`${file.name} could not be stored`);
+      continue;
+    }
+    const { error } = await db.from("gallery_items").insert({ gallery_id: galleryId, media_id: mediaId, position, alt_override: alt, caption_override: caption, tags });
+    if (error) skipped.push(`${file.name} could not be added`);
+    else position += 1;
+  }
+  refreshGalleries();
+  if (skipped.length) failure(GALLERIES, `Uploaded ${files.length - skipped.length} of ${files.length}. Skipped: ${skipped.join("; ")}.`);
+  redirect(GALLERIES);
+}
+
+/** Swap the photo in a gallery slot for a new upload, keeping its position, text and tags. */
+export async function replaceGalleryPhoto(form: FormData) {
+  const admin = await requireCmsAdmin();
+  const galleryId = text(form, "gallery_id", 80);
+  const mediaId = text(form, "media_id", 80);
+  const file = form.get("file");
+  if (!isImage(file)) failure(GALLERIES, "Choose a replacement photo.");
+  const problem = imageProblem(file as File);
+  if (problem) failure(GALLERIES, `That photo ${problem}.`);
+  const db = createSupabaseAdminClient();
+  const newId = await storePublicImage(db, Buffer.from(await (file as File).arrayBuffer()), (file as File).name, admin.user.id);
+  if (!newId) failure(GALLERIES, "The replacement photo could not be stored.");
+  const { error } = await db.from("gallery_items").update({ media_id: newId }).eq("gallery_id", galleryId).eq("media_id", mediaId);
+  if (error) failure(GALLERIES, "The photo could not be replaced.");
+  refreshGalleries();
+  redirect(GALLERIES);
+}
+
+/** Move a photo one place earlier or later. Positions are unique per gallery, so swap via a temporary slot. */
+export async function moveGalleryItem(form: FormData) {
+  await requireCmsAdmin();
+  const galleryId = text(form, "gallery_id", 80);
+  const mediaId = text(form, "media_id", 80);
+  const step = text(form, "direction", 4) === "up" ? -1 : 1;
+  const db = createSupabaseAdminClient();
+  const { data: items } = await db.from("gallery_items").select("media_id,position").eq("gallery_id", galleryId).order("position");
+  const list = items ?? [];
+  const index = list.findIndex((i) => i.media_id === mediaId);
+  const other = list[index + step];
+  if (index < 0 || !other) redirect(GALLERIES);
+  const current = list[index];
+  const temp = -1 - Date.now() % 1_000_000;
+  const steps = [
+    db.from("gallery_items").update({ position: temp }).eq("gallery_id", galleryId).eq("media_id", current.media_id),
+    db.from("gallery_items").update({ position: current.position }).eq("gallery_id", galleryId).eq("media_id", other.media_id),
+    db.from("gallery_items").update({ position: other.position }).eq("gallery_id", galleryId).eq("media_id", current.media_id),
+  ];
+  for (const q of steps) {
+    const { error } = await q;
+    if (error) failure(GALLERIES, "The photo could not be moved.");
+  }
+  refreshGalleries();
+  redirect(GALLERIES);
+}
+
+/** Copy the photos currently built into the website into a gallery, with their titles, alt text and tags. */
+export async function importSitePhotos(form: FormData) {
+  const admin = await requireCmsAdmin();
+  const galleryId = text(form, "gallery_id", 80);
+  const only = text(form, "only", 20);
+  const items = only ? portfolio.filter((i) => (i.tags as string[]).includes(only)) : portfolio;
+  const db = createSupabaseAdminClient();
+  // Skip photos this gallery already has (matched by original file name), so importing twice is harmless.
+  const { data: existing } = await db.from("gallery_items").select("media_assets(original_name)").eq("gallery_id", galleryId);
+  const have = new Set((existing ?? []).map((r) => {
+    const m = r.media_assets as { original_name: string } | { original_name: string }[] | null;
+    return (Array.isArray(m) ? m[0] : m)?.original_name;
+  }));
+  let position = await nextPosition(db, galleryId);
+  let added = 0;
+  for (const item of items) {
+    const name = path.basename(item.src);
+    if (have.has(name)) continue;
+    const file = await readFile(path.join(process.cwd(), "public", item.src)).catch(() => null);
+    if (!file) continue;
+    const mediaId = await storePublicImage(db, file, name, admin.user.id, item.alt, item.title);
+    if (!mediaId) continue;
+    const { error } = await db.from("gallery_items").insert({ gallery_id: galleryId, media_id: mediaId, position, alt_override: item.alt.slice(0, 300), caption_override: item.title, tags: item.tags });
+    if (!error) {
+      position += 1;
+      added += 1;
+    }
+  }
+  refreshGalleries();
+  if (!added) failure(GALLERIES, "No new photos were imported: they are already in this gallery.");
+  redirect(GALLERIES);
+}
+
+const SITE_IMAGES = "/admin/site-images/";
+const MISSING_SITE_IMAGES_TABLE = "Run the site images migration (supabase/migrations/202610270002_site_images.sql) first.";
+
+/** Site images can appear on any page, so refresh the whole site. */
+function refreshSiteImages() {
+  updateTag(SITE_IMAGES_TAG);
+  revalidatePath("/", "layout");
+}
+
+export async function replaceSiteImage(form: FormData) {
+  const admin = await requireCmsAdmin();
+  const slot = text(form, "slot", 4);
+  if (!isSlotId(slot)) failure(SITE_IMAGES, "Unknown image slot.");
+  const file = form.get("file");
+  if (!isImage(file)) failure(SITE_IMAGES, "Choose a photo to upload.");
+  const problem = imageProblem(file as File);
+  if (problem) failure(SITE_IMAGES, `That photo ${problem}.`);
+  const alt = text(form, "alt", 300);
+  const db = createSupabaseAdminClient();
+  const mediaId = await storePublicImage(db, Buffer.from(await (file as File).arrayBuffer()), (file as File).name, admin.user.id, alt);
+  if (!mediaId) failure(SITE_IMAGES, "The photo could not be stored.");
+  const { error } = await db.from("site_images").upsert({ slot, media_id: mediaId, alt_text: alt, updated_by: admin.user.id, updated_at: new Date().toISOString() });
+  if (error) failure(SITE_IMAGES, error.code === "42P01" ? MISSING_SITE_IMAGES_TABLE : "The photo could not be saved to that slot.");
+  refreshSiteImages();
+  redirect(`${SITE_IMAGES}#slot-${slot}`);
+}
+
+export async function updateSiteImageAlt(form: FormData) {
+  await requireCmsAdmin();
+  const slot = text(form, "slot", 4);
+  if (!isSlotId(slot)) failure(SITE_IMAGES, "Unknown image slot.");
+  const db = createSupabaseAdminClient();
+  const { error } = await db.from("site_images").update({ alt_text: text(form, "alt", 300), updated_at: new Date().toISOString() }).eq("slot", slot);
+  if (error) failure(SITE_IMAGES, "The alt text could not be saved.");
+  refreshSiteImages();
+  redirect(`${SITE_IMAGES}#slot-${slot}`);
+}
+
+/** Go back to the built-in photo. The uploaded file stays in the media library. */
+export async function resetSiteImage(form: FormData) {
+  await requireCmsAdmin();
+  const slot = text(form, "slot", 4);
+  if (!isSlotId(slot)) failure(SITE_IMAGES, "Unknown image slot.");
+  const db = createSupabaseAdminClient();
+  const { error } = await db.from("site_images").delete().eq("slot", slot);
+  if (error) failure(SITE_IMAGES, "The slot could not be reset.");
+  refreshSiteImages();
+  redirect(`${SITE_IMAGES}#slot-${slot}`);
 }
