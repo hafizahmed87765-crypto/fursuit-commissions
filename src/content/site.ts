@@ -8,7 +8,7 @@
 export const site = {
   name: "FursuitCommissions.com",
   shortName: "Fursuit Commissions",
-  url: (process.env.NEXT_PUBLIC_SITE_URL || "https://fursuitcommissions.com").replace(/\/$/, ""),
+  url: (process.env.NEXT_PUBLIC_SITE_URL || "https://www.fursuitcommissions.com").replace(/\/$/, ""),
   description:
     "Custom fursuits, Kemono suits and Toony suits, handmade to your character. Heads, partials, fullsuits, paws and tails, plus repair assessments. Shipping worldwide.",
   // Shown in the announcement bar. Set `enabled: false` to hide it, or change
