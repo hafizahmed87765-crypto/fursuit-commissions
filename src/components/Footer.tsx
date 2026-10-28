@@ -40,6 +40,14 @@ export default function Footer() {
           <p className="mt-4 max-w-sm text-forest/90">
             Handmade custom fursuits, Kemono and Toony suits, built around your character and shipped worldwide.
           </p>
+          {site.email ? (
+            <p className="mt-4">
+              <span className="block font-display text-sm font-semibold uppercase tracking-[0.14em]">Email us</span>
+              <a href={`mailto:${site.email}`} className="mt-1 inline-flex min-h-[36px] items-center break-all text-lg font-semibold text-forest transition-colors hover:text-mint-deep">
+                {site.email}
+              </a>
+            </p>
+          ) : null}
           <ul className="mt-5 flex flex-wrap gap-2" aria-label="Social media">
             {site.socials.map((s) => (
               <li key={s.name}>
@@ -56,7 +64,7 @@ export default function Footer() {
             <ul className="mt-4 space-y-1">
               {col.links.map((l) => (
                 <li key={l.href}>
-                  <Link href={l.href} className="inline-flex min-h-[36px] items-center text-forest/90 hover:text-forest hover:underline">
+                  <Link href={l.href} className="inline-flex min-h-[36px] items-center text-forest/90 transition-colors hover:text-mint-deep">
                     {l.label}
                   </Link>
                 </li>
@@ -70,13 +78,13 @@ export default function Footer() {
           <p>© {new Date().getFullYear()} {site.name}. All rights reserved.</p>
           <p className="flex flex-wrap items-center gap-x-4 gap-y-1">
             <span>Commissions: {site.paymentMethods.join(" & ")}</span>
-            <Link href="/payment-plans/" className="hover:underline">
+            <Link href="/payment-plans/" className="transition-colors hover:text-forest">
               Payment plans
             </Link>
-            <Link href="/terms-and-conditions/" className="hover:underline">
+            <Link href="/terms-and-conditions/" className="transition-colors hover:text-forest">
               Terms
             </Link>
-            <Link href="/privacy-policy/" className="hover:underline">
+            <Link href="/privacy-policy/" className="transition-colors hover:text-forest">
               Privacy Policy
             </Link>
           </p>

@@ -6,7 +6,7 @@ const items = ["Fursuits handmade to order", "WIP photos at every stage", `${pol
 
 function Row({ hidden = false }: { hidden?: boolean }) {
   return (
-    <ul aria-hidden={hidden || undefined} className={`flex shrink-0 items-center gap-8 pr-8 motion-reduce:shrink motion-reduce:flex-wrap motion-reduce:justify-center motion-reduce:gap-y-2 ${hidden ? "motion-reduce:hidden" : ""}`}>
+    <ul aria-hidden={hidden || undefined} className="flex shrink-0 items-center gap-8 pr-8">
       {items.map((it) => (
         <li key={it} className="flex items-center gap-8 whitespace-nowrap">
           {it}
@@ -17,7 +17,7 @@ function Row({ hidden = false }: { hidden?: boolean }) {
   );
 }
 
-/** Tilted sticker band of selling points; scrolls, pauses on hover, wraps under reduced motion. */
+/** Tilted sticker band of selling points that scrolls continuously (second copy makes the loop seamless). */
 export default function TrustBar() {
   return (
     <div className="relative z-10 -mt-6 overflow-hidden py-5">

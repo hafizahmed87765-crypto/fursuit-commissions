@@ -23,7 +23,7 @@ export default function Page() {
       intro={intro}
       tint="bg-mint-wash"
       heroSlot="S3"
-      hero={{ src: "/media/work/kemono-crowned-fox-fullsuit-1.webp", width: 1200, height: 1600, alt: "Kemono-style crimson and grey fox fursuit with a teal crown marking, blue anime eyes and red-striped paws, head, hand paws and feet paws in the workshop", position: "50% 25%" }}
+      hero={{ src: "/media/work/kemono-crowned-fox-fullsuit-1.webp", width: 1200, height: 1600, alt: "Kemono-style crimson and grey fox fursuit with a teal crown marking, blue anime eyes and red-striped paws, head, hand paws and feet paws in the workshop", position: "50% 12%" }}
       traitsTitle="Built around your character, not a template"
       traits={[
         { title: "Any species", body: "Canines, felines, dragons, hybrids and original species. If it's on your ref sheet, we pattern it." },

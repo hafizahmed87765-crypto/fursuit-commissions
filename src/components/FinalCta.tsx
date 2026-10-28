@@ -7,12 +7,20 @@ export default function FinalCta() {
     <section aria-labelledby="final-cta" className="container-x pb-16 pt-24 sm:pb-24 sm:pt-32">
       <div data-reveal className="toon relative bg-mint px-6 py-12 sm:px-12 sm:py-16">
         <div className="bg-paws absolute inset-0 rounded-[1.8rem]" aria-hidden />
-        {/* Mascot peeking over the panel edge, with a speech bubble */}
-        <div aria-hidden className="absolute -top-20 right-6 hidden items-end gap-3 sm:flex lg:right-16">
-          <span className="sticker mb-14 rounded-2xl rounded-br-none bg-white text-base motion-safe:animate-wiggle">Can&apos;t wait to meet your sona!</span>
-          <Image src="/brand/logo.webp" alt="" width={426} height={399} sizes="150px" className="w-32 -rotate-[8deg] drop-shadow-[4px_4px_0_#21463F] motion-safe:[.is-visible_&]:animate-peek lg:w-40" />
+        {/* Studio mascot standing in the empty right side of the panel, popping out of the top edge.
+            Only on large screens, where the text column leaves room for it. Lazy-loaded (below the fold). */}
+        <div aria-hidden className="pointer-events-none absolute -top-20 right-4 hidden items-start gap-1 lg:flex xl:right-12">
+          <span className="sticker mt-20 hidden rounded-2xl rounded-br-none bg-white text-base motion-safe:animate-wiggle xl:inline-flex">Can&apos;t wait to meet your sona!</span>
+          <Image
+            src="/brand/mascot.webp"
+            alt=""
+            width={583}
+            height={900}
+            sizes="(min-width: 1280px) 288px, 208px"
+            className="h-auto w-52 xl:w-72 drop-shadow-[5px_5px_0_rgba(33,70,63,0.35)] motion-safe:[.is-visible_&]:animate-float"
+          />
         </div>
-        <div className="relative max-w-2xl">
+        <div className="relative max-w-2xl lg:max-w-[34rem] xl:max-w-2xl">
           <p className="eyebrow !text-forest">
             <Paw className="h-4 w-4" />
             Your turn

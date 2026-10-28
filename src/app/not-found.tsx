@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function NotFound() {
   return (
     <section className="container-x grid items-center gap-10 py-20 md:grid-cols-[1fr_1.4fr]">
-      <Image src="/brand/icon-src.png" alt="" width={320} height={320} className="mx-auto w-48 -rotate-6 md:w-64" />
+      <Image src="/brand/mascot.webp" alt="" width={583} height={900} sizes="(min-width: 768px) 260px, 180px" className="mx-auto w-44 -rotate-6 motion-safe:animate-float md:w-64" />
       <div>
         <p className="eyebrow">404</p>
         <h1 className="mt-2 text-4xl font-bold sm:text-5xl">This page wandered off</h1>

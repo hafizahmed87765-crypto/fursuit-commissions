@@ -28,7 +28,7 @@ export const COVERAGE = [
 
 export const PARTS = ["Hand paws", "Feet paws", "Tail", "Ears / headband", "Neon sign"] as const;
 
-export const REPAIR_TYPES = ["Seam / stitching repair", "Fur replacement or patching", "Head refurbishment", "Alteration or refit", "Not sure — need advice"] as const;
+export const REPAIR_TYPES = ["Seam / stitching repair", "Fur replacement or patching", "Head refurbishment", "Alteration or refit", "Not sure, need advice"] as const;
 
 export type Errors = Record<string, string>;
 

@@ -37,7 +37,7 @@ export const policies = {
   deposit: "Orders under $500 are paid in full upfront. Orders over $500 need an upfront, non-refundable payment to start, with the balance due before shipping.",
   paymentPlans: "Payment plans may be available on select orders and may include a small processing fee. Ask when you request your quote.",
   // Homepage FAQ: "On average, it takes about 6–12 weeks".
-  typicalProduction: "about 6–12 weeks on average",
+  typicalProduction: "about 6 to 12 weeks on average",
 };
 
 export type ServiceKey = "custom" | "kemono" | "toony" | "repair";
@@ -133,7 +133,7 @@ export const commissionOptions = [
 
 // Budget ranges from the live WPForms quote form, plus "Under $1,000" so
 // heads, paws and tails (listed from $150) have a fitting option.
-export const budgetRanges = ["Under $1,000", "$1,000 – $2,000", "$2,000 – $3,000", "$3,000+", "Not sure yet"];
+export const budgetRanges = ["Under $1,000", "$1,000 to $2,000", "$2,000 to $3,000", "$3,000+", "Not sure yet"];
 
 export const processSteps = [
   {
@@ -220,4 +220,4 @@ export const reviews: Review[] = [
 ];
 
 // Published on the studio's own YouTube channel.
-export const videoReview = { id: "on0vNOX-IWo", title: "Client review — thaakvu" };
+export const videoReview = { id: "on0vNOX-IWo", title: "Client review: thaakvu" };

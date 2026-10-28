@@ -24,7 +24,7 @@ export default function AnnouncementBar() {
             <span aria-hidden className={`h-2 w-2 rounded-full ${a.status === "open" ? "bg-mint-light motion-safe:animate-soft-pulse" : "bg-blush"}`} />
             {a.text}
           </span>
-          <Link href={a.link.href} className="font-semibold text-mint-light underline underline-offset-4 hover:text-white">
+          <Link href={a.link.href} className="font-semibold text-mint-light transition-colors hover:text-white">
             {a.link.label}
           </Link>
         </p>

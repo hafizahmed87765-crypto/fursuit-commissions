@@ -439,9 +439,9 @@ export default function QuoteForm() {
                 .map(([k, v, s]) => (
                   <div key={k as string} className="flex gap-4 py-3">
                     <dt className="w-32 shrink-0 font-semibold text-forest">{k}</dt>
-                    <dd className="min-w-0 flex-1 whitespace-pre-wrap break-words text-ink">{(v as string) || "—"}</dd>
+                    <dd className="min-w-0 flex-1 whitespace-pre-wrap break-words text-ink">{(v as string) || "Not provided"}</dd>
                     <dd>
-                      <button type="button" className="font-semibold text-forest underline underline-offset-2" onClick={() => setStep(s as number)}>
+                      <button type="button" className="font-semibold text-forest transition-colors hover:text-mint-deep" onClick={() => setStep(s as number)}>
                         Edit<span className="sr-only"> {k as string}</span>
                       </button>
                     </dd>

@@ -61,8 +61,8 @@ export async function POST(request: Request) {
 
   const f = fields;
   const subjects: Record<InquiryKind, string> = {
-    quote: `Quote request: ${label(SERVICES, f.service)} – ${label(COVERAGE, f.coverage) ?? ""} – ${f.name}`,
-    repair: `Repair assessment: ${f.repairType} – ${f.name}`,
+    quote: `Quote request: ${label(SERVICES, f.service)}, ${label(COVERAGE, f.coverage) ?? ""} (${f.name})`,
+    repair: `Repair assessment: ${f.repairType} (${f.name})`,
     contact: `Website message from ${f.name}`,
   };
   const rows: Record<InquiryKind, [string, string | undefined][]> = {

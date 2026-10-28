@@ -41,7 +41,7 @@ export default function Page() {
       intro={intro}
       tint="bg-lavender-soft"
       heroSlot="S1"
-      hero={{ src: "/media/work/kemono-grey-horned-dragon-partial-2.webp", width: 1257, height: 1600, alt: "Kemono-style grey and white horned dragon fursuit with coral ears, red-tipped horns, golden anime eyes and a paw-print bandana, three-quarter view", position: "50% 30%" }}
+      hero={{ src: "/media/work/kemono-grey-horned-dragon-partial-2.webp", width: 1257, height: 1600, alt: "Kemono-style grey and white horned dragon fursuit with coral ears, red-tipped horns, golden anime eyes and a paw-print bandana, three-quarter view", position: "50% 22%" }}
       traitsTitle="What gives Kemono its charm"
       traits={[
         { title: "Anime eyes", body: "Large, glossy eyes in your character's colours are the heart of the Kemono look." },

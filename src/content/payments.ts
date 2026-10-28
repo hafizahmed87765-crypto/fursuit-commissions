@@ -41,7 +41,7 @@ export const paymentTimeline = [
   { title: "Receive your quote", body: "Your written quote states the total price and, if a plan is offered for your order, your weekly or biweekly schedule and any processing fee." },
   { title: "Pay to start", body: "Under $500: pay in full. Over $500: make the upfront payment set in your quote. Work begins once payment is received and the design is approved." },
   { title: "Production", body: "We build your suit with WIP updates. Weekly or biweekly instalments are paid on the dates set in your quote." },
-  { title: "Balance before shipping", body: "Full payment must be cleared before your order ships — no exceptions." },
+  { title: "Balance before shipping", body: "Full payment must be cleared before your order ships. No exceptions." },
 ];
 
 export const paymentFaqs = [
