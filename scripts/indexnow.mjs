@@ -12,8 +12,13 @@ const live = await (await fetch(`${site}/indexnow.txt`)).text();
 if (live.trim() !== key) throw new Error(`${site}/indexnow.txt does not serve this key yet. Add INDEXNOW_KEY in Vercel and redeploy first.`);
 
 const xml = await (await fetch(`${site}/sitemap.xml`)).text();
-const urlList = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
-const host = new URL(urlList[0] ?? site).host;
+// Submit on the host that serves the key directly (no redirect), whatever host the sitemap uses.
+const host = new URL(site).host;
+const urlList = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => {
+  const u = new URL(m[1]);
+  u.host = host;
+  return u.href;
+});
 
 const res = await fetch("https://api.indexnow.org/indexnow", {
   method: "POST",
