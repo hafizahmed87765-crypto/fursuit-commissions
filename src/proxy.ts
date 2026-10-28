@@ -23,13 +23,13 @@ export function proxy(req: NextRequest) {
     return new NextResponse(retiredPage, { status: 410, headers: { "content-type": "text/html; charset=utf-8", "x-robots-tag": "noindex" } });
   }
   if (SPAM.some((re) => re.test(pathname))) {
-    return new NextResponse("410 Gone — this page has been permanently removed.", {
+    return new NextResponse("410 Gone. This page has been permanently removed.", {
       status: 410,
       headers: { "content-type": "text/plain; charset=utf-8", "x-robots-tag": "noindex" },
     });
   }
   if (REMOVED_COMMERCE.some((re) => re.test(pathname))) {
-    return new NextResponse("410 Gone — the online shop has been removed.", {
+    return new NextResponse("410 Gone. The online shop has been removed.", {
       status: 410,
       headers: { "content-type": "text/plain; charset=utf-8", "x-robots-tag": "noindex" },
     });

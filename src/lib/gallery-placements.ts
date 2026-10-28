@@ -5,12 +5,12 @@ import { filterLabels, type PortfolioItem, type PortfolioTag } from "@/content/p
 
 /** Spots on the website that an admin gallery can be assigned to. */
 export const placements = {
-  home: { label: "Homepage – “Fresh from the workshop”", path: "/" },
+  home: { label: "Homepage: “Fresh from the workshop”", path: "/" },
   gallery: { label: "Gallery page (/gallery/)", path: "/gallery/" },
-  kemono: { label: "Kemono Suits page – Recent work", path: "/kemono-fursuits/" },
-  toony: { label: "Toony Suits page – Recent work", path: "/toony-fursuits/" },
-  custom: { label: "Custom Fursuits page – Recent work", path: "/fursuit-commission/" },
-  parts: { label: "Fursuit Parts page – Recent parts", path: "/fursuit-parts/" },
+  kemono: { label: "Kemono Suits page: Recent work", path: "/kemono-fursuits/" },
+  toony: { label: "Toony Suits page: Recent work", path: "/toony-fursuits/" },
+  custom: { label: "Custom Fursuits page: Recent work", path: "/fursuit-commission/" },
+  parts: { label: "Fursuit Parts page: Recent parts", path: "/fursuit-parts/" },
 } as const;
 
 export type Placement = keyof typeof placements;

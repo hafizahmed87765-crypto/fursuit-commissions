@@ -103,7 +103,7 @@ export function FileField({ label, files, onChange, error, hint, required }: { l
               <span className="min-w-0 truncate">
                 {f.name} <span className="text-ink-muted">· {fmt(f.size)}</span>
               </span>
-              <button type="button" className="shrink-0 font-semibold text-red-700 hover:underline" onClick={() => onChange(files.filter((_, j) => j !== i))}>
+              <button type="button" className="shrink-0 font-semibold text-red-700 hover:text-red-900" onClick={() => onChange(files.filter((_, j) => j !== i))}>
                 Remove<span className="sr-only"> {f.name}</span>
               </button>
             </li>

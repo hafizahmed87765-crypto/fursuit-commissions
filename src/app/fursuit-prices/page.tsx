@@ -87,7 +87,7 @@ export default function FursuitPricesPage() {
                 {rows.map((r) => (
                   <tr key={r.title} className="odd:bg-white even:bg-mint-wash">
                     <th scope="row" className="p-4 font-display font-semibold">
-                      <Link href={r.href} className="hover:underline">{r.title}</Link>
+                      <Link href={r.href} className="transition-colors hover:text-mint-deep">{r.title}</Link>
                     </th>
                     <td className="p-4 text-ink-muted">{r.blurb}</td>
                     <td className="whitespace-nowrap p-4 font-display font-bold">{r.price}</td>

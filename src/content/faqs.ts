@@ -40,7 +40,7 @@ export const generalFaqs: Faq[] = [
   },
   {
     q: "How long does production take?",
-    a: "It depends on complexity. On average a commission takes about 6–12 weeks, and you receive an estimated timeline with your quote.",
+    a: "It depends on complexity. On average a commission takes about 6 to 12 weeks, and you receive an estimated timeline with your quote.",
   },
   {
     q: "What payment arrangements are available?",

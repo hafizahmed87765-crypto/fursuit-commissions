@@ -64,9 +64,9 @@
     @apply min-h-[40px] px-4 py-2 text-sm;
   }
 
-  /* Text links keep an underline so they stay recognisable as links. */
+  /* Text links: no underline; bold forest text that shifts to mint on hover. */
   .link {
-    @apply font-semibold text-forest underline decoration-mint-deep/50 decoration-2 underline-offset-4 transition hover:decoration-forest;
+    @apply font-semibold text-forest no-underline transition-colors hover:text-mint-deep focus-visible:rounded focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest;
   }
 
   .card {
@@ -136,7 +136,7 @@
 
   /* Endless ribbon of selling points (content is duplicated once in markup). */
   .marquee-track {
-    @apply flex w-max motion-safe:animate-marquee hover:[animation-play-state:paused] motion-reduce:w-full motion-reduce:justify-center;
+    @apply flex w-max animate-marquee;
   }
 }
 
@@ -191,6 +191,11 @@ details.faq summary::-webkit-details-marker {
   .js [data-reveal]:not(.is-visible) {
     opacity: 1;
     transform: none;
+  }
+  /* The selling-points strip keeps scrolling even when motion is reduced. */
+  .marquee-track {
+    animation-duration: 28s !important;
+    animation-iteration-count: infinite !important;
   }
 }
 

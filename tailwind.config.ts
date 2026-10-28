@@ -56,7 +56,7 @@ const config: Config = {
         page: "page .5s cubic-bezier(.16,1,.3,1) both",
         "soft-pulse": "soft-pulse 2.4s ease-in-out infinite",
         float: "float 5s ease-in-out infinite",
-        marquee: "marquee 36s linear infinite",
+        marquee: "marquee 28s linear infinite",
         draw: "draw 1.2s .6s cubic-bezier(.16,1,.3,1) both",
         "paw-step": "paw-step 4.8s ease-in-out infinite both",
         wiggle: "wiggle 2.8s ease-in-out infinite",

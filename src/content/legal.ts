@@ -27,7 +27,7 @@ export const terms: { heading: string; items?: string[]; text?: string }[] = [
     items: [
       "Orders under $500: Full payment required upfront before work begins",
       "Orders over $500: A 50% non-refundable deposit is required to begin work; remaining balance is due before shipping",
-      "Payment plans may be available on select orders and may include a small processing fee — ask at time of quote",
+      "Payment plans may be available on select orders and may include a small processing fee. Ask at time of quote",
       "Accepted payment methods: PayPal, Stripe, and other approved processors",
       "Full payment must be cleared before any order is shipped, without exception",
     ],
@@ -48,7 +48,7 @@ export const terms: { heading: string; items?: string[]; text?: string }[] = [
       "Shipping costs and insurance are included in your final quote",
       "We are not responsible for delays caused by customs, carrier issues, or circumstances beyond our control",
       "Import duties, taxes, and customs clearance fees are entirely the buyer's responsibility",
-      "Once an order is handed to the shipping carrier, we are not liable for loss or damage — we strongly recommend purchasing shipping insurance",
+      "Once an order is handed to the shipping carrier, we are not liable for loss or damage. We strongly recommend purchasing shipping insurance",
     ],
   },
   {
@@ -58,14 +58,14 @@ export const terms: { heading: string; items?: string[]; text?: string }[] = [
       "Warranty covers manufacturing defects such as seam failures or structural foam issues",
       "Warranty does not cover normal wear and tear, improper care, washing damage, or misuse",
       "Repair shipping costs in both directions are the buyer's responsibility",
-      "Fursuits and costumes are worn at the wearer's own risk — we are not liable for any injury, overheating, limited visibility, or accidents during use",
+      "Fursuits and costumes are worn at the wearer's own risk. We are not liable for any injury, overheating, limited visibility, or accidents during use",
     ],
   },
   {
     heading: "Intellectual Property",
     items: [
       "Your character design and fursona remain entirely your intellectual property",
-      "We retain the right to photograph and share images of completed commissions for portfolio, gallery, and marketing purposes — always with credit to the client or their fursona name",
+      "We retain the right to photograph and share images of completed commissions for portfolio, gallery, and marketing purposes, always with credit to the client or their fursona name",
       "Clients may opt out of portfolio/social media usage at any time by notifying us in writing",
       "Clients may share photos of their commission freely but are encouraged to credit FursuitCommissions.com as the maker",
       "Our construction patterns, techniques, and proprietary designs may not be replicated, sold, or distributed",
