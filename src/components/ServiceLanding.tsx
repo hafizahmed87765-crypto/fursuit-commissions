@@ -63,7 +63,7 @@ export default async function ServiceLanding(p: ServiceLandingProps) {
             </div>
           </div>
           <div className="animate-reveal overflow-hidden rounded-blob bg-black shadow-lift">
-            <Image src={hero.src} alt={hero.alt} width={hero.width} height={hero.height} priority sizes="(min-width:1024px) 45vw, 100vw" className="aspect-[4/3] w-full object-cover" style={{ objectPosition: hero.position ?? "50% 30%" }} />
+            <Image src={hero.src} alt={hero.alt} width={hero.width} height={hero.height} priority sizes="(min-width:1024px) 45vw, 100vw" className="aspect-square w-full object-cover sm:aspect-[5/4] lg:aspect-square" style={{ objectPosition: hero.position ?? "50% 30%" }} />
           </div>
         </div>
       </section>

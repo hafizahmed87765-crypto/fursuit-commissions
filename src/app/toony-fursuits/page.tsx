@@ -36,7 +36,7 @@ export default function Page() {
       intro={intro}
       tint="bg-petal"
       heroSlot="S2"
-      hero={{ src: "/media/work/toony-red-streak-wolf-partial-1.webp", width: 1067, height: 1600, alt: "Toony-style charcoal and white wolf fursuit with a red hair streak, red eye markings, red inner ears and matching feet paws, front view", position: "50% 35%" }}
+      hero={{ src: "/media/work/toony-red-streak-wolf-partial-1.webp", width: 1067, height: 1600, alt: "Toony-style charcoal and white wolf fursuit with a red hair streak, red eye markings, red inner ears and matching feet paws, front view", position: "50% 55%" }}
       traitsTitle="Big Toony shapes, bigger personality"
       traits={[
         { title: "Expressive eyes", body: "Large Toony eyes and sculpted brows that read clearly across a convention hall." },
