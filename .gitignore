@@ -9,3 +9,7 @@ next-env.d.ts
 
 # Playwright test screenshots and logs
 .playwright-mcp/
+
+# Google service-account keys must never be committed
+*service-account*.json
+charged-ground-*.json
