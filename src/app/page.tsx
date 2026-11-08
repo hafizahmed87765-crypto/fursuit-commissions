@@ -13,6 +13,9 @@ import Planner from "@/components/Planner";
 import Reviews from "@/components/Reviews";
 import FaqList from "@/components/FaqList";
 import FinalCta from "@/components/FinalCta";
+import BuildJourney from "@/components/BuildJourney";
+import { PricePlanTable, SupportPromise } from "@/components/PricePlans";
+import { guides } from "@/content/guides";
 import { commissionReasons, policies } from "@/content/site";
 import { generalFaqs } from "@/content/faqs";
 import { pageMeta } from "@/lib/seo";
@@ -98,6 +101,17 @@ export default async function HomePage() {
         </div>
       </section>
 
+      <section aria-labelledby="price-plans" className="container-x pt-16 sm:pt-24">
+        <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
+          <SectionHeading id="price-plans" eyebrow="Price plans" title="Fursuit prices at a glance" mark="at a glance" lede="Starting prices for every package. Your free quote adds the details that make your character unique." />
+          <Link href="/fursuit-prices/" className="btn-secondary shrink-0 self-start md:self-auto">
+            All prices &amp; extras
+          </Link>
+        </div>
+        <PricePlanTable />
+        <SupportPromise className="mt-10" />
+      </section>
+
       <section aria-labelledby="explore" className="container-x pt-16 sm:pt-24">
         <SectionHeading id="explore" eyebrow="Looking for something specific?" title="Fursuits, furry costumes & mascots" mark="furry costumes" />
         <ul className="mt-10 grid gap-6 md:grid-cols-3">
@@ -135,6 +149,13 @@ export default async function HomePage() {
           <Link href="#planner" className="btn-primary mt-7">
             Start the planner <span aria-hidden>↓</span>
           </Link>
+        </div>
+      </section>
+
+      <section aria-labelledby="journey" className="bg-lavender-soft py-16 sm:py-24">
+        <div className="container-x">
+          <SectionHeading id="journey" eyebrow="Ref sheet to fursuit" title="Watch a character come to life" mark="come to life" lede="A real toony tiger fullsuit: the client's ref sheet, the head and bodysuit patterns, and the finished suit at home." />
+          <BuildJourney />
         </div>
       </section>
 
@@ -255,6 +276,26 @@ export default async function HomePage() {
       </section>
 
       <CmsFormForPage pagePath="/" />
+      <section aria-labelledby="guides" className="container-x pb-8">
+        <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
+          <SectionHeading id="guides" eyebrow="Guides & blog" title="Fursuit guides from our studio" mark="guides" />
+          <Link href="/guides/" className="btn-secondary shrink-0 self-start md:self-auto">
+            All guides
+          </Link>
+        </div>
+        <ul className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {guides.map((g) => (
+            <li key={g.slug} data-reveal>
+              <Link href={`/guides/${g.slug}/`} className="card card-hover block h-full p-5">
+                <span className="text-xs font-bold uppercase tracking-wider text-mint-deep">{g.kind}</span>
+                <span className="mt-1 block font-display text-lg font-bold leading-snug text-forest">{g.title}</span>
+                <span className="mt-2 block text-sm text-ink-muted">{g.readMinutes} min read →</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </section>
+
       <FinalCta />
     </>
   );

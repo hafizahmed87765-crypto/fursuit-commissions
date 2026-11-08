@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { site } from "@/content/site";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { work } from "@/content/work";
+import { guides } from "@/content/guides";
 
 // Image sitemap: every character photo is listed under the pages that show it.
 const imgs = (style?: string) => work.filter((p) => !style || p.style === style).flatMap((p) => p.photos.map((ph) => `${site.url}${ph.src}`));
@@ -24,6 +25,8 @@ const pages: [string, number][] = [
   ["/furry-mascot-costumes/", 0.7],
   ["/fursuit-prices/", 0.8],
   ["/payment-plans/", 0.7],
+  ["/guides/", 0.7],
+  ...guides.map((g): [string, number] => [`/guides/${g.slug}/`, 0.6]),
   ["/terms-and-conditions/", 0.2],
   ["/privacy-policy/", 0.2],
 ];

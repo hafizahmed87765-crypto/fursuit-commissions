@@ -7,6 +7,8 @@ import Paw from "@/components/Paw";
 import CmsFormForPage from "@/components/cms/CmsFormForPage";
 import { pricingFaqs } from "@/content/faqs";
 import { commissionOptions, policies, site } from "@/content/site";
+import { planFrom } from "@/content/pricing";
+import { InstalmentStructure, PricePlanTable, SupportPromise } from "@/components/PricePlans";
 import { pageMeta } from "@/lib/seo";
 
 const path = "/fursuit-prices/";
@@ -20,8 +22,9 @@ export const metadata = pageMeta({
 
 const formatPrice = (amount: number) => new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(amount);
 
-// Only prices the studio publishes (site.ts). Heads, partials and fullsuits are quoted.
-const rows = commissionOptions.map((o) => ({ title: o.title, blurb: o.blurb, price: o.from ? `From ${formatPrice(o.from)}` : "Quoted to your design", href: "href" in o ? o.href : `/get-a-quote/?coverage=${o.key}` }));
+// Starting prices: parts from site.ts, heads/partials/fullsuits from content/pricing.ts.
+const fromPrice = (o: (typeof commissionOptions)[number]) => o.from ?? planFrom[o.key] ?? null;
+const rows = commissionOptions.map((o) => ({ title: o.title, blurb: o.blurb, price: fromPrice(o) ? `From ${formatPrice(fromPrice(o) as number)}` : "Quoted to your design", href: "href" in o ? o.href : `/get-a-quote/?coverage=${o.key}` }));
 
 const factors = [
   { title: "Coverage", body: "A head, a partial (head, hand paws and tail) or a fullsuit. More pieces means more patterning and sewing." },
@@ -51,6 +54,12 @@ export default function FursuitPricesPage() {
         </div>
       </PageIntro>
 
+      <section aria-labelledby="price-plans" className="container-x py-16 sm:py-20">
+        <SectionHeading id="price-plans" eyebrow="Price plans" title="Fursuit starting prices by package" mark="starting prices" lede="Pick how much of your character you want to wear. Every package is built from scratch to your ref sheet." />
+        <PricePlanTable />
+        <SupportPromise className="mt-10" />
+      </section>
+
       <section aria-labelledby="factors" className="container-x py-16 sm:py-20">
         <SectionHeading id="factors" eyebrow="What affects your quote" title="What goes into a fursuit price" mark="fursuit price" />
         <ul className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -72,7 +81,7 @@ export default function FursuitPricesPage() {
             id="prices"
             eyebrow="Published prices"
             title="Fursuit prices by commission type"
-            lede="Starting prices are for a standard build. Heads, partials and fullsuits vary too much between characters to list a fair fixed price, so they're quoted individually."
+            lede="Starting prices are for a standard build. Your quote adds the markings, hair and extras that make your character unique."
           />
           <div className="mt-10 overflow-x-auto" data-reveal>
             <table className="toon w-full min-w-[560px] border-separate border-spacing-0 overflow-hidden text-left">
@@ -110,6 +119,14 @@ export default function FursuitPricesPage() {
           <div className="toon p-6"><dt className="font-display text-xl font-bold">Timeline</dt><dd className="mt-2 text-ink-muted">Production takes {policies.typicalProduction}, depending on complexity. Your quote includes an estimate.</dd></div>
           <div className="toon p-6"><dt className="font-display text-xl font-bold">Payment methods</dt><dd className="mt-2 text-ink-muted">Commission invoices are paid via {site.paymentMethods.join(" or ")}. Shipping and insurance are included in your final quote.</dd></div>
         </dl>
+      </section>
+
+      <section aria-labelledby="instalment-plans" className="container-x pb-16 sm:pb-20">
+        <SectionHeading id="instalment-plans" eyebrow="Instalment plans" title="Spread the cost of your fursuit" mark="Spread the cost" lede="Weekly or biweekly instalments on eligible orders. Here is how a plan is structured." />
+        <InstalmentStructure />
+        <p className="mt-6" data-reveal>
+          <Link href="/payment-plans/" className="link">Read the full payment plan details</Link>
+        </p>
       </section>
 
       <section aria-labelledby="faq" className="bg-mint-wash py-16 sm:py-20">

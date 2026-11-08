@@ -65,6 +65,7 @@ export const nav = {
       href: "/about-us/",
       children: [
         { label: "Payment Plans", href: "/payment-plans/" },
+        { label: "Guides & Blog", href: "/guides/" },
         { label: "About", href: "/about-us/" },
         { label: "Contact", href: "/contact-us/" },
         { label: "Reference Sheets", href: "/furry-ref-sheet-commissions/" },

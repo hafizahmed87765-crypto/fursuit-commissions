@@ -24,6 +24,7 @@ const columns = [
       { label: "Gallery", href: "/gallery/" },
       { label: "Our Process", href: "/order-process/" },
       { label: "FAQ", href: "/#faq" },
+      { label: "Guides & Blog", href: "/guides/" },
       { label: "About Us", href: "/about-us/" },
       { label: "Contact", href: "/contact-us/" },
       { label: "Get a Quote", href: "/get-a-quote/" },

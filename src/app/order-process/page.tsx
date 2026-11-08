@@ -2,6 +2,7 @@ import Link from "next/link";
 import PageIntro from "@/components/PageIntro";
 import SectionHeading from "@/components/SectionHeading";
 import ProcessSteps from "@/components/ProcessSteps";
+import BuildJourney from "@/components/BuildJourney";
 import FaqList from "@/components/FaqList";
 import FinalCta from "@/components/FinalCta";
 import { policies, site } from "@/content/site";
@@ -64,6 +65,13 @@ export default function ProcessPage() {
       <section aria-labelledby="steps" className="container-x py-16 sm:py-20">
         <SectionHeading id="steps" eyebrow="Step by step" title="The fursuit commission process in seven steps" />
         <ProcessSteps />
+      </section>
+
+      <section aria-labelledby="journey" className="bg-lavender-soft py-16 sm:py-20">
+        <div className="container-x">
+          <SectionHeading id="journey" eyebrow="A real commission" title="From ref sheet to finished fursuit" mark="finished fursuit" lede="One toony tiger fullsuit, from the client's reference sheet through head patterning and the duct-tape dummy to delivery." />
+          <BuildJourney />
+        </div>
       </section>
 
       <section aria-labelledby="details" className="bg-mint-wash py-16 sm:py-20">
