@@ -130,7 +130,7 @@ export const mascotFaqs: Faq[] = [
 export const pricingFaqs: Faq[] = [
   {
     q: "How much does a custom fursuit cost?",
-    a: "It depends on coverage and design. Parts have published starting prices; heads, partials and fullsuits are quoted individually because markings, style and extras change the work involved. Quotes are free and don't commit you to anything.",
+    a: "It depends on coverage and design. Fursuit heads start from $700, mini partials from $1,000, partials from $1,200 and fullsuits from $1,600, and parts have their own starting prices. Markings, style and extras are added in your quote. Quotes are free and don't commit you to anything.",
     link: { href: "/get-a-quote/", label: "Get a free fursuit quote" },
   },
   {

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { commissionOptions } from "@/content/site";
+import { planFrom } from "@/content/pricing";
 import { getSiteImages, optionSlots } from "@/lib/site-images";
 const formatPrice = (amount: number) => new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(amount);
 
@@ -11,6 +12,7 @@ export default async function CommissionOptions({ limit, keys }: { limit?: numbe
   return (
     <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {list.map((o, i) => {
+        const from = o.from ?? planFrom[o.key] ?? null;
         const href = "href" in o ? o.href : `/get-a-quote/?coverage=${o.key === "fullsuit" || o.key === "partial" || o.key === "head" ? o.key : "parts"}`;
         return (
           <li key={o.key} data-reveal style={{ ["--reveal-delay" as string]: `${(i % 3) * 70}ms` }}>
@@ -22,9 +24,9 @@ export default async function CommissionOptions({ limit, keys }: { limit?: numbe
                 <h3 className="text-xl font-semibold">{o.title}</h3>
                 <p className="mt-1 flex-1 text-sm text-ink-muted">{o.blurb}</p>
                 <p className="mt-2 text-sm font-semibold text-forest">
-                  {o.from ? (
+                  {from ? (
                     <>
-                      From {formatPrice(o.from)} <span className="font-normal text-ink-muted">· final quote depends on design</span>
+                      From {formatPrice(from)} <span className="font-normal text-ink-muted">· final quote depends on design</span>
                     </>
                   ) : (
                     <>Request a quote →</>

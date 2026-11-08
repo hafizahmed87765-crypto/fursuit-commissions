@@ -7,6 +7,7 @@ import FaqList from "@/components/FaqList";
 import FinalCta from "@/components/FinalCta";
 import { commissionPaymentMethods, depositRules, instalmentFrequencies, paymentFaqs, paymentPlanConfig, paymentTimeline } from "@/content/payments";
 import { pageMeta } from "@/lib/seo";
+import { InstalmentStructure, SupportPromise } from "@/components/PricePlans";
 
 export const metadata = pageMeta({
   title: "Fursuit Payment Plans & Deposits",
@@ -130,6 +131,12 @@ export default async function PaymentPlansPage() {
             </ol>
           </div>
         </div>
+      </section>
+
+      <section aria-labelledby="plan-structure" className="container-x py-16 sm:py-20">
+        <SectionHeading id="plan-structure" eyebrow="Instalment plan structure" title="How your instalments are set up" mark="instalments" lede="Three simple stages, with every amount and date written in your quote before you pay anything." />
+        <InstalmentStructure />
+        <SupportPromise className="mt-10" />
       </section>
 
       {/* Methods */}

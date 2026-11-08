@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import Link from "next/link";
 import PageIntro from "@/components/PageIntro";
 import QuoteForm from "@/components/forms/QuoteForm";
+import { SupportPromise } from "@/components/PricePlans";
 import { policies } from "@/content/site";
 import { pageMeta } from "@/lib/seo";
 import CmsFormForPage from "@/components/cms/CmsFormForPage";
@@ -21,6 +22,9 @@ export default function QuotePage() {
         title="Start your commission"
         lede="Request your free fursuit quote: tell us about your character and what you'd like made. It takes about five minutes, your answers are kept as you move between steps, and nothing is booked until you accept your quote."
       />
+      <div className="container-x pt-10 sm:pt-14">
+        <SupportPromise />
+      </div>
       <div className="container-x grid gap-10 py-10 sm:py-14 lg:grid-cols-[1fr_320px]">
         <Suspense fallback={<div className="card h-96 animate-pulse" aria-label="Loading form" />}>
           <QuoteForm />
