@@ -87,7 +87,7 @@ export const commissionOptions = [
   {
     key: "partial",
     title: "Partials",
-    blurb: "Head, hand paws and tail (feet paws optional). The most popular way to start with a full character look.",
+    blurb: "Mini partial (head, hand paws and tail) from $1,000, or a partial with feet paws added from $1,200. The most popular way to start with a full character look.",
     from: null,
     image: "/media/work/kemono-grey-horned-dragon-partial-1.webp",
   },

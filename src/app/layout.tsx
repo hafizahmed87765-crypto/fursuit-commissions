@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Fredoka, Nunito_Sans } from "next/font/google";
 import "./globals.css";
 import { site } from "@/content/site";
+import { pricePlans } from "@/content/pricing";
 import AnnouncementBar, { announcementScript } from "@/components/AnnouncementBar";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -22,13 +23,30 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = { themeColor: "#A5D4C4", width: "device-width", initialScale: 1 };
 
+// Site-wide structured data: the business (with its starting-price offers) and the website.
+const orgId = `${site.url}/#org`;
 const orgLd = {
   "@context": "https://schema.org",
-  "@type": "Organization",
-  name: site.name,
-  url: site.url,
-  logo: `${site.url}/brand/logo.png`,
-  sameAs: site.socials.map((s) => s.href),
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": orgId,
+      name: site.name,
+      url: site.url,
+      logo: `${site.url}/brand/logo.png`,
+      description: "Handmade custom fursuits, Kemono and Toony suits, fursuit parts and repairs, made to order and shipped worldwide.",
+      ...(site.email ? { email: site.email, contactPoint: { "@type": "ContactPoint", contactType: "customer support", email: site.email, availableLanguage: "English" } } : {}),
+      sameAs: site.socials.map((s) => s.href),
+      makesOffer: pricePlans.map((p) => ({
+        "@type": "Offer",
+        name: p.title,
+        description: p.includes.join("; "),
+        url: `${site.url}/fursuit-prices/`,
+        priceSpecification: { "@type": "PriceSpecification", minPrice: p.from, priceCurrency: "USD" },
+      })),
+    },
+    { "@type": "WebSite", "@id": `${site.url}/#website`, url: site.url, name: site.name, inLanguage: "en", publisher: { "@id": orgId } },
+  ],
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

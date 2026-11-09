@@ -2,7 +2,16 @@ import Link from "next/link";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { pageMeta } from "@/lib/seo";
 
-export const metadata = pageMeta({ title: "Fursuit Journal: Guides & Studio News", description: "Fursuit guides, commission tips and news from the FursuitCommissions.com workshop.", path: "/journal/" });
+// Hidden from search engines until at least one article is published.
+export async function generateMetadata() {
+  let hasPosts = false;
+  if (process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+    const supabase = await createSupabaseServerClient();
+    const { count } = await supabase.from("blog_posts").select("slug", { count: "exact", head: true }).eq("status", "published").lte("published_at", new Date().toISOString());
+    hasPosts = Boolean(count);
+  }
+  return pageMeta({ ...{ title: "Fursuit Journal: Guides & Studio News", description: "Fursuit guides, commission tips and news from the FursuitCommissions.com workshop.", path: "/journal/" }, noindex: !hasPosts });
+}
 
 export default async function JournalPage() {
   if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
