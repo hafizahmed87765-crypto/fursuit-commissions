@@ -50,7 +50,8 @@ async function loadCmsRoutes(staticPages: MetadataRoute.Sitemap): Promise<Metada
     return [
       ...staticPages,
       ...(cmsPages ?? []).map((page) => ({ url: page.canonical_url || `${site.url}/content/${page.slug}/`, lastModified: page.updated_at, priority: 0.6 })),
-      { url: `${site.url}/journal/`, priority: 0.5 },
+      // Only list the journal once it has published articles.
+      ...(posts?.length ? [{ url: `${site.url}/journal/`, priority: 0.5 }] : []),
       ...(posts ?? []).map((post) => ({ url: post.canonical_url || `${site.url}/journal/${post.slug}/`, lastModified: post.updated_at || post.published_at, priority: 0.5 })),
       // Galleries placed on a site page are canonical there, so only list unplaced ones.
       ...(galleries ?? []).filter((gallery) => !gallery.placement).map((gallery) => ({ url: `${site.url}/galleries/${gallery.slug}/`, lastModified: gallery.updated_at, priority: 0.4 })),

@@ -3,6 +3,7 @@
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { revalidatePath, updateTag } from "next/cache";
+import { CMS_FORMS_TAG } from "@/lib/cms-forms";
 import { redirect } from "next/navigation";
 import { requireCmsAdmin } from "@/lib/supabase/auth";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
@@ -292,6 +293,7 @@ export async function createCmsForm(form: FormData) {
   if (assignedPaths.length) await db.from("form_pages").insert(assignedPaths.map((page_path) => ({ form_id: created.id, page_path })));
   const definition = { name, slug, fields };
   await db.from("form_versions").insert({ form_id: created.id, version: 1, definition, created_by: admin.user.id });
+  updateTag(CMS_FORMS_TAG);
   revalidatePath("/admin/forms/");
   redirect("/admin/forms/");
 }
@@ -324,6 +326,7 @@ export async function updateCmsForm(form: FormData) {
   await db.from("form_pages").delete().eq("form_id", id);
   const assignedPaths = form.getAll("page_paths").flatMap((value) => String(value).split(/[\n,]+/)).map((path) => path.trim()).filter((path) => /^\/[a-z0-9/_-]*\/?$/.test(path) && !path.startsWith("/admin"));
   if (assignedPaths.length) await db.from("form_pages").insert(assignedPaths.map((page_path) => ({ form_id: id, page_path })));
+  updateTag(CMS_FORMS_TAG);
   revalidatePath("/admin/forms/");
   redirect("/admin/forms/");
 }
@@ -344,6 +347,7 @@ export async function publishCmsForm(form: FormData) {
   const { error } = await db.from("cms_forms").update({ is_published: true, current_version: version, updated_at: new Date().toISOString() }).eq("id", id);
   if (error) failure("/admin/forms/", "The form could not be published.");
   revalidatePath(`/forms/${cmsForm.slug}/`);
+  updateTag(CMS_FORMS_TAG);
   revalidatePath("/admin/forms/");
   redirect("/admin/forms/");
 }
