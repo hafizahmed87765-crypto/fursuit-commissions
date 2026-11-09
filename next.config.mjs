@@ -31,6 +31,9 @@ const legacyRedirects = [
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   trailingSlash: true,
+  // Serve both slash variants. An upstream slash-removal redirect must not
+  // bounce back here forever. Links, canonicals and sitemaps keep the slash.
+  skipTrailingSlashRedirect: true,
   poweredByHeader: false,
   // Room for several photos per gallery upload (each is capped at 10 MB server-side).
   experimental: { serverActions: { bodySizeLimit: "60mb" } },
