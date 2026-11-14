@@ -3,7 +3,7 @@
 import { useRef, useState } from "react";
 import { track } from "@/lib/analytics";
 import { REPAIR_TYPES, req, validateEmail, validateFiles, type Errors } from "@/lib/inquiry";
-import { FileField, Honeypot, PrivacyConsent, SubmitFallback, TextField } from "./Fields";
+import { FileField, Honeypot, PrivacyConsent, SubmitFallback, TextField, UploadingNote } from "./Fields";
 import { useInquiry } from "./useInquiry";
 
 const empty = { name: "", email: "", maker: "", repairType: "", problem: "", history: "", timing: "", notes: "", privacy: false, website: "" };
@@ -98,6 +98,7 @@ export default function RepairForm() {
         Submitting this form requests an assessment only. It doesn't confirm that we can take the repair or set a final price.
       </p>
       {status === "error" && error ? <SubmitFallback message={error} /> : null}
+      {status === "submitting" && files.length ? <UploadingNote count={files.length} /> : null}
       <button type="submit" className="btn-primary w-full sm:w-auto" disabled={status === "submitting"} aria-busy={status === "submitting"}>
         {status === "submitting" ? "Sending…" : "Request a Repair Assessment"}
       </button>

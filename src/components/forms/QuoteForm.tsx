@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { budgetRanges } from "@/content/site";
 import { track } from "@/lib/analytics";
 import { COVERAGE, PARTS, SERVICES, req, validateEmail, validateFiles, validateLinks, type Errors } from "@/lib/inquiry";
-import { Checkbox, FileField, Honeypot, PrivacyConsent, SubmitFallback, TextField } from "./Fields";
+import { Checkbox, FileField, Honeypot, PrivacyConsent, SubmitFallback, TextField, UploadingNote } from "./Fields";
 import { useInquiry } from "./useInquiry";
 
 type Data = {
@@ -456,6 +456,7 @@ export default function QuoteForm() {
             </div>
             <Honeypot value={d.website} onChange={(v) => set("website", v)} />
             {status === "error" && error ? <SubmitFallback message={error} /> : null}
+            {status === "submitting" && files.length ? <UploadingNote count={files.length} /> : null}
           </>
         ) : null}
 

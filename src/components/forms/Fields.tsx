@@ -152,6 +152,18 @@ export function PrivacyConsent({ checked, onChange, error }: { checked: boolean;
   );
 }
 
+/** Shown while files upload, so a slow send doesn't look frozen. */
+export function UploadingNote({ count }: { count: number }) {
+  return (
+    <div role="status" className="flex items-center gap-3 rounded-2xl bg-mint-wash p-4 text-sm text-forest">
+      <span aria-hidden className="h-5 w-5 shrink-0 rounded-full border-2 border-forest/20 border-t-forest motion-safe:animate-spin" />
+      <p>
+        Uploading your {count === 1 ? "file" : `${count} files`}… Please keep this page open. This can take up to a minute on a slow connection.
+      </p>
+    </div>
+  );
+}
+
 /** Shown when a submission fails, so the visitor still has a way through. */
 export function SubmitFallback({ message }: { message: string }) {
   return (
