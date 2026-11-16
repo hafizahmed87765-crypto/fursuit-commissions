@@ -12,9 +12,9 @@ const parts = commissionOptions.filter((o) => o.from !== null);
 const partsFrom = Math.min(...parts.map((o) => o.from as number));
 
 const cards = [
-  { ...byKey("head"), title: "Fursuit head", href: "/get-a-quote/?coverage=head", tint: "bg-mint-wash", price: "Quoted to your design", cta: "Get a quote" },
-  { ...byKey("partial"), title: "Partial", href: "/get-a-quote/?coverage=partial", tint: "bg-lavender-soft", price: "Quoted to your design", cta: "Get a quote" },
-  { ...byKey("fullsuit"), title: "Fullsuit", href: "/get-a-quote/?coverage=fullsuit", tint: "bg-petal", price: "Quoted to your design", cta: "Get a quote" },
+  { ...byKey("head"), title: "Fursuit head", href: "/fursuit-heads/", tint: "bg-mint-wash", price: "Quoted to your design", cta: "See fursuit heads" },
+  { ...byKey("partial"), title: "Partial", href: "/partial-fursuits/", tint: "bg-lavender-soft", price: "Quoted to your design", cta: "See partials" },
+  { ...byKey("fullsuit"), title: "Fullsuit", href: "/full-fursuits/", tint: "bg-petal", price: "Quoted to your design", cta: "See fullsuits" },
   {
     ...byKey("hand-paws"),
     title: "Parts",

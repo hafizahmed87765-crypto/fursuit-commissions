@@ -31,6 +31,8 @@ export type ServiceLandingProps = {
   traits: { title: string; body: string }[];
   traitsTitle: string;
   portfolioTag?: PortfolioTag;
+  /** Coverage pages (head/partial/fullsuit): quote link pre-selects it and the showcase shows builds of that coverage. */
+  coverage?: "head" | "partial" | "fullsuit";
   faqs: Faq[];
   related: { href: string; label: string; body: string }[];
 };
@@ -38,10 +40,13 @@ export type ServiceLandingProps = {
 export default async function ServiceLanding(p: ServiceLandingProps) {
   const hero = p.heroSlot ? { ...(await getSiteImages())[p.heroSlot], position: p.hero.position } : p.hero;
   // An admin gallery assigned to this style's page wins over the built-in portfolio.
-  const work = await getPlacementItems(p.service);
-  const tag = p.portfolioTag;
-  const showcase = tag === "kemono" || tag === "toony" ? characters.filter((c) => c.style === tag).slice(0, 8) : featuredWork(8);
-  const quote = `/get-a-quote/?service=${p.service}`;
+  // Coverage pages have no admin placement of their own, so they skip it.
+  const work = p.coverage ? null : await getPlacementItems(p.service);
+  const tag = p.coverage ?? p.portfolioTag;
+  const showcase = p.coverage
+    ? characters.filter((c) => c.tags.includes(p.coverage!)).slice(0, 8)
+    : tag === "kemono" || tag === "toony" ? characters.filter((c) => c.style === tag).slice(0, 8) : featuredWork(8);
+  const quote = p.coverage ? `/get-a-quote/?coverage=${p.coverage}` : `/get-a-quote/?service=${p.service}`;
 
   return (
     <>
@@ -88,7 +93,7 @@ export default async function ServiceLanding(p: ServiceLandingProps) {
           </Link>
         </div>
         <div className="mt-10">
-          {work ? <PortfolioGrid items={work.slice(0, 8)} /> : tag && tag !== "kemono" && tag !== "toony" ? <PortfolioGrid items={portfolio.filter((i) => i.tags.includes(tag)).slice(0, 8)} /> : <WorkShowcase products={showcase} />}
+          {work ? <PortfolioGrid items={work.slice(0, 8)} /> : tag && !p.coverage && tag !== "kemono" && tag !== "toony" ?<PortfolioGrid items={portfolio.filter((i) => i.tags.includes(tag)).slice(0, 8)} /> : <WorkShowcase products={showcase} />}
         </div>
       </section>
 
