@@ -19,6 +19,7 @@ const pages: [string, number][] = [
   ["/full-fursuits/", 0.9],
   ["/fursuit-species/", 0.8],
   ...species.map((s): [string, number] => [`/${s.slug}/`, 0.7]),
+  ["/murrsuits/", 0.8],
   ["/fursuit-repairs/", 0.8],
   ["/get-a-quote/", 0.8],
   ["/gallery/", 0.8],
