@@ -9,6 +9,7 @@ import { createServerClient } from "@supabase/ssr";
 //    were in the old sitemap; there is no equivalent page to redirect to, and
 //    redirecting a discontinued service elsewhere would be a soft 404.
 const SPAM = [/^\/blogs?(\/|$)/, /^\/(sample-page|11-2|12-2)\/?$/, /^\/(post|page|mailpoet_page|cartflows_step|elementor-hf|wpm-testimonial)-sitemap\d*\.xml$/, /^\/sitemap_index\.xml$/];
+const WP_IDS = ["p", "page_id", "attachment_id"];
 const REMOVED_COMMERCE = [/^\/product\//, /^\/product-category\//, /^\/cart\/?$/, /^\/checkout\/?$/, /^\/my-account\/?$/];
 const RETIRED = /^\/(cosplay-suit-commission|custom-plush-commission|gallery-cosplay-commission|gallery-plush-commission|csc-order-process-cosplay|custom-plush-order-process|csc-get-a-quote|cpc-get-a-quote)\/?$/;
 
@@ -22,7 +23,8 @@ export function proxy(req: NextRequest) {
   if (RETIRED.test(pathname)) {
     return new NextResponse(retiredPage, { status: 410, headers: { "content-type": "text/html; charset=utf-8", "x-robots-tag": "noindex" } });
   }
-  if (SPAM.some((re) => re.test(pathname))) {
+  // Old WordPress post/page/attachment IDs (mostly injected spam), e.g. /?p=10281.
+  if (SPAM.some((re) => re.test(pathname)) || (pathname === "/" && WP_IDS.some((k) => req.nextUrl.searchParams.has(k)))) {
     return new NextResponse("410 Gone. This page has been permanently removed.", {
       status: 410,
       headers: { "content-type": "text/plain; charset=utf-8", "x-robots-tag": "noindex" },
@@ -54,6 +56,10 @@ export function proxy(req: NextRequest) {
 
 export const config = {
   matcher: [
+    // The plain homepage never runs the proxy; only these old WordPress query URLs do.
+    { source: "/", has: [{ type: "query", key: "p" }] },
+    { source: "/", has: [{ type: "query", key: "page_id" }] },
+    { source: "/", has: [{ type: "query", key: "attachment_id" }] },
     "/blog/:path*",
     "/blogs/:path*",
     "/blog",
