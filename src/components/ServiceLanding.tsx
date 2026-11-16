@@ -31,6 +31,8 @@ export type ServiceLandingProps = {
   traits: { title: string; body: string }[];
   traitsTitle: string;
   portfolioTag?: PortfolioTag;
+  /** Work section heading; defaults to "Recent {crumb}". */
+  workTitle?: string;
   faqs: Faq[];
   related: { href: string; label: string; body: string }[];
 };
@@ -82,7 +84,7 @@ export default async function ServiceLanding(p: ServiceLandingProps) {
 
       <section aria-labelledby="work-title" id="work" className="container-x py-16 sm:py-20">
         <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
-          <SectionHeading id="work-title" eyebrow="From the workshop" title={`Recent ${p.crumb}`} />
+          <SectionHeading id="work-title" eyebrow="From the workshop" title={p.workTitle ?? `Recent ${p.crumb}`} />
           <Link href="/gallery/" className="btn-secondary shrink-0 self-start">
             Full gallery
           </Link>

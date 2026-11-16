@@ -13,6 +13,7 @@ const pages: [string, number][] = [
   ["/fursuit-commission/", 0.9],
   ["/kemono-fursuits/", 0.9],
   ["/toony-fursuits/", 0.9],
+  ["/murrsuits/", 0.8],
   ["/fursuit-repairs/", 0.8],
   ["/get-a-quote/", 0.8],
   ["/gallery/", 0.8],
