@@ -81,7 +81,9 @@ export default function Header() {
   }
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
+    // The header shrinks 8px when scrolled, which moves the page 8px. A single threshold made it
+    // flip back and forth (the page "vibrated"), so it shrinks past 24px and grows back under 4px.
+    const onScroll = () => setScrolled((s) => (s ? window.scrollY > 4 : window.scrollY > 24));
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
