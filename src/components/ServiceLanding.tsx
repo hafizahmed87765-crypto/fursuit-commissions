@@ -5,6 +5,7 @@ import SectionHeading from "./SectionHeading";
 import PortfolioGrid from "./PortfolioGrid";
 import WorkShowcase from "./WorkShowcase";
 import { characters, featuredWork } from "@/lib/work";
+import type { WorkProduct } from "@/content/work";
 import CommissionOptions from "./CommissionOptions";
 import ProcessSteps from "./ProcessSteps";
 import FaqList from "./FaqList";
@@ -12,7 +13,7 @@ import FinalCta from "./FinalCta";
 import JsonLd from "./JsonLd";
 import { portfolio, type PortfolioTag } from "@/content/portfolio";
 import type { Faq } from "@/content/faqs";
-import { serviceLd } from "@/lib/seo";
+import { serviceLd, type Crumb } from "@/lib/seo";
 import { getPlacementItems } from "@/lib/gallery-placements";
 import { getSiteImages, type SlotId } from "@/lib/site-images";
 import CmsFormForPage from "@/components/cms/CmsFormForPage";
@@ -31,6 +32,13 @@ export type ServiceLandingProps = {
   traits: { title: string; body: string }[];
   traitsTitle: string;
   portfolioTag?: PortfolioTag;
+  /** Coverage pages (head/partial/fullsuit): quote link pre-selects it and the showcase shows builds of that coverage. */
+  coverage?: "head" | "partial" | "fullsuit";
+  /** Species pages: builds to show (empty shows the general portfolio) and the section title. */
+  showcase?: WorkProduct[];
+  workTitle?: string;
+  /** Breadcrumb above this page, e.g. Fursuits by Species. */
+  parent?: Crumb;
   faqs: Faq[];
   related: { href: string; label: string; body: string }[];
 };
@@ -38,10 +46,13 @@ export type ServiceLandingProps = {
 export default async function ServiceLanding(p: ServiceLandingProps) {
   const hero = p.heroSlot ? { ...(await getSiteImages())[p.heroSlot], position: p.hero.position } : p.hero;
   // An admin gallery assigned to this style's page wins over the built-in portfolio.
-  const work = await getPlacementItems(p.service);
-  const tag = p.portfolioTag;
-  const showcase = tag === "kemono" || tag === "toony" ? characters.filter((c) => c.style === tag).slice(0, 8) : featuredWork(8);
-  const quote = `/get-a-quote/?service=${p.service}`;
+  // Coverage pages have no admin placement of their own, so they skip it.
+  const own = p.showcase?.length ? p.showcase.slice(0, 8) : p.coverage ? characters.filter((c) => c.tags.includes(p.coverage!)).slice(0, 8) : undefined;
+  const work = own || p.showcase ? null : await getPlacementItems(p.service);
+  const tag = p.coverage ?? p.portfolioTag;
+  const showcase = own ?? (tag === "kemono" || tag === "toony" ? characters.filter((c) => c.style === tag).slice(0, 8) : featuredWork(8));
+  const one = p.crumb.replace(/s$/, "");
+  const quote = p.coverage ? `/get-a-quote/?coverage=${p.coverage}` : `/get-a-quote/?service=${p.service}`;
 
   return (
     <>
@@ -49,13 +60,13 @@ export default async function ServiceLanding(p: ServiceLandingProps) {
         <div className="bg-paws absolute inset-0 opacity-50" aria-hidden />
         <div className="container-x relative grid items-center gap-10 py-10 sm:py-14 lg:grid-cols-[1.1fr_1fr] lg:py-16">
           <div className="animate-rise">
-            <Breadcrumbs items={[{ name: p.crumb, path: p.path }]} />
+            <Breadcrumbs items={[...(p.parent ? [p.parent] : []), { name: p.crumb, path: p.path }]} />
             <p className="eyebrow mt-6">{p.eyebrow}</p>
             <h1 className="mt-2 text-4xl font-bold leading-tight sm:text-5xl lg:text-6xl">{p.title}</h1>
             <p className="lede mt-5 max-w-xl text-ink">{p.intro}</p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Link href={quote} className="btn-primary">
-                Get a {p.crumb.replace(/s$/, "")} Quote
+                Get {/^[aeiou]/i.test(one) ? "an" : "a"} {one} Quote
               </Link>
               <Link href="#work" className="btn-secondary">
                 See examples
@@ -82,13 +93,13 @@ export default async function ServiceLanding(p: ServiceLandingProps) {
 
       <section aria-labelledby="work-title" id="work" className="container-x py-16 sm:py-20">
         <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
-          <SectionHeading id="work-title" eyebrow="From the workshop" title={`Recent ${p.crumb}`} />
+          <SectionHeading id="work-title" eyebrow="From the workshop" title={p.workTitle ?? `Recent ${p.crumb}`} />
           <Link href="/gallery/" className="btn-secondary shrink-0 self-start">
             Full gallery
           </Link>
         </div>
         <div className="mt-10">
-          {work ? <PortfolioGrid items={work.slice(0, 8)} /> : tag && tag !== "kemono" && tag !== "toony" ? <PortfolioGrid items={portfolio.filter((i) => i.tags.includes(tag)).slice(0, 8)} /> : <WorkShowcase products={showcase} />}
+          {work ? <PortfolioGrid items={work.slice(0, 8)} /> : tag && !p.coverage && tag !== "kemono" && tag !== "toony" ?<PortfolioGrid items={portfolio.filter((i) => i.tags.includes(tag)).slice(0, 8)} /> : <WorkShowcase products={showcase} />}
         </div>
       </section>
 

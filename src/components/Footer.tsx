@@ -11,6 +11,7 @@ const columns = [
       { label: "Toony Suits", href: "/toony-fursuits/" },
       { label: "Furry Costumes", href: "/furry-costumes/" },
       { label: "Furry Mascot Costumes", href: "/furry-mascot-costumes/" },
+      { label: "Fursuits by Species", href: "/fursuit-species/" },
       { label: "Fursuit Parts", href: "/fursuit-parts/" },
       { label: "Repairs & Refurbishment", href: "/fursuit-repairs/" },
       { label: "Fursuit Prices", href: "/fursuit-prices/" },

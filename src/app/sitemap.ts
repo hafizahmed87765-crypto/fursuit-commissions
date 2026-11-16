@@ -3,6 +3,7 @@ import { site } from "@/content/site";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { work } from "@/content/work";
 import { guides } from "@/content/guides";
+import { species } from "@/content/species";
 
 // Image sitemap: every character photo is listed under the pages that show it.
 const imgs = (style?: string) => work.filter((p) => !style || p.style === style).flatMap((p) => p.photos.map((ph) => `${site.url}${ph.src}`));
@@ -13,6 +14,12 @@ const pages: [string, number][] = [
   ["/fursuit-commission/", 0.9],
   ["/kemono-fursuits/", 0.9],
   ["/toony-fursuits/", 0.9],
+  ["/fursuit-heads/", 0.9],
+  ["/partial-fursuits/", 0.9],
+  ["/full-fursuits/", 0.9],
+  ["/fursuit-species/", 0.8],
+  ...species.map((s): [string, number] => [`/${s.slug}/`, 0.7]),
+  ["/murrsuits/", 0.8],
   ["/fursuit-repairs/", 0.8],
   ["/get-a-quote/", 0.8],
   ["/gallery/", 0.8],
