@@ -2,7 +2,16 @@
 // Studio-specific details (exact measurement form, care card) are always
 // confirmed in each client's quote, so the guides stay general and accurate.
 
-export type GuideSection = { heading: string; paragraphs?: string[]; list?: string[]; steps?: { title: string; body: string }[] };
+// Outside links (http…) open in a new tab; `rel` adds e.g. "nofollow".
+export type GuideLink = { label: string; href: string; rel?: string };
+export type GuideSection = {
+  heading: string;
+  paragraphs?: string[];
+  list?: string[];
+  steps?: { title: string; body: string }[];
+  /** One sentence after the paragraphs: `{lead} {link}.` */
+  link?: GuideLink & { lead: string };
+};
 export type Guide = {
   slug: string;
   kind: "Guide" | "Blog";
@@ -15,7 +24,7 @@ export type Guide = {
   intro: string;
   sections: GuideSection[];
   faqs: { q: string; a: string }[];
-  related: { label: string; href: string }[];
+  related: GuideLink[];
 };
 
 export const guides: Guide[] = [
@@ -174,6 +183,7 @@ export const guides: Guide[] = [
         paragraphs: [
           "Kemono suits take their look from anime and Japanese character design. They have large, glossy anime eyes, small muzzles and soft, rounded faces. The overall feel is cute and gentle, and Kemono heads are often paired with hair, accessories and pastel colours.",
         ],
+        link: { lead: "For more Kemono heads and full builds, visit", label: "KemonoFursuits.com", href: "https://kemonofursuits.com/" },
       },
       {
         heading: "What is a Toony fursuit?",
@@ -206,6 +216,7 @@ export const guides: Guide[] = [
       { label: "Kemono fursuits", href: "/kemono-fursuits/" },
       { label: "Toony fursuits", href: "/toony-fursuits/" },
       { label: "Fursuit gallery", href: "/gallery/" },
+      { label: "KemonoFursuits.com", href: "https://kemonofursuits.com/" },
     ],
   },
   {
@@ -223,6 +234,7 @@ export const guides: Guide[] = [
       {
         heading: "1. The reference sheet",
         paragraphs: ["The client sent a clear ref sheet with front, back and face views: an orange tiger with black stripes, a yellow belly, blonde hair, grey cheek fluff and black ears. A good ref sheet like this makes every later step easier, because we can check colours and markings against it at each stage."],
+        link: { lead: "No ref sheet yet? You can get one drawn at", label: "MyFurryRefSheet.com", href: "https://myfurryrefsheet.com/" },
       },
       {
         heading: "2. Head base and patterning",
@@ -249,6 +261,8 @@ export const guides: Guide[] = [
       { label: "Toony fursuits", href: "/toony-fursuits/" },
       { label: "Fursuit prices", href: "/fursuit-prices/" },
       { label: "Start your commission", href: "/get-a-quote/" },
+      { label: "Ref sheets at MyFurryRefSheet.com", href: "https://myfurryrefsheet.com/" },
+      { label: "18+ art at NSFWFurryArt.com", href: "https://www.nsfwfurryart.com/", rel: "nofollow" },
     ],
   },
 ];

@@ -8,7 +8,7 @@ import FaqList from "@/components/FaqList";
 import FinalCta from "@/components/FinalCta";
 import JsonLd from "@/components/JsonLd";
 import Paw from "@/components/Paw";
-import { getGuide, guides } from "@/content/guides";
+import { getGuide, guides, type GuideLink } from "@/content/guides";
 import { site } from "@/content/site";
 import { pageMeta } from "@/lib/seo";
 
@@ -19,6 +19,15 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const g = getGuide((await params).slug);
   if (!g) return {};
   return pageMeta({ title: g.metaTitle, description: g.description, path: `/guides/${g.slug}/`, image: g.image.src });
+}
+
+function GuideAnchor({ label, href, rel }: GuideLink) {
+  if (!href.startsWith("http")) return <Link href={href} className="link">{label}</Link>;
+  return (
+    <a href={href} className="link" target="_blank" rel={["noopener", rel].filter(Boolean).join(" ")}>
+      {label}
+    </a>
+  );
 }
 
 export default async function GuidePage({ params }: { params: Promise<{ slug: string }> }) {
@@ -68,6 +77,11 @@ export default async function GuidePage({ params }: { params: Promise<{ slug: st
                 {s.paragraphs?.map((p) => (
                   <p key={p} className="mt-4 text-lg text-ink-muted">{p}</p>
                 ))}
+                {s.link ? (
+                  <p className="mt-4 text-lg text-ink-muted">
+                    {s.link.lead} <GuideAnchor {...s.link} />.
+                  </p>
+                ) : null}
                 {s.list ? (
                   <ul className="mt-4 space-y-2 text-lg text-ink-muted">
                     {s.list.map((x) => (
@@ -106,7 +120,7 @@ export default async function GuidePage({ params }: { params: Promise<{ slug: st
               <ul className="mt-3 space-y-2">
                 {g.related.map((r) => (
                   <li key={r.href}>
-                    <Link href={r.href} className="link">{r.label}</Link>
+                    <GuideAnchor {...r} />
                   </li>
                 ))}
               </ul>
